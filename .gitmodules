@@ -1,0 +1,12 @@
+[submodule "deps/SDL2"]
+	path = deps/SDL2
+	url = https://github.com/libsdl-org/SDL.git
+	branch = SDL2
+	update = checkout
+	ignore = dirty
+[submodule "deps/logc"]
+	path = deps/logc
+	url = https://github.com/realjf/logc.git
+	branch = v0.1.0
+	update = checkout
+	ignore = dirty
