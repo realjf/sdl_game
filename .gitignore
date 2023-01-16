@@ -34,3 +34,5 @@
 .history
 /bin
 /build
+/build_deps
+/lib
