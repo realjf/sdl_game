@@ -46,8 +46,7 @@ run: build
 	@./bin/sdl_game
 # or run: MESA_GL_VERSION_OVERRIDE=4.6 ./bin/pangu
 
-test: build
-	@./bin/sdl_game_test
+
 
 push:
 	@git add -A && git commit -m "update" && git push origin master
@@ -80,6 +79,35 @@ ifeq (${TYPE},RELEASE)
 endif
 ifeq (${TYPE},RELDEBINFO)
 	@cd build && cmake --build . --config ReleaseDebInfo
+endif
+
+
+
+BUILD_TEST_DIR=build_test
+TEST_CMAKE_DIR=../tests
+
+
+test:
+	@rm -rf ${BUILD_TEST_DIR}
+	@mkdir -p ${BUILD_TEST_DIR}
+ifeq ($(PLAT),WINDOWS)
+	@cd ${BUILD_TEST_DIR} && cmake ${TEST_CMAKE_DIR} -G "Visual Studio 16 2019" -A x64 -DTEST_APP=${TEST}
+endif
+ifeq ($(PLAT),LINUX)
+	@cd ${BUILD_TEST_DIR} && cmake ${TEST_CMAKE_DIR} -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=g++-11  -DTEST_APP=${TEST}
+endif
+ifeq ($(PLAT),MACOS)
+	@cd ${BUILD_TEST_DIR} && cmake ${TEST_CMAKE_DIR} -G "Unix Makefiles"  -DTEST_APP=${TEST}
+endif
+
+ifeq (${TYPE},DEBUG)
+	@cd ${BUILD_TEST_DIR} && cmake --build . --config Debug
+endif
+ifeq (${TYPE},RELEASE)
+	@cd ${BUILD_TEST_DIR} && cmake --build . --config Release
+endif
+ifeq (${TYPE},RELDEBINFO)
+	@cd ${BUILD_TEST_DIR} && cmake --build . --config ReleaseDebInfo
 endif
 
 

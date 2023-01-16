@@ -36,3 +36,5 @@
 /build
 /build_deps
 /lib
+/build_test
+/bin_test
