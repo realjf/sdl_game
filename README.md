@@ -12,7 +12,7 @@ sdl game demo
 **`Linux`**
 
 ```sh
-git clone --recursive <https://github.com/realjf/sdl_game.git>
+git clone --recursive https://github.com/realjf/sdl_game.git
 cd sdl_game
 make build
 make run
@@ -21,7 +21,7 @@ make run
 **`Windows`**
 
 ```sh
-git clone --recursive <https://github.com/realjf/sdl_game.git>
+git clone --recursive https://github.com/realjf/sdl_game.git
 cd sdl_game
 make build PLAT=WINDOWS
 make run PLAT=WINDOWS
