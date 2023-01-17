@@ -5,35 +5,47 @@ TEST ?= OFF
 
 
 
+ROOT_PATH=$(shell pwd)
 DEPS_BUILD_DIR=build_deps
 DEPS_CMAKE=cmake/deps/
 DEPS=$(foreach dir,$(DEPS_CMAKE),$(wildcard $(dir)*/*.txt))
 DepNameTmp=
 
+buildDeps = \
+	printf "%-8s %s %s %s\n" "[BUILD]" $2 "[TO]" $1; \
+	rm -rf $1; \
+	mkdir -p $1; \
+	if [ $(PLAT) = "WINDOWS" ]; then \
+		cd $1 && cmake $2 -G "Visual Studio 16 2019" -A x64 -D BUILD_OUTPUT_PATH=$1; \
+	elif [ $(PLAT) = "LINUX" ]; then \
+		cd $1 && cmake $2 -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=gcc-11 -D BUILD_OUTPUT_PATH=$1; \
+	elif [ $(PLAT) = "MACOS" ]; then \
+		cd $1 && cmake $2 -G "Unix Makefiles" -D BUILD_OUTPUT_PATH=$1; \
+	fi; \
+	cd $1 && cmake --build . --config Release; \
+	printf "change directory to %s\n" $(ROOT_PATH); \
+	cd $(ROOT_PATH);
 
-define buildDeps
-	@rm -rf $1
-	@mkdir -p $1
-	@printf "%-8s %s %s %s\n" "[BUILD]" $2 "[TO]" $1
-	$(if $(filter $(PLAT),WINDOWS),@cd $1 && cmake $2 -G "Visual Studio 16 2019" -A x64 -D BUILD_OUTPUT_PATH=$1)
-	$(if $(filter $(PLAT),LINUX),@cd $1 && cmake $2 -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=gcc-11 -D BUILD_OUTPUT_PATH=$1)
-	$(if $(filter $(PLAT),MACOS),@cd $1 && cmake $2 -G "Unix Makefiles" -D BUILD_OUTPUT_PATH=$1)
-	@cd $1 && cmake --build . --config Release
-endef
+
+pp = \
+	printf "%-8s %s\n" "[CMAKE]" $1;
 
 
-define pp
-	@printf "%-8s %s\n" "[CMAKE]" $1
-endef
 
 
 deps:
 	@printf "total dependencies: %s\n" $(words $(DEPS))
+	@printf "rootpath: %s\n"$(ROOT_PATH)
 	@$(foreach dir,$(DEPS),$(call pp,$(dir)))
 	@$(foreach dir,$(DEPS),$(call buildDeps,$(DEPS_BUILD_DIR)/$(basename $(notdir $(patsubst %/,%,$(dir $(dir))).txt)),../../$(dir $(dir))))
 	@printf "builded dependencies: %s\n" $(words $(DEPS))
 
 
+define builddd
+	@$(if $(filter $(PLAT),WINDOWS),@cd $1 && cmake $2 -G "Visual Studio 16 2019" -A x64 -D BUILD_OUTPUT_PATH=$1)
+	@$(if $(filter $(PLAT),LINUX),@cd $1 && cmake $2 -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=gcc-11 -D BUILD_OUTPUT_PATH=$1)
+	@$(if $(filter $(PLAT),MACOS),@cd $1 && cmake $2 -G "Unix Makefiles" -D BUILD_OUTPUT_PATH=$1)
+endef
 
 
 rm_submod:
@@ -60,8 +72,8 @@ push:
 pull:
 	@-git pull
 # @-git pull --recurse-submodules
-	@-git submodule sync --recursive
-	@-git submodule update --init --recursive
+	@-git submodule sync
+	@-git submodule update --init
 
 
 build:
