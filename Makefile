@@ -12,7 +12,7 @@ DepNameTmp=
 
 
 define buildDeps
-	@-rm -rf $1
+	@rm -rf $1
 	@mkdir -p $1
 	@printf "%-8s %s %s %s\n" "[BUILD]" $2 "[TO]" $1
 	$(if $(filter $(PLAT),WINDOWS),@cd $1 && cmake $2 -G "Visual Studio 16 2019" -A x64 -D BUILD_OUTPUT_PATH=$1)
@@ -22,10 +22,16 @@ define buildDeps
 endef
 
 
+define pp
+	@printf "%-8s %s\n" "[CMAKE]" $1
+endef
+
 
 deps:
-	@printf "%-8s %s\n" "[CMAKE]" $(DEPS)
+	@printf "total dependencies: %s\n" $(words $(DEPS))
+	@$(foreach dir,$(DEPS),$(call pp,$(dir)))
 	@$(foreach dir,$(DEPS),$(call buildDeps,$(DEPS_BUILD_DIR)/$(basename $(notdir $(patsubst %/,%,$(dir $(dir))).txt)),../../$(dir $(dir))))
+	@printf "builded dependencies: %s\n" $(words $(DEPS))
 
 
 

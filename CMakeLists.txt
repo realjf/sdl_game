@@ -40,6 +40,7 @@ include(cmake/comm_macros.cmake)
 include_directories(.)
 include_directories(deps/SDL2/include)
 include_directories(deps/logc/include)
+include_directories(deps/SDLIMG)
 # include_directories(${SDL2_INCLUDE_DIR})
 
 

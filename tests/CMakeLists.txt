@@ -33,13 +33,15 @@ include(${PROJECT_ROOT_PATH}cmake/comm_macros.cmake)
 include_directories(.)
 include_directories(${PROJECT_ROOT_PATH}deps/SDL2/include)
 include_directories(${PROJECT_ROOT_PATH}deps/logc/include)
+include_directories(${PROJECT_ROOT_PATH}deps/SDLIMG)
 
 # include_directories(${SDL2_INCLUDE_DIR})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile")
 
-
 # add_subdirectory(hello)
 # add_subdirectory(game_class)
 # add_subdirectory(sdl_texture)
-add_subdirectory(anim_sprite)
+# add_subdirectory(anim_sprite)
+add_subdirectory(sdl_image)
+
 
