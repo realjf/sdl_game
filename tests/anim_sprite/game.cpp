@@ -30,19 +30,32 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     std::cout << "init success\n";
     m_bRunning = true;
 
-    SDL_Surface* pTempSurface = SDL_LoadBMP("assets/images/dwsample-bmp-1920.bmp");
+    SDL_Surface* pTempSurface = SDL_LoadBMP("assets/images/anim_sheet_32x64.bmp");
     if (pTempSurface == NULL) {
         std::cout << "load bitmap fail\n";
         return false;
     }
     m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+    m_pTextureFlip = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
     SDL_FreeSurface(pTempSurface);
 
-    SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+    m_sourceRectangle.w = 32;
+    m_sourceRectangle.h = 64;
     m_destinationRectangle.x = m_sourceRectangle.x = 0;
     m_destinationRectangle.y = m_sourceRectangle.y = 0;
+    startFrame = 5;  // start from sixth frame
+    frameLoop = 3;
+    m_sourceRectangle.x = m_sourceRectangle.w * startFrame;
+    m_sourceRectangle.y = m_sourceRectangle.h;
+
+    m_destinationRectangleFlip.x = m_sourceRectangle.w * 5;
+    m_destinationRectangleFlip.y = 0;
+
     m_destinationRectangle.w = m_sourceRectangle.w;
     m_destinationRectangle.h = m_sourceRectangle.h;
+
+    m_destinationRectangleFlip.w = m_sourceRectangle.w;
+    m_destinationRectangleFlip.h = m_sourceRectangle.h;
     return true;
 }
 
@@ -50,10 +63,13 @@ void Game::render() {
     SDL_RenderClear(m_pRenderer);
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
     // SDL_RenderCopy(m_pRenderer, m_pTexture, 0, 0); // use the entire renderer for display
+    // flip image
+    SDL_RenderCopyEx(m_pRenderer, m_pTextureFlip, &m_sourceRectangle, &m_destinationRectangleFlip, 0, 0, SDL_FLIP_HORIZONTAL);
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
+    m_sourceRectangle.x = m_sourceRectangle.w * startFrame + m_sourceRectangle.w * int(((SDL_GetTicks() / 100) % frameLoop));
 }
 
 void Game::handleEvents() {

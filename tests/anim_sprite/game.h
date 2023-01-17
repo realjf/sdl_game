@@ -24,8 +24,12 @@ class Game {
     SDL_Renderer* m_pRenderer;
 
     SDL_Texture* m_pTexture;
+    SDL_Texture* m_pTextureFlip;
     SDL_Rect m_sourceRectangle;
     SDL_Rect m_destinationRectangle;
+    SDL_Rect m_destinationRectangleFlip;
+    int startFrame;
+    int frameLoop;
 };
 
 #endif /* _GAME_H_ */

@@ -38,7 +38,8 @@ include_directories(${PROJECT_ROOT_PATH}deps/logc/include)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile")
 
 
-add_subdirectory(hello)
-add_subdirectory(game_class)
-add_subdirectory(sdl_texture)
+# add_subdirectory(hello)
+# add_subdirectory(game_class)
+# add_subdirectory(sdl_texture)
+add_subdirectory(anim_sprite)
 
