@@ -49,6 +49,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -g")
 # add_subdirectory(sdl_image)
 # add_subdirectory(texture_mgr)
 # add_subdirectory(game_obj)
-add_subdirectory(game_obj_polymorphism)
+# add_subdirectory(game_obj_polymorphism)
+add_subdirectory(vector2d)
 
 
