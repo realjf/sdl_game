@@ -39,7 +39,7 @@ include_directories(${PROJECT_ROOT_PATH}deps/SDLIMG)
 
 # include_directories(${SDL2_INCLUDE_DIR})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -g")
 
 
 # add_subdirectory(hello)

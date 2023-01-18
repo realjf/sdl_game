@@ -30,7 +30,12 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     std::cout << "init success\n";
     m_bRunning = true;
 
-    if (!m_textureManager.load("assets/images/goku_148x117.png", "animate", m_pRenderer)) {
+    if (TheTextureManager::Instance() == 0) {
+        std::cout << "instance texture manager fail\n";
+        return false;
+    }
+
+    if (!TheTextureManager::Instance()->load("assets/images/goku_148x117.png", "animate", m_pRenderer)) {
         std::cout << "load png fail\n";
         return false;
     }
@@ -41,8 +46,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 void Game::render() {
     SDL_RenderClear(m_pRenderer);
 
-    m_textureManager.draw("animate", 0, 0, 148, 117, m_pRenderer);
-    m_textureManager.drawFrame("animate", 100, 100, 148, 117, 1, m_currentFrame, m_pRenderer);
+    TheTextureManager::Instance()->draw("animate", 0, 0, 148, 117, m_pRenderer);
+    TheTextureManager::Instance()->drawFrame("animate", 100, 100, 148, 117, 1, m_currentFrame, m_pRenderer);
 
     SDL_RenderPresent(m_pRenderer);
 }
