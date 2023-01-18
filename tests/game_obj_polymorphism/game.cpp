@@ -1,5 +1,7 @@
 #include "game.h"
 
+Game* Game::s_pInstance = 0;
+
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
     int flags = 0;
     if (fullscreen) {
@@ -46,23 +48,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     }
 
     // init game objects
-    m_go = new GameObject();
-    m_player = new Player();
-    m_enemy1 = new Enemy();
-    m_enemy2 = new Enemy();
-    m_enemy3 = new Enemy();
-
-    m_go->load(100, 100, 148, 117, "goku");
-    m_player->load(200, 200, 148, 117, "goku");
-    m_enemy1->load(100, 100, 125, 125, "piccolo");
-    m_enemy2->load(200, 100, 125, 125, "piccolo");
-    m_enemy3->load(300, 100, 125, 125, "piccolo");
-
-    m_gameObjects.push_back(m_go);
-    m_gameObjects.push_back(m_player);
-    m_gameObjects.push_back(m_enemy1);
-    m_gameObjects.push_back(m_enemy2);
-    m_gameObjects.push_back(m_enemy3);
+    m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 148, 117, "goku")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(100, 100, 125, 125, "piccolo")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(200, 100, 125, 125, "piccolo")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(300, 100, 125, 125, "piccolo")));
 
     return true;
 }
@@ -72,7 +61,7 @@ void Game::render() {
 
     // loop through our objects and draw them
     for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-        m_gameObjects[i]->draw(m_pRenderer);
+        m_gameObjects[i]->draw();
     }
 
     SDL_RenderPresent(m_pRenderer);
@@ -112,6 +101,6 @@ void Game::clean() {
 
 void Game::draw() {
     for (std::vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-        m_gameObjects[i]->draw(m_pRenderer);
+        m_gameObjects[i]->draw();
     }
 }
