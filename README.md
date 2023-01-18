@@ -14,6 +14,7 @@ sdl game demo
 ```sh
 git clone --recursive https://github.com/realjf/sdl_game.git
 cd sdl_game
+make deps
 make build
 make run
 ```
@@ -23,6 +24,7 @@ make run
 ```sh
 git clone --recursive https://github.com/realjf/sdl_game.git
 cd sdl_game
+make deps
 make build PLAT=WINDOWS
 make run PLAT=WINDOWS
 

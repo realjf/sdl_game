@@ -76,27 +76,30 @@ pull:
 	@-git submodule update --init
 
 
+BUILD_DIR=build
+CMAKE_DIR=../
+
 build:
-	@rm -rf build
-	@mkdir -p build
+	@rm -rf ${BUILD_DIR}
+	@mkdir -p ${BUILD_DIR}
 ifeq ($(PLAT),WINDOWS)
-	@cd build && cmake .. -G "Visual Studio 16 2019" -A x64 -DTEST_APP=${TEST}
+	@cd ${BUILD_DIR} && cmake ${CMAKE_DIR} -G "Visual Studio 16 2019" -A x64 -DTEST_APP=${TEST}
 endif
 ifeq ($(PLAT),LINUX)
-	@cd build && cmake .. -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=g++-11  -DTEST_APP=${TEST}
+	@cd ${BUILD_DIR} && cmake ${CMAKE_DIR} -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=g++-11  -DTEST_APP=${TEST}
 endif
 ifeq ($(PLAT),MACOS)
-	@cd build && cmake .. -G "Unix Makefiles"  -DTEST_APP=${TEST}
+	@cd ${BUILD_DIR} && cmake ${CMAKE_DIR} -G "Unix Makefiles"  -DTEST_APP=${TEST}
 endif
 
 ifeq (${TYPE},DEBUG)
-	@cd build && cmake --build . --config Debug
+	@cd ${BUILD_DIR} && cmake --build . --config Debug
 endif
 ifeq (${TYPE},RELEASE)
-	@cd build && cmake --build . --config Release
+	@cd ${BUILD_DIR} && cmake --build . --config Release
 endif
 ifeq (${TYPE},RELDEBINFO)
-	@cd build && cmake --build . --config ReleaseDebInfo
+	@cd ${BUILD_DIR} && cmake --build . --config ReleaseDebInfo
 endif
 
 
