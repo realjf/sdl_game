@@ -30,47 +30,25 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
     std::cout << "init success\n";
     m_bRunning = true;
 
-    SDL_Surface* pTempSurface = IMG_Load("assets/images/goku_148x117.png");
-    if (pTempSurface == NULL) {
+    if (!m_textureManager.load("assets/images/goku_148x117.png", "animate", m_pRenderer)) {
         std::cout << "load png fail\n";
         return false;
     }
-    m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
-    m_pTextureFlip = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
-    SDL_FreeSurface(pTempSurface);
 
-    m_sourceRectangle.w = 148;
-    m_sourceRectangle.h = 117;
-    m_destinationRectangle.x = m_sourceRectangle.x = 0;
-    m_destinationRectangle.y = m_sourceRectangle.y = 0;
-    startFrame = 0;  // start from sixth frame
-    frameLoop = 6;
-    m_sourceRectangle.x = m_sourceRectangle.w * startFrame;
-    m_sourceRectangle.y = m_sourceRectangle.h;
-
-    m_destinationRectangleFlip.x = 0;
-    m_destinationRectangleFlip.y = m_sourceRectangle.h * 2;
-
-    m_destinationRectangle.w = m_sourceRectangle.w;
-    m_destinationRectangle.h = m_sourceRectangle.h;
-
-    m_destinationRectangleFlip.w = m_sourceRectangle.w;
-    m_destinationRectangleFlip.h = m_sourceRectangle.h;
     return true;
 }
 
 void Game::render() {
     SDL_RenderClear(m_pRenderer);
-    SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255);
-    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
-    // SDL_RenderCopy(m_pRenderer, m_pTexture, 0, 0); // use the entire renderer for display
-    // flip image
-    SDL_RenderCopyEx(m_pRenderer, m_pTextureFlip, &m_sourceRectangle, &m_destinationRectangleFlip, 0, 0, SDL_FLIP_HORIZONTAL);
+
+    m_textureManager.draw("animate", 0, 0, 148, 117, m_pRenderer);
+    m_textureManager.drawFrame("animate", 100, 100, 148, 117, 1, m_currentFrame, m_pRenderer);
+
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
-    m_sourceRectangle.x = m_sourceRectangle.w * startFrame + m_sourceRectangle.w * int(((SDL_GetTicks() / 100) % frameLoop));
+    m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 }
 
 void Game::handleEvents() {
