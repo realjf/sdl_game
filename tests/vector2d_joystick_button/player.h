@@ -10,6 +10,9 @@ class Player : public SDLGameObject {
     virtual void draw();
     virtual void update();
     virtual void clean();
+
+   private:
+    void handleInput();
 };
 
 #endif /* _PLAYER_H_ */
