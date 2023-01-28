@@ -52,6 +52,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -g")
 # add_subdirectory(game_obj_polymorphism)
 # add_subdirectory(vector2d_joysticks)
 # add_subdirectory(vector2d_joystick_button)
-add_subdirectory(vector2d_mouse_keyboard)
+# add_subdirectory(vector2d_mouse_keyboard)
+add_subdirectory(state_machine)
 
 
