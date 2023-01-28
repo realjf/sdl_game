@@ -9,6 +9,14 @@ void InputHandler::update() {
         if (event.type == SDL_QUIT) {
             TheGame::Instance()->quit();
         }
+        if (event.type == SDL_JOYBUTTONDOWN) {
+            int whichOne = event.jaxis.which;
+            m_buttonStates[whichOne][event.jbutton.button] = true;
+        }
+        if (event.type == SDL_JOYBUTTONUP) {
+            int whichOne = event.jaxis.which;
+            m_buttonStates[whichOne][event.jbutton.button] = false;
+        }
         if (event.type == SDL_JOYAXISMOTION) {
             int whichOne = event.jaxis.which;
             // left stick move left or right
@@ -89,14 +97,22 @@ void InputHandler::initialiseJoysticks() {
     if (SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
         SDL_InitSubSystem(SDL_INIT_JOYSTICK);
     }
+    std::cout << "sdl init joystick\n";
     if (SDL_NumJoysticks() > 0) {
         for (int i = 0; i < SDL_NumJoysticks(); i++) {
             SDL_Joystick* joy = SDL_JoystickOpen(i);
             if (joy != nullptr) {
                 m_joysticks.push_back(joy);
                 m_joystickValues.push_back(std::make_pair(new Vector2D(0, 0), new Vector2D(0, 0)));
+
+                std::vector<bool> tempButtons;
+
+                for (int j = 0; j < SDL_JoystickNumButtons(joy); j++) {
+                    tempButtons.push_back(false);
+                }
+                m_buttonStates.push_back(tempButtons);
             } else {
-                std::cout << SDL_GetError();
+                std::cout << "joystick open error: " << SDL_GetError();
             }
         }
         SDL_JoystickEventState(SDL_ENABLE);

@@ -15,5 +15,5 @@ add_executable(${PROJECT_NAME} ${SRC_FILES} ${HEADER_FILES})
 
 
 target_link_directories(${PROJECT_NAME} PUBLIC ${LIBRARY_OUTPUT_PATH})
-target_include_directories(${PROJECT_NAME} PUBLIC)
+# target_include_directories(${PROJECT_NAME} PUBLIC)
 target_link_libraries(${PROJECT_NAME}  SDL2 SDL2_image-2.0)

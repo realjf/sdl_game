@@ -6,6 +6,9 @@ void Player::draw() {
 }
 
 void Player::update() {
+    if (TheInputHandler::Instance()->getButtonState(0, 3)) {
+        m_velocity.setX(1);
+    }
     handleInput();
 
     m_currentFrame = int(((SDL_GetTicks() / 100) % 6));

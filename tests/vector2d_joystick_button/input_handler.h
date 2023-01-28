@@ -26,6 +26,10 @@ class InputHandler {
         return m_bJoysticksInitialised;
     }
 
+    bool getButtonState(int joy, int buttonNumber) {
+        return m_buttonStates[joy][buttonNumber];
+    }
+
     ~InputHandler() = default;
 
    private:
@@ -36,6 +40,7 @@ class InputHandler {
     std::vector<SDL_Joystick*> m_joysticks;
     bool m_bJoysticksInitialised;
     std::vector<std::pair<Vector2D*, Vector2D*>> m_joystickValues;
+    std::vector<std::vector<bool>> m_buttonStates;
 };
 
 typedef InputHandler TheInputHandler;
