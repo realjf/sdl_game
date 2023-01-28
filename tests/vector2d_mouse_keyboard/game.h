@@ -34,12 +34,17 @@ class Game {
     void clean();
     void draw();
     void quit();
+    const SDL_Rect* getWindowRect() {
+        m_winRect = SDL_GetWindowMouseRect(m_pWindow);
+        return m_winRect;
+    }
 
     bool running() { return m_bRunning; }
 
    private:
     static Game* s_pInstance;
     bool m_bRunning;
+    const SDL_Rect* m_winRect;
 
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
