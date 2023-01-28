@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <vector>
+#include <iostream>
 
 class InputHandler {
    public:
@@ -21,13 +22,17 @@ class InputHandler {
         return m_bJoysticksInitialised;
     }
 
+    ~InputHandler() = default;
+
    private:
-    InputHandler();
-    ~InputHandler();
+    InputHandler() = default;
+
     static InputHandler* s_pInstance;
 
     std::vector<SDL_Joystick*> m_joysticks;
     bool m_bJoysticksInitialised;
 };
+
+typedef InputHandler TheInputHandler;
 
 #endif /* _INPUT_HANDLER_H_ */
