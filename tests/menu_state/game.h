@@ -40,10 +40,15 @@ public:
     SDL_Rect getWindowRect() {
         SDL_GetWindowSize(m_pWindow, &m_winRect.w, &m_winRect.h);
         SDL_GetWindowPosition(m_pWindow, &m_winRect.x, &m_winRect.y);
+
         return m_winRect;
     }
 
     bool running() { return m_bRunning; }
+
+    GameStateMachine *getStateMachine() {
+        return m_pGameStateMachine;
+    }
 
 private:
     static Game *s_pInstance;
