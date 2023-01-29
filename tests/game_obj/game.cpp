@@ -1,6 +1,6 @@
 #include "game.h"
 
-bool Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
+bool Game::init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen) {
     int flags = 0;
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
@@ -45,6 +45,15 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
+    // if (!TheTextureManager::Instance()->load("assets/gui/playbutton258x72.png", "playbutton", m_pRenderer)) {
+    //     return false;
+    // }
+    // if (!TheTextureManager::Instance()->load("assets/gui/exitbutton243x64.png", "exitbutton", m_pRenderer)) {
+    //     return false;
+    // }
+    // m_go.load(100, 100, 258, 72, "playbutton");
+    // m_player.load(100, 300, 243, 64, "exitbutton");
+
     m_go.load(100, 100, 148, 117, "goku");
     m_player.load(300, 300, 125, 125, "piccolo");
 
@@ -69,16 +78,16 @@ void Game::handleEvents() {
     SDL_Event event;
     if (SDL_PollEvent(&event)) {
         switch (event.type) {
-            case SDL_KEYDOWN:
-                if (event.key.keysym.sym == SDLK_ESCAPE) {
-                    m_bRunning = false;
-                    break;
-                }
-            case SDL_QUIT:
+        case SDL_KEYDOWN:
+            if (event.key.keysym.sym == SDLK_ESCAPE) {
                 m_bRunning = false;
                 break;
-            default:
-                break;
+            }
+        case SDL_QUIT:
+            m_bRunning = false;
+            break;
+        default:
+            break;
         }
     }
 }
