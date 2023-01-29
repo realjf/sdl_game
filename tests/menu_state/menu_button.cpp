@@ -14,8 +14,8 @@ void MenuButton::update() {
     Vector2D *pMousePos = TheInputHandler::Instance()->getMousePosition();
     std::cout.setf(std::ios::fixed);
     std::cout.setf(std::ios::showpoint);
-    std::cout << "mouse pos: x=" << pMousePos->getX() << ",y=" << pMousePos->getY() << "\n";
-    std::cout << "menu pos: x=" << m_position.getX() << ",y=" << m_position.getY() << "\n";
+    // std::cout << "mouse pos: x=" << pMousePos->getX() << ",y=" << pMousePos->getY() << "\n";
+    // std::cout << "menu pos: x=" << m_position.getX() << ",y=" << m_position.getY() << "\n";
     if (pMousePos->getX() < (m_position.getX() + m_width) && pMousePos->getX() > m_position.getX() && pMousePos->getY() < (m_position.getY() + m_height) && pMousePos->getY() > m_position.getY()) {
         m_currentFrame = MOUSE_OVER;
         if (TheInputHandler::Instance()->getMouseButtonState(LEFT)) {
@@ -34,7 +34,7 @@ void MenuButton::update() {
         }
     } else {
         m_currentFrame = MOUSE_OUT;
-        std::cout << "mouse out\n";
+        // std::cout << "mouse out\n";
     }
 }
 

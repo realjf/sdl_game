@@ -37,5 +37,11 @@ void Player::update() {
 void Player::clean() {
 }
 
-Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {
+void Player::handleInput() {
+    Vector2D *target = TheInputHandler::Instance()->getMousePosition();
+    m_velocity = *target - m_position;
+    m_velocity /= 50;
+}
+
+Player::Player(const LoaderParams *pParams) : SDLGameObject(pParams) {
 }
