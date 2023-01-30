@@ -37,5 +37,5 @@ void Player::update() {
 void Player::clean() {
 }
 
-Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {
+Player::Player(const LoaderParams *pParams) : SDLGameObject(pParams) {
 }
