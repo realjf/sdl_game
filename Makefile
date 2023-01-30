@@ -137,12 +137,12 @@ CoreDumpPathPattern=/proc/sys/kernel/core_pattern
 CoreDumpPath=$(shell cat $(CoreDumpPathPattern))
 
 
-old_corefile:
-# must root privilege
+see_corefile:
 	@printf "old core dump path: %s\n" ${CoreDumpPath}
 
 
-new_corefile:
+set_corefile:
+# must root privilege
 	@echo 'corefile/%t-%e-%p-%c.core' > ${CoreDumpPathPattern}
 	@printf "new core dump path: %s\n" ${CoreDumpPath}
 
@@ -152,12 +152,12 @@ see_coredump:
 # close core dump: ulimit -c 0
 # open core dump: ulimit -c unlimited
 ifeq ($(shell ulimit -c),0)
-	@echo 'core dump closed'
+	@echo 'coredump closed'
 else
-	@echo 'core dump opened'
+	@echo 'coredump opened'
 endif
 
 
 
 
-.PHONY: rm_submod run build pull test run push deps see_coredump old_corefile new_corefile
+.PHONY: rm_submod run build pull test run push deps see_coredump see_corefile set_corefile
