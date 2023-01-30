@@ -11,19 +11,25 @@ void PlayState::update() {
         TheGame::Instance()->getStateMachine()->pushState(new PauseState());
     }
     if (!m_isExit) {
-        std::lock_guard<std::mutex> lk(play_mutex);
+        if (!play_mutex.try_lock()) {
+            return;
+        }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
         }
+        play_mutex.unlock();
     }
 }
 
 void PlayState::render() {
     if (!m_isExit) {
-        std::lock_guard<std::mutex> lk(play_mutex);
+        if (!play_mutex.try_lock()) {
+            return;
+        }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
+        play_mutex.unlock();
     }
 }
 
@@ -41,13 +47,15 @@ bool PlayState::onEnter() {
 
 bool PlayState::onExit() {
     m_isExit = true;
-    {
-        std::lock_guard<std::mutex> lk(play_mutex);
-        for (int i = 0; i < m_gameObjects.size(); i++) {
-            m_gameObjects[i]->clean();
-        }
-        m_gameObjects.clear();
+    if (!play_mutex.try_lock()) {
+        return false;
     }
+    for (int i = 0; i < m_gameObjects.size(); i++) {
+        m_gameObjects[i]->clean();
+    }
+    m_gameObjects.clear();
+    play_mutex.unlock();
+
     TheTextureManager::Instance()->clearFromTextureMap("helicopter");
     std::cout << "exiting PlayState\n";
     return true;

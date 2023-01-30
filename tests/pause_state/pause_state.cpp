@@ -9,19 +9,25 @@ const std::string PauseState::s_pauseID = "PAUSE";
 
 void PauseState::update() {
     if (!m_isExit) {
-        std::lock_guard<std::mutex> lk(pause_mutex);
+        if (!pause_mutex.try_lock()) {
+            return;
+        }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
         }
+        pause_mutex.unlock();
     }
 }
 
 void PauseState::render() {
     if (!m_isExit) {
-        std::lock_guard<std::mutex> lk(pause_mutex);
+        if (!pause_mutex.try_lock()) {
+            return;
+        }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
+        pause_mutex.unlock();
     }
 }
 
@@ -46,13 +52,15 @@ bool PauseState::onEnter() {
 
 bool PauseState::onExit() {
     m_isExit = true;
-    {
-        std::lock_guard<std::mutex> lk(pause_mutex);
-        for (int i = 0; i < m_gameObjects.size(); i++) {
-            m_gameObjects[i]->clean();
-        }
-        m_gameObjects.clear();
+
+    if (!pause_mutex.try_lock()) {
+        return false;
     }
+    for (int i = 0; i < m_gameObjects.size(); i++) {
+        m_gameObjects[i]->clean();
+    }
+    m_gameObjects.clear();
+    pause_mutex.unlock();
 
     TheTextureManager::Instance()->clearFromTextureMap("resumebutton");
     TheTextureManager::Instance()->clearFromTextureMap("mainmenubutton");

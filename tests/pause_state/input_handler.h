@@ -43,8 +43,9 @@ public:
     }
 
     void setMouseButtonState(int buttonNumber, bool flag) {
-        std::lock_guard<std::mutex> lk(mouse_mutex);
+        mouse_mutex.lock();
         m_mouseButtonStates[buttonNumber] = flag;
+        mouse_mutex.unlock();
     }
 
     bool isKeyDown(SDL_Scancode key);
@@ -54,9 +55,10 @@ public:
     }
 
     void setMousePosition(float x, float y) {
-        std::lock_guard<std::mutex> lk(mouse_mutex);
+        mouse_mutex.lock();
         m_mousePosition->setX(x);
         m_mousePosition->setY(y);
+        mouse_mutex.unlock();
     }
 
 private:
