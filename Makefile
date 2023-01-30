@@ -138,13 +138,13 @@ CoreDumpPath=$(shell cat $(CoreDumpPathPattern))
 
 
 see_corefile:
-	@printf "old core dump path: %s\n" ${CoreDumpPath}
+	@printf "core dump path: %s\n" ${CoreDumpPath}
 
 
 set_corefile:
 # must root privilege
-	@echo 'corefile/%t-%e-%p-%c.core' > ${CoreDumpPathPattern}
-	@printf "new core dump path: %s\n" ${CoreDumpPath}
+	@echo '%t-%e-%p-%c.core' > ${CoreDumpPathPattern}
+	@printf "core dump path: %s\n" $(shell cat $(CoreDumpPathPattern))
 
 
 

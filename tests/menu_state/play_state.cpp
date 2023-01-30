@@ -6,19 +6,25 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update() {
     if (!m_isExit) {
+        if (!play_mutex.try_lock()) {
+            return;
+        }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
         }
-        std::cout << "PlayState update\n";
+        play_mutex.unlock();
     }
 }
 
 void PlayState::render() {
     if (!m_isExit) {
+        if (!play_mutex.try_lock()) {
+            return;
+        }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
-        std::cout << "PlayState render\n";
+        play_mutex.unlock();
     }
 }
 
@@ -36,10 +42,14 @@ bool PlayState::onEnter() {
 
 bool PlayState::onExit() {
     m_isExit = true;
+    if (!play_mutex.try_lock()) {
+        return false;
+    }
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
+    play_mutex.unlock();
     TheTextureManager::Instance()->clearFromTextureMap("helicopter");
     std::cout << "exiting PlayState\n";
     return true;

@@ -4,6 +4,7 @@
 #include "game_state.h"
 #include <vector>
 #include "game_object.h"
+#include <mutex>
 
 class PlayState : public GameState {
 public:
@@ -22,6 +23,7 @@ private:
 
     std::vector<GameObject *> m_gameObjects;
     bool m_isExit = false;
+    std::mutex play_mutex;
 };
 
 #endif /* _PLAY_STATE_H_ */
