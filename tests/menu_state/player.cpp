@@ -35,7 +35,6 @@ void Player::update() {
     m_currentFrame = 0;
     // m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
     m_currentRow = int(((SDL_GetTicks() / 10) % 3));
-    std::cout << "frame: " << m_currentFrame << std::endl;
     // m_acceleration.setX(1);
     SDLGameObject::update();
 }
