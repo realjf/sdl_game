@@ -2,6 +2,7 @@
 #define _PLAY_STATE_H_
 
 #include "game_state.h"
+#include <mutex>
 
 class PlayState : public GameState {
 public:
@@ -17,6 +18,9 @@ public:
 
 private:
     static const std::string s_playID;
+
+    bool m_isExit = false;
+    std::mutex play_mutex;
 };
 
 #endif /* _PLAY_STATE_H_ */

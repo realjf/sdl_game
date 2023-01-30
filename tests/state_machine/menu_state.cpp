@@ -6,14 +6,26 @@
 const std::string MenuState::s_menuID = "MENU";
 
 void MenuState::update() {
-    for (int i = 0; i < m_gameObjects.size(); i++) {
-        m_gameObjects[i]->update();
+    if (!m_isExit) {
+        if (!menu_mutex.try_lock()) {
+            return;
+        }
+        for (int i = 0; i < m_gameObjects.size(); i++) {
+            m_gameObjects[i]->update();
+        }
+        menu_mutex.unlock();
     }
 }
 
 void MenuState::render() {
-    for (int i = 0; i < m_gameObjects.size(); i++) {
-        m_gameObjects[i]->draw();
+    if (!m_isExit) {
+        if (!menu_mutex.try_lock()) {
+            return;
+        }
+        for (int i = 0; i < m_gameObjects.size(); i++) {
+            m_gameObjects[i]->draw();
+        }
+        menu_mutex.unlock();
     }
 }
 
@@ -36,10 +48,15 @@ bool MenuState::onEnter() {
 }
 
 bool MenuState::onExit() {
+    m_isExit = true;
+    if (!menu_mutex.try_lock()) {
+        return false;
+    }
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
+    menu_mutex.unlock();
     TheTextureManager::Instance()->clearFromTextureMap("playbutton");
     TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
 

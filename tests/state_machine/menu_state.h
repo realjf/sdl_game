@@ -4,6 +4,7 @@
 #include "game_state.h"
 #include <vector>
 #include "game_object.h"
+#include <mutex>
 
 class MenuState : public GameState {
 public:
@@ -22,6 +23,8 @@ private:
 
     // store menu items
     std::vector<GameObject *> m_gameObjects;
+    bool m_isExit = false;
+    std::mutex menu_mutex;
 };
 
 #endif /* _MENU_STATE_H_ */

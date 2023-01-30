@@ -6,47 +6,33 @@ InputHandler *InputHandler::s_pInstance = 0;
 void InputHandler::update() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
+        switch (event.type) {
+        case SDL_QUIT:
             TheGame::Instance()->quit();
-        }
-        m_keystates = SDL_GetKeyboardState(0);
-        if (event.type == SDL_MOUSEBUTTONDOWN) {
-            if (event.button.button == SDL_BUTTON_LEFT) {
-                m_mouseButtonStates[LEFT] = true;
-            }
-            if (event.button.button == SDL_BUTTON_MIDDLE) {
-                m_mouseButtonStates[MIDDLE] = true;
-            }
-            if (event.button.button == SDL_BUTTON_RIGHT) {
-                m_mouseButtonStates[RIGHT] = true;
-            }
-        }
+            break;
 
-        if (event.type == SDL_MOUSEBUTTONUP) {
-            if (event.button.button == SDL_BUTTON_LEFT) {
-                m_mouseButtonStates[LEFT] = false;
-            }
-            if (event.button.button == SDL_BUTTON_MIDDLE) {
-                m_mouseButtonStates[MIDDLE] = false;
-            }
-            if (event.button.button == SDL_BUTTON_RIGHT) {
-                m_mouseButtonStates[RIGHT] = false;
-            }
-        }
+        case SDL_MOUSEMOTION:
+            onMouseMove(event);
+            break;
 
-        if (event.type == SDL_MOUSEMOTION) {
-            SDL_Rect winRect = TheGame::Instance()->getWindowRect();
-            int x = winRect.x;
-            int y = winRect.y;
-            int w = winRect.w;
-            int h = winRect.h;
-            if (event.motion.x > x && event.motion.y > y && event.motion.x < x + w && event.motion.y < y + h) {
-                m_mousePosition->setX(event.motion.x);
-                m_mousePosition->setY(event.motion.y);
-            } else {
-                m_mousePosition->setX(x);
-                m_mousePosition->setY(y);
-            }
+        case SDL_MOUSEBUTTONDOWN:
+            onMouseButtonDown(event);
+            break;
+
+        case SDL_MOUSEBUTTONUP:
+            onMouseButtonUp(event);
+            break;
+
+        case SDL_KEYDOWN:
+            onKeyDown();
+            break;
+
+        case SDL_KEYUP:
+            onKeyUp();
+            break;
+
+        default:
+            break;
         }
     }
 }
@@ -61,4 +47,44 @@ bool InputHandler::isKeyDown(SDL_Scancode key) {
         }
     }
     return false;
+}
+
+void InputHandler::onKeyDown() {
+    m_keystates = SDL_GetKeyboardState(0);
+}
+
+void InputHandler::onKeyUp() {
+    m_keystates = SDL_GetKeyboardState(0);
+}
+
+void InputHandler::onMouseMove(SDL_Event &event) {
+    setMousePosition(static_cast<float>(event.motion.x), static_cast<float>(event.motion.y));
+}
+
+void InputHandler::onMouseButtonDown(SDL_Event &event) {
+    if (event.button.button == SDL_BUTTON_LEFT) {
+        setMouseButtonState(LEFT, true);
+        std::cout << "mouse left clicked\n";
+    }
+    if (event.button.button == SDL_BUTTON_MIDDLE) {
+        setMouseButtonState(MIDDLE, true);
+    }
+    if (event.button.button == SDL_BUTTON_RIGHT) {
+        setMouseButtonState(RIGHT, true);
+        std::cout << "mouse right clicked\n";
+    }
+}
+
+void InputHandler::onMouseButtonUp(SDL_Event &event) {
+    if (event.button.button == SDL_BUTTON_LEFT) {
+        setMouseButtonState(LEFT, false);
+        std::cout << "mouse left released\n";
+    }
+    if (event.button.button == SDL_BUTTON_MIDDLE) {
+        setMouseButtonState(MIDDLE, false);
+    }
+    if (event.button.button == SDL_BUTTON_RIGHT) {
+        setMouseButtonState(RIGHT, false);
+        std::cout << "mouse right released\n";
+    }
 }
