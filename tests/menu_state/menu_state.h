@@ -4,6 +4,7 @@
 #include "game_state.h"
 #include <vector>
 #include "game_object.h"
+#include <mutex>
 
 class MenuState : public GameState {
 public:
@@ -26,6 +27,8 @@ private:
     // callback functions for menu items
     static void s_menuToPlay();
     static void s_exitFromMenu();
+    bool m_isExit = false;
+    std::mutex menu_mutex;
 };
 
 #endif /* _MENU_STATE_H_ */

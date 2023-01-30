@@ -133,4 +133,31 @@ endif
 
 
 
-.PHONY: rm_submod run build pull test run push deps
+CoreDumpPathPattern=/proc/sys/kernel/core_pattern
+CoreDumpPath=$(shell cat $(CoreDumpPathPattern))
+
+
+old_corefile:
+# must root privilege
+	@printf "old core dump path: %s\n" ${CoreDumpPath}
+
+
+new_corefile:
+	@echo 'corefile/%t-%e-%p-%c.core' > ${CoreDumpPathPattern}
+	@printf "new core dump path: %s\n" ${CoreDumpPath}
+
+
+
+see_coredump:
+# close core dump: ulimit -c 0
+# open core dump: ulimit -c unlimited
+ifeq ($(shell ulimit -c),0)
+	@echo 'core dump closed'
+else
+	@echo 'core dump opened'
+endif
+
+
+
+
+.PHONY: rm_submod run build pull test run push deps see_coredump old_corefile new_corefile

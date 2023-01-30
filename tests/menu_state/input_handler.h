@@ -37,33 +37,37 @@ public:
     ~InputHandler() = default;
 
     bool getMouseButtonState(int buttonNumber) {
-        std::lock_guard<std::mutex> lk(mouse_mutex);
         return m_mouseButtonStates[buttonNumber];
     }
 
     void setMouseButtonState(int buttonNumber, bool flag) {
-        std::lock_guard<std::mutex> lk(mouse_mutex);
+        if (!mouse_mutex.try_lock()) {
+            return;
+        }
         m_mouseButtonStates[buttonNumber] = flag;
+        mouse_mutex.unlock();
     }
 
     bool isKeyDown(SDL_Scancode key);
 
     Vector2D *getMousePosition() {
-        std::lock_guard<std::mutex> lk(mouse_mutex);
         return m_mousePosition;
     }
 
     void setMousePosition(float x, float y) {
-        std::lock_guard<std::mutex> lk(mouse_mutex);
+        if (!mouse_mutex.try_lock()) {
+            return;
+        }
         m_mousePosition->setX(x);
         m_mousePosition->setY(y);
+        mouse_mutex.unlock();
     }
 
 private:
     Vector2D *m_mousePosition;
 
 private:
-    InputHandler() {
+    InputHandler() : m_keystates(0), m_mousePosition(new Vector2D(0, 0)) {
         for (int i = 0; i < 3; i++) {
             m_mouseButtonStates.push_back(false);
         }

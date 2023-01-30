@@ -5,17 +5,21 @@
 const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update() {
-    for (int i = 0; i < m_gameObjects.size(); i++) {
-        m_gameObjects[i]->update();
+    if (!m_isExit) {
+        for (int i = 0; i < m_gameObjects.size(); i++) {
+            m_gameObjects[i]->update();
+        }
+        std::cout << "PlayState update\n";
     }
-    std::cout << "PlayState update\n";
 }
 
 void PlayState::render() {
-    for (int i = 0; i < m_gameObjects.size(); i++) {
-        m_gameObjects[i]->draw();
+    if (!m_isExit) {
+        for (int i = 0; i < m_gameObjects.size(); i++) {
+            m_gameObjects[i]->draw();
+        }
+        std::cout << "PlayState render\n";
     }
-    std::cout << "PlayState render\n";
 }
 
 bool PlayState::onEnter() {
@@ -31,6 +35,7 @@ bool PlayState::onEnter() {
 }
 
 bool PlayState::onExit() {
+    m_isExit = true;
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }

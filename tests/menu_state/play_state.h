@@ -21,6 +21,7 @@ private:
     static const std::string s_playID;
 
     std::vector<GameObject *> m_gameObjects;
+    bool m_isExit = false;
 };
 
 #endif /* _PLAY_STATE_H_ */
