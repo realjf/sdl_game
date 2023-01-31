@@ -27,9 +27,9 @@ void GameTiming::endFrameTiming() {
     dest.x = dest.y = 0;
     dest.w = dest.h = 10;
     renderText(fps, dest);
-    dest.y += 24;
+    dest.y += FONT_SIZE;
     renderText(avg, dest);
-    dest.y += 24;
+    dest.y += FONT_SIZE;
     renderText(perf, dest);
 }
 

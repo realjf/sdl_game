@@ -71,6 +71,11 @@
         "any": "cpp",
         "bitset": "cpp",
         "future": "cpp",
-        "shared_mutex": "cpp"
-    }
+        "shared_mutex": "cpp",
+        "queue": "cpp"
+    },
+    "disabled": [
+    ],
+    "enabled": [
+    ]
 }

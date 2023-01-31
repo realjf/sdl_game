@@ -7,8 +7,9 @@
 #include <SDL_ttf.h>
 #include "game.h"
 
-class GameTiming {
+#define FONT_SIZE 14
 
+class GameTiming {
 private:
     GameTiming() = default;
 

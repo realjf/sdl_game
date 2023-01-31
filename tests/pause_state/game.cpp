@@ -1,5 +1,6 @@
 #include "game.h"
 #include "input_handler.h"
+#include "game_timing.h"
 
 Game *Game::s_pInstance = 0;
 
@@ -36,7 +37,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    m_font = TTF_OpenFont("assets/fonts/04B_08.ttf", 24);
+    m_font = TTF_OpenFont("assets/fonts/04B_08.ttf", FONT_SIZE);
     if (!m_font) {
         std::cout << "Error loading font: " << TTF_GetError() << std::endl;
         return false;
@@ -67,7 +68,8 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     // m_gameObjects.push_back(new Enemy(new LoaderParams(300, 100, 125, 125, "piccolo")));
 
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
+    // m_pGameStateMachine->changeState(new MenuState());
+    m_pGameStateMachine->enEventQueue(new GameStateEvent(CHANGE, new MenuState()));
 
     return true;
 }
@@ -90,6 +92,7 @@ void Game::update() {
     // for (std::vector<GameObject *>::size_type i = 0; i != m_gameObjects.size(); i++) {
     //     m_gameObjects[i]->update();
     // }
+    m_pGameStateMachine->deEventQueue();
     m_pGameStateMachine->update();
 }
 
@@ -121,6 +124,7 @@ void Game::draw() {
 }
 
 void Game::quit() {
-    m_pGameStateMachine->popAllState();
+    // m_pGameStateMachine->popAllState();
+    m_pGameStateMachine->enEventQueue(new GameStateEvent(POP_ALL));
     m_bRunning = false;
 }
