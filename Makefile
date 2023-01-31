@@ -72,10 +72,11 @@ push:
 	@git add -A && git commit -m $(M) && git push origin master
 
 pull:
-	@-git pull
-# @-git pull --recurse-submodules
-	@-git submodule sync
-	@-git submodule update --init
+	@git pull
+	@git submodule update --init --checkout
+	@git submodule sync --init
+#@git submodule foreach 'git pull '
+#@-git submodule update --remote
 
 
 BUILD_DIR=build
