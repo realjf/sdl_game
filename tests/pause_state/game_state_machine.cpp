@@ -91,9 +91,10 @@ void GameStateMachine::popAllState() {
 }
 
 void GameStateMachine::update() {
-    if (!game_mutex.try_unique_lock()) {
+    if (!game_mutex.try_lock()) {
         return;
     }
+    std::cout << "update....\n";
     // std::shared_lock<std::recursive_mutex> rl(game_mutex, std::try_to_lock);
     // if (rl.owns_lock() == false) {
     //     return;
@@ -105,7 +106,7 @@ void GameStateMachine::update() {
 }
 
 void GameStateMachine::render() {
-    if (!game_mutex.try_unique_lock()) {
+    if (!game_mutex.try_lock()) {
         return;
     }
     // std::shared_lock<std::recursive_mutex> rl(game_mutex, std::try_to_lock);
