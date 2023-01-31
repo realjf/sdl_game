@@ -69,7 +69,7 @@ run: build
 M ?= "update"
 
 push:
-	@git add -A && git commit -m ${M} && git push origin master
+	@git add -A && git commit -m $(M) && git push origin master
 
 pull:
 	@-git pull
