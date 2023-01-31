@@ -17,6 +17,9 @@ public:
     SharedRecursiveMutex &operator=(const SharedRecursiveMutex &) = delete;
 
     void lock(void) {
+        if (unique) {
+            return;
+        }
         std::thread::id this_id = std::this_thread::get_id();
         if (owner == this_id) {
             ++count;
@@ -33,10 +36,12 @@ public:
             return false;
         }
         count++;
+        unique = true;
         return true;
     }
 
     void unlock(void) {
+        unique = false;
         if (count > 1) {
             --count;
         } else {
@@ -47,6 +52,9 @@ public:
     }
 
     bool try_lock(void) {
+        if (unique) {
+            return false;
+        }
         std::thread::id this_id = std::this_thread::get_id();
         if (owner == this_id) {
             ++count;
@@ -65,6 +73,7 @@ public:
 private:
     std::atomic<std::thread::id> owner;
     int count;
+    std::atomic<bool> unique;
 };
 
 #endif /* _SHARED_RECURSIVE_MUTEX_H_ */

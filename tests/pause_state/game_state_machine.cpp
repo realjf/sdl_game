@@ -26,6 +26,7 @@ bool GameStateMachine::changeState(GameState *pState) {
     // }
     if (!m_gameStates.empty()) {
         if (m_gameStates.back()->getStateID() == pState->getStateID()) {
+            std::cout << "========= change to state: " << m_gameStates.back()->getStateID() << std::endl;
             return true;
         }
         if (m_gameStates.back()->onExit()) {
@@ -90,7 +91,7 @@ void GameStateMachine::popAllState() {
 }
 
 void GameStateMachine::update() {
-    if (!game_mutex.try_lock()) {
+    if (!game_mutex.try_unique_lock()) {
         return;
     }
     // std::shared_lock<std::recursive_mutex> rl(game_mutex, std::try_to_lock);
@@ -104,7 +105,7 @@ void GameStateMachine::update() {
 }
 
 void GameStateMachine::render() {
-    if (!game_mutex.try_lock()) {
+    if (!game_mutex.try_unique_lock()) {
         return;
     }
     // std::shared_lock<std::recursive_mutex> rl(game_mutex, std::try_to_lock);

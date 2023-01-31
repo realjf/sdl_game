@@ -1,18 +1,83 @@
-//获取按键状态
-data = *P_IOE_Data;
-if ((data & 0x0080)) {
-  IOE_lock = 0;
-}
-if ((data & 0x0080) == 0) {
-  if (IOE_lock == 0) {
-    play_sound_hightolow(0x33, Vol_value);
+#pragma comment(lib, "SDL2main.lib")
+
+class Game {
+
+private:
+  SDL_Window *m_Window;
+  SDL_Renderer *m_Renderer;
+  SDL_Event m_SDLEvent;
+  bool m_BGameRunning; // deltatime
+  float m_DeltaTime;
+  Uint64 m_StartTime;
+  Uint64 m_PreFrameTime;
+  void InitWindow() {
+    m_Window =
+        SDL_CreateWindow("HelloSDL", SDL_WINDOWPOS_CENTERED,
+                         SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+
+    m_Renderer = SDL_CreateRenderer(
+        m_Window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
   }
-  IOE_lock = 1;
+
+public:
+  Game() : m_BGameRunning(true), m_DeltaTime(0) {
+    InitWindow();
+    // // deltaTime
+    m_StartTime = SDL_GetTicks64();
+    //
+    m_PreFrameTime = m_StartTime;
+  }
+
+  ~Game() {
+    SDL_DestroyRenderer(m_Renderer);
+    SDL_DestroyWindow(m_Window);
+    SDL_Quit();
+  }
+  void Run() {
+    while (m_BGameRunning) {
+      UpdateDeltaTime();
+      //
+      Update();
+      Render();
+    }
+  }
+  void Update() {
+    //
+    UpdateSDLEvent();
+  }
+  void Render() {
+    //
+    SDL_SetRenderDrawColor(m_Renderer, 0, 0, 0, 255);
+    //
+    SDL_RenderClear(m_Renderer); // Draw items
+    //
+    SDL_RenderPresent(m_Renderer);
+  }
+
+  void UpdateDeltaTime() {
+    /* Updates the deltaTime with the
+    time it takes to update and render one frame. */
+    Uint64 currTime = SDL_GetTicks64();
+    m_DeltaTime = (currTime - m_PreFrameTime) / 1000.0f;
+    m_PreFrameTime = currTime;
+    float totalTime = (currTime - m_StartTime) / 1000.0f;
+    float FPS = 1.0f / m_DeltaTime;
+    SDL_LogInfo(0, "totalTime: %f\tdt: %f\tFPS: %f\n", totalTime, m_DeltaTime,
+                FPS);
+    // 限制帧率
+    int MaxFPS = 60;
+    if (m_DeltaTime) {
+      switch (m_SDLEvent.type) {
+      case SDL_QUIT:
+        m_BGameRunning = false;
+        break;
+      }
+    }
+  }
+};
+
+int main(int argc, char *argv[]) {
+  Game game;
+  game.Run();
+  return 0;
 }
-
-if ((data & 0x0080))
-表示按键没有被按下，此时按键锁标志为0，staic类型将记录这个标志变量的值，当if(
-    (data & 0x0080) == 0)
-    时，按键此时被按下了，我要判断按键锁标志是否为0，如果为1，那么程序肯定不会运行play_sound_hightolow()；这个函数，所以当按下按键的时候，锁的初始化值为0，喇叭发出声音码，音频解码器读出对应的键值为0x33。读完之后立马的将锁标志置1，如果此时一直按住按键不放，因为锁标志等于1，所以无效，程序不进入发码的状态。当松开后，按键的状态由1变成0，此时再按下按键，又有效，然后锁住。
-
-    这样做的好处就是使按键按下的时候，发码的状态只触发一次，就不会连着发出0x33的声音码了，只发了一次。在合适的开发利用好标志锁，可以很方便的高效解决很多问题。

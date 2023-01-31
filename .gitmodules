@@ -16,3 +16,9 @@
 	branch = SDL2
 	update = checkout
 	ignore = dirty
+[submodule "deps/SDLTTF"]
+	path = deps/SDLTTF
+	url = https://github.com/libsdl-org/SDL_ttf.git
+	branch = SDL2
+	update = checkout
+	ignore = dirty

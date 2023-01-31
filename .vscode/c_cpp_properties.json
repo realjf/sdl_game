@@ -8,7 +8,9 @@
                 "${workspaceFolder}/tests/**",
                 "${workspaceFolder}/deps/SDL2/include",
                 "${workspaceFolder}/deps/logc/include",
-                "${workspaceFolder}/deps/SDLIMG"
+                "${workspaceFolder}/deps/SDLIMG",
+                "${workspaceFolder}/tests/include/**",
+                "${workspaceFolder}/deps/SDLTTF"
             ],
             "defines": [ ],
             "compilerPath": "/usr/bin/gcc-11",
