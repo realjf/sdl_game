@@ -2,6 +2,7 @@
 #define _MENU_BUTTON_H_
 
 #include "sdl_game_object.h"
+#include <vector>
 
 enum button_state {
     MOUSE_OUT = 0,
@@ -19,7 +20,8 @@ public:
 
 private:
     void (*m_callback)();
-    bool m_bReleased;
+    bool m_bReleased = false;
+    bool m_bClickLock;
 };
 
 #endif /* _MENU_BUTTON_H_ */

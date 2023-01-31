@@ -14,6 +14,10 @@ void PlayState::update() {
         if (!play_mutex.try_lock()) {
             return;
         }
+        // std::shared_lock<std::recursive_mutex> rl(play_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return;
+        // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
         }
@@ -26,6 +30,10 @@ void PlayState::render() {
         if (!play_mutex.try_lock()) {
             return;
         }
+        // std::shared_lock<std::recursive_mutex> rl(play_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return;
+        // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
@@ -34,29 +42,41 @@ void PlayState::render() {
 }
 
 bool PlayState::onEnter() {
+    if (!play_mutex.try_lock()) {
+        return false;
+    }
+    // std::unique_lock<std::recursive_mutex> wl(play_mutex, std::try_to_lock);
+    // if (wl.owns_lock() == false) {
+    //     return false;
+    // }
     if (!TheTextureManager::Instance()->load("assets/images/helicopter417x143.png", "helicopter", TheGame::Instance()->getRenderer())) {
         return false;
     }
 
     GameObject *player = new Player(new LoaderParams(100, 100, 417, 143, "helicopter"));
     m_gameObjects.push_back(player);
+    play_mutex.unlock();
 
     std::cout << "entering PlayState\n";
     return true;
 }
 
 bool PlayState::onExit() {
-    m_isExit = true;
     if (!play_mutex.try_lock()) {
         return false;
     }
+    // std::unique_lock<std::recursive_mutex> wl(play_mutex, std::try_to_lock);
+    // if (wl.owns_lock() == false) {
+    //     return false;
+    // }
+    m_isExit = true;
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
-    play_mutex.unlock();
 
     TheTextureManager::Instance()->clearFromTextureMap("helicopter");
+    play_mutex.unlock();
     std::cout << "exiting PlayState\n";
     return true;
 }

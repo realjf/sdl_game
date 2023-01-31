@@ -6,6 +6,8 @@
 #include <iostream>
 #include "vector2d.h"
 #include <mutex>
+#include <shared_mutex>
+#include "lock/shared_recursive_mutex.h"
 
 enum mouse_buttons {
     LEFT = 0,
@@ -39,11 +41,21 @@ public:
     ~InputHandler() = default;
 
     bool getMouseButtonState(int buttonNumber) {
+        // std::shared_lock<std::recursive_mutex> rl(mouse_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return false;
+        // }
         return m_mouseButtonStates[buttonNumber];
     }
 
     void setMouseButtonState(int buttonNumber, bool flag) {
-        mouse_mutex.lock();
+        // std::unique_lock<std::recursive_mutex> wl(mouse_mutex, std::try_to_lock);
+        // if (wl.owns_lock() == false) {
+        //     return;
+        // }
+        if (!mouse_mutex.try_lock()) {
+            return;
+        }
         m_mouseButtonStates[buttonNumber] = flag;
         mouse_mutex.unlock();
     }
@@ -51,11 +63,22 @@ public:
     bool isKeyDown(SDL_Scancode key);
 
     Vector2D *getMousePosition() {
+        // std::shared_lock<std::recursive_mutex> rl(mouse_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return new Vector2D(0, 0);
+        // }
         return m_mousePosition;
     }
 
     void setMousePosition(float x, float y) {
-        mouse_mutex.lock();
+        // mouse_mutex.lock();
+        // std::unique_lock<std::recursive_mutex> wl(mouse_mutex, std::try_to_lock);
+        // if (wl.owns_lock() == false) {
+        //     return;
+        // }
+        if (!mouse_mutex.try_lock()) {
+            return;
+        }
         m_mousePosition->setX(x);
         m_mousePosition->setY(y);
         mouse_mutex.unlock();
@@ -75,7 +98,7 @@ private:
     const Uint8 *m_keystates;
 
     static InputHandler *s_pInstance;
-    std::mutex mouse_mutex;
+    mutable std::recursive_mutex mouse_mutex;
 };
 
 typedef InputHandler TheInputHandler;

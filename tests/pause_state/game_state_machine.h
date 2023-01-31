@@ -4,6 +4,8 @@
 #include "game_state.h"
 #include <vector>
 #include <mutex>
+#include <shared_mutex>
+#include "lock/shared_recursive_mutex.h"
 
 class GameStateMachine {
 public:
@@ -17,7 +19,7 @@ public:
 
 private:
     std::vector<GameState *> m_gameStates;
-    std::mutex game_mutex;
+    SharedRecursiveMutex game_mutex;
 };
 
 #endif /* _GAME_STATE_MACHINE_H_ */

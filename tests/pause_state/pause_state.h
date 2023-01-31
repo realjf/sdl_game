@@ -5,6 +5,8 @@
 #include <vector>
 #include <mutex>
 #include "game_object.h"
+#include <shared_mutex>
+#include "lock/shared_recursive_mutex.h"
 
 class PauseState : public GameState {
 public:
@@ -25,7 +27,7 @@ private:
     static const std::string s_pauseID;
 
     std::vector<GameObject *> m_gameObjects;
-    std::mutex pause_mutex;
+    SharedRecursiveMutex pause_mutex;
     bool m_isExit = false;
 };
 

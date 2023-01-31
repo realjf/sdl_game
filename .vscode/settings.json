@@ -70,6 +70,7 @@
         "*.ipp": "cpp",
         "any": "cpp",
         "bitset": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "shared_mutex": "cpp"
     }
 }

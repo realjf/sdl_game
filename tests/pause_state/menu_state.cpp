@@ -10,6 +10,10 @@ void MenuState::update() {
         if (!menu_mutex.try_lock()) {
             return;
         }
+        // std::shared_lock<std::recursive_mutex> rl(menu_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return;
+        // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
         }
@@ -22,6 +26,10 @@ void MenuState::render() {
         if (!menu_mutex.try_lock()) {
             return;
         }
+        // std::shared_lock<std::recursive_mutex> rl(menu_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return;
+        // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
@@ -30,6 +38,13 @@ void MenuState::render() {
 }
 
 bool MenuState::onEnter() {
+    if (!menu_mutex.try_lock()) {
+        return false;
+    }
+    // std::unique_lock<std::recursive_mutex> wl(menu_mutex, std::try_to_lock);
+    // if (wl.owns_lock() == false) {
+    //     return false;
+    // }
 
     if (!TheTextureManager::Instance()->load("assets/gui/playbutton258x72.png", "playbutton", TheGame::Instance()->getRenderer())) {
         return false;
@@ -43,31 +58,35 @@ bool MenuState::onEnter() {
     m_gameObjects.push_back(btn1);
     m_gameObjects.push_back(btn2);
 
+    menu_mutex.unlock();
     std::cout << "entering MenuState\n";
     return true;
 }
 
 bool MenuState::onExit() {
-    m_isExit = true;
     if (!menu_mutex.try_lock()) {
         return false;
     }
+    // std::unique_lock<std::recursive_mutex> wl(menu_mutex, std::try_to_lock);
+    // if (wl.owns_lock() == false) {
+    //     return false;
+    // }
+    m_isExit = true;
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
-    menu_mutex.unlock();
 
     TheTextureManager::Instance()->clearFromTextureMap("playbutton");
     TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
 
+    menu_mutex.unlock();
     std::cout << "exiting MenuState\n";
     return true;
 }
 
 void MenuState::s_menuToPlay() {
     TheGame::Instance()->getStateMachine()->changeState(new PlayState());
-
     std::cout << "Play button clicked\n";
 }
 

@@ -12,6 +12,10 @@ void PauseState::update() {
         if (!pause_mutex.try_lock()) {
             return;
         }
+        // std::shared_lock<std::recursive_mutex> rl(pause_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return;
+        // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
         }
@@ -24,6 +28,10 @@ void PauseState::render() {
         if (!pause_mutex.try_lock()) {
             return;
         }
+        // std::shared_lock<std::recursive_mutex> rl(pause_mutex, std::try_to_lock);
+        // if (rl.owns_lock() == false) {
+        //     return;
+        // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
@@ -32,6 +40,13 @@ void PauseState::render() {
 }
 
 bool PauseState::onEnter() {
+    if (pause_mutex.try_lock() == false) {
+        return false;
+    }
+    // std::unique_lock<std::recursive_mutex> wl(pause_mutex, std::try_to_lock);
+    // if (wl.owns_lock() == false) {
+    //     return false;
+    // }
     if (!TheTextureManager::Instance()->load("assets/gui/resume284x116.png", "resumebutton", TheGame::Instance()->getRenderer())) {
         return false;
     }
@@ -45,28 +60,34 @@ bool PauseState::onEnter() {
 
     m_gameObjects.push_back(btn1);
     m_gameObjects.push_back(btn2);
+    pause_mutex.unlock();
 
     std::cout << "entering PauseState\n";
     return true;
 }
 
 bool PauseState::onExit() {
-    m_isExit = true;
 
-    if (!pause_mutex.try_lock()) {
+    if (pause_mutex.try_lock() == false) {
         return false;
     }
+
+    // std::unique_lock<std::recursive_mutex> wl(pause_mutex, std::try_to_lock);
+    // if (wl.owns_lock() == false) {
+    //     return false;
+    // }
+    m_isExit = true;
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
-    pause_mutex.unlock();
 
     TheTextureManager::Instance()->clearFromTextureMap("resumebutton");
     TheTextureManager::Instance()->clearFromTextureMap("mainmenubutton");
 
     // reset the mouse button states to false
-    TheInputHandler::Instance()->reset();
+    // TheInputHandler::Instance()->reset();
+    pause_mutex.unlock();
 
     std::cout << "exiting PauseState\n";
     return true;

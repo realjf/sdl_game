@@ -5,6 +5,8 @@
 #include <vector>
 #include "game_object.h"
 #include <mutex>
+#include <shared_mutex>
+#include "lock/shared_recursive_mutex.h"
 
 class PlayState : public GameState {
 public:
@@ -23,7 +25,7 @@ private:
 
     std::vector<GameObject *> m_gameObjects;
     bool m_isExit = false;
-    std::mutex play_mutex;
+    SharedRecursiveMutex play_mutex;
 };
 
 #endif /* _PLAY_STATE_H_ */

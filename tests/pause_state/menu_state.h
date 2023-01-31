@@ -5,6 +5,8 @@
 #include <vector>
 #include "game_object.h"
 #include <mutex>
+#include <shared_mutex>
+#include "lock/shared_recursive_mutex.h"
 
 class MenuState : public GameState {
 public:
@@ -28,7 +30,7 @@ private:
     static void s_menuToPlay();
     static void s_exitFromMenu();
     bool m_isExit = false;
-    std::mutex menu_mutex;
+    SharedRecursiveMutex menu_mutex;
 };
 
 #endif /* _MENU_STATE_H_ */
