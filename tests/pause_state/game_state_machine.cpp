@@ -90,6 +90,30 @@ void GameStateMachine::popAllState() {
     game_mutex.unlock();
 }
 
+void GameStateMachine::enEventQueue(GameStateEvent *event) {
+    if (!game_mutex.try_unique_lock()) {
+        return;
+    }
+
+    m_eventQueue.enQueue(event);
+
+    game_mutex.unlock();
+}
+
+GameStateEvent *GameStateMachine::deEventQueue() {
+    if (!game_mutex.try_unique_lock()) {
+        return;
+    }
+    GameStateEvent *event = m_eventQueue.deQueue();
+    game_mutex.unlock();
+
+    if (event == nullptr || event->getState() == nullptr) {
+        return nullptr;
+    }
+
+    return event;
+}
+
 void GameStateMachine::update() {
     if (!game_mutex.try_lock()) {
         return;
