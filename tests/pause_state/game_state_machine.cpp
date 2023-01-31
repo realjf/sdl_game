@@ -94,7 +94,6 @@ void GameStateMachine::enEventQueue(GameStateEvent *event) {
     if (!game_mutex.try_unique_lock()) {
         return;
     }
-
     m_eventQueue.enQueue(event);
 
     game_mutex.unlock();

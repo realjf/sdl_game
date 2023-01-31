@@ -4,20 +4,19 @@
 #include <iostream>
 #include <array>
 
+/**
+ * @brief size of circular queue
+ */
+#define CIRCULAR_QUEUE_SIZE = 3;
+
 template <typename T>
 class CircularQueue {
 public:
-    CircularQueue<T>() {
-    }
-    ~CircularQueue<T>() {
-    }
-
     // 获取队列中的元素数量
     int queueSize {
         return m_iSize;
     }
 
-public:
     /// 元素入队
     void enQueue(T t) {
 
@@ -29,7 +28,6 @@ public:
         m_iSize++;
     }
 
-public:
     /// 元素出队
     T deQueue() {
         T t = default(T);
@@ -60,7 +58,6 @@ private:
         }
     }
 
-private:
     /// 设置出队index
     void setBackToZero() {
         if (m_iBack == data.Length && m_iSize < data.Length) {
@@ -68,7 +65,6 @@ private:
         }
     }
 
-private:
     /// 设置出队index
     void setFrontToZero() {
         if (m_iFont == data.Length && m_iSize != 0) {
@@ -84,7 +80,7 @@ private:
     // 队列中元素数量
     int m_iSize;
     // 队列的初始长度设置为3
-    T[] m_data = new T[3];
+    T[] m_data = new T[CIRCULAR_QUEUE_SIZE];
 };
 
 #endif /* _CIRCULAR_QUEUE_H_ */
