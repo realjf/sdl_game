@@ -74,7 +74,7 @@ push:
 pull:
 	@git pull
 	@git submodule update --init --checkout
-	@git submodule sync --init
+	@git submodule sync
 #@git submodule foreach 'git pull '
 #@-git submodule update --remote
 
