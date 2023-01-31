@@ -56,6 +56,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -g")
 # add_subdirectory(vector2d_mouse_keyboard)
 # add_subdirectory(state_machine)
 # add_subdirectory(menu_state)
-add_subdirectory(pause_state)
+# add_subdirectory(pause_state)
+add_subdirectory(game_over_state)
 
 
