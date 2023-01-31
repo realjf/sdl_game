@@ -1,5 +1,6 @@
 #include "game.h"
 #include "input_handler.h"
+#include "game_timing.h"
 
 Game *Game::s_pInstance = 0;
 
@@ -10,6 +11,12 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     }
     if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
         std::cout << "SDL init success\n";
+
+        if (TTF_Init() < 0) {
+            std::cout << "Error initializing SDL_ttf: " << TTF_GetError() << std::endl;
+            return false;
+        }
+
         m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
         if (m_pWindow != 0) {
             std::cout << "window creation success\n";
@@ -27,6 +34,12 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         }
     } else {
         std::cout << "SDL init fail\n";
+        return false;
+    }
+
+    m_font = TTF_OpenFont("assets/fonts/04B_08.ttf", FONT_SIZE);
+    if (!m_font) {
+        std::cout << "Error loading font: " << TTF_GetError() << std::endl;
         return false;
     }
 
@@ -55,13 +68,14 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     // m_gameObjects.push_back(new Enemy(new LoaderParams(300, 100, 125, 125, "piccolo")));
 
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
+    // m_pGameStateMachine->changeState(new MenuState());
+    m_pGameStateMachine->enEventQueue(new GameStateEvent(CHANGE, new MenuState()));
 
     return true;
 }
 
 void Game::render() {
-    SDL_RenderClear(m_pRenderer); // clear to the draw color
+    // SDL_RenderClear(m_pRenderer); // clear to the draw color
 
     m_pGameStateMachine->render();
 
@@ -70,7 +84,7 @@ void Game::render() {
     //     m_gameObjects[i]->draw();
     // }
 
-    SDL_RenderPresent(m_pRenderer);
+    // SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
@@ -78,6 +92,7 @@ void Game::update() {
     // for (std::vector<GameObject *>::size_type i = 0; i != m_gameObjects.size(); i++) {
     //     m_gameObjects[i]->update();
     // }
+    m_pGameStateMachine->deEventQueue();
     m_pGameStateMachine->update();
 }
 
@@ -91,8 +106,14 @@ void Game::handleEvents() {
 void Game::clean() {
     std::cout << "cleaning game\n";
     TheInputHandler::Instance()->clean();
+
+    TTF_CloseFont(m_font);
+
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
+
+    TTF_Quit();
+    IMG_Quit();
     SDL_Quit();
 }
 
@@ -103,6 +124,7 @@ void Game::draw() {
 }
 
 void Game::quit() {
-    m_pGameStateMachine->popAllState();
+    // m_pGameStateMachine->popAllState();
+    m_pGameStateMachine->enEventQueue(new GameStateEvent(POP_ALL));
     m_bRunning = false;
 }

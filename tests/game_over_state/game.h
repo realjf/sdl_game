@@ -11,6 +11,7 @@
 #include "game_state_machine.h"
 #include "menu_state.h"
 #include "play_state.h"
+#include <SDL_ttf.h>
 
 class Game {
 private:
@@ -29,6 +30,8 @@ public:
     }
 
     SDL_Renderer *getRenderer() const { return m_pRenderer; }
+
+    TTF_Font *getFont() const { return m_font; }
 
     bool init(const char *title, int xpos, int ypos, int width, int height, bool fullscreen);
     void render();
@@ -63,6 +66,8 @@ private:
     std::vector<GameObject *> m_gameObjects;
 
     GameStateMachine *m_pGameStateMachine;
+
+    TTF_Font *m_font;
 };
 
 typedef Game TheGame;

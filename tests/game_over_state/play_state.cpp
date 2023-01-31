@@ -3,12 +3,14 @@
 #include "game.h"
 #include "input_handler.h"
 #include "pause_state.h"
+#include "game_state_machine.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update() {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
-        TheGame::Instance()->getStateMachine()->pushState(new PauseState());
+        // TheGame::Instance()->getStateMachine()->pushState(new PauseState());
+        TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new PauseState()));
     }
     if (!m_isExit) {
         if (!play_mutex.try_lock()) {

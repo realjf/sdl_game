@@ -6,6 +6,8 @@
 #include <mutex>
 #include <shared_mutex>
 #include "lock/shared_recursive_mutex.h"
+#include "game_state_event.h"
+#include <queue>
 
 class GameStateMachine {
 public:
@@ -14,12 +16,17 @@ public:
     bool popState();
     void popAllState();
 
+    void enEventQueue(GameStateEvent *event);
+    void deEventQueue();
+
     void update();
     void render();
 
 private:
     std::vector<GameState *> m_gameStates;
     SharedRecursiveMutex game_mutex;
+    std::queue<GameStateEvent *> m_eventQueue;
+    bool m_bInterrupted = false;
 };
 
 #endif /* _GAME_STATE_MACHINE_H_ */

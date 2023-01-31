@@ -10,9 +10,6 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
-
-private:
-    int m_numFrames;
 };
 
 #endif /* _ENEMY_H_ */
