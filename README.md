@@ -4,8 +4,11 @@ sdl game demo
 
 ### Dependencies
 
-- [SDL2 release-2.26.2](https://github.com/libsdl-org/SDL/tree/SDL2)
+- [SDL2 SDL2/release-2.26.2](https://github.com/libsdl-org/SDL/tree/SDL2)
 - [logc](https://github.com/realjf/logc.git)
+- [SDL_image SDL2/release-2.6.2](https://github.com/libsdl-org/SDL_image.git)
+- [SDL_ttf SDL2/release-2.20.1](https://github.com/libsdl-org/SDL_ttf.git)
+- [spdlog v1.x/v1.11.0](https://github.com/gabime/spdlog.git)
 
 ### Build
 
