@@ -4,16 +4,17 @@
 #include <iostream>
 
 class LoaderParams {
-   public:
-    LoaderParams(int x, int y, int width, int height, std::string textureID) : m_x(x), m_y(y), m_width(width), m_height(height), m_textureID(textureID) {
+public:
+    LoaderParams(int x, int y, int width, int height, std::string textureID, float scale = 1.0f) : m_x(x), m_y(y), m_width(width), m_height(height), m_textureID(textureID), m_scale(scale) {
     }
     int getX() const { return m_x; }
     int getY() const { return m_y; }
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
+    float getScale() const { return m_scale; }
     std::string getTextureID() const { return m_textureID; }
 
-   private:
+private:
     std::string m_textureID;
 
     int m_x;
@@ -21,6 +22,8 @@ class LoaderParams {
 
     int m_width;
     int m_height;
+
+    float m_scale;
 };
 
 #endif /* _LOADER_PARAMS_H_ */

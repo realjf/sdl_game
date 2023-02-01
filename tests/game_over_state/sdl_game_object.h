@@ -20,6 +20,7 @@ protected:
 
     int m_width;
     int m_height;
+    float m_scale;
 
     Vector2D m_position;
     Vector2D m_velocity;

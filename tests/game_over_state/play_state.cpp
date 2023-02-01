@@ -55,7 +55,7 @@ bool PlayState::onEnter() {
         return false;
     }
 
-    GameObject *player = new Player(new LoaderParams(100, 100, 417, 143, "helicopter"));
+    GameObject *player = new Player(new LoaderParams(100, 100, 417, 143, "helicopter", 0.5f));
     m_gameObjects.push_back(player);
     play_mutex.unlock();
 

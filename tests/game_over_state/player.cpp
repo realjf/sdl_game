@@ -31,7 +31,7 @@ void Player::update() {
 
     handleInput();
 
-    // only for helicopter
+    // only for helicopter417x143.png
     m_currentFrame = 0;
     // m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
     m_currentRow = int(((SDL_GetTicks() / 10) % 3));
