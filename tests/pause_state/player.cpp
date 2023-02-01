@@ -34,7 +34,7 @@ void Player::update() {
     // only for helicopter
     m_currentFrame = 0;
     // m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
-    m_currentRow = int(((SDL_GetTicks() / 10) % 3));
+    m_currentRow = int(((SDL_GetTicks() / 10) % 4) + 1);
     // m_acceleration.setX(1);
     SDLGameObject::update();
 }

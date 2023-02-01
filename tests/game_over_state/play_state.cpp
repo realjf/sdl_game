@@ -55,8 +55,20 @@ bool PlayState::onEnter() {
         return false;
     }
 
-    GameObject *player = new Player(new LoaderParams(100, 100, 417, 143, "helicopter", 0.5f));
+    if (!TheTextureManager::Instance()->load("assets/images/helicopter207x92.png", "helicopter1", TheGame::Instance()->getRenderer())) {
+        return false;
+    }
+
+    if (!TheTextureManager::Instance()->load("assets/images/helicopter207x92_2.png", "helicopter2", TheGame::Instance()->getRenderer())) {
+        return false;
+    }
+
+    GameObject *player = new Player(new LoaderParams(500, 100, 417, 143, "helicopter", 0.2f));
+    GameObject *enemy1 = new Enemy(new LoaderParams(100, 100, 207, 92, "helicopter1", 0.2f));
+    GameObject *enemy2 = new Enemy(new LoaderParams(200, 100, 207, 92, "helicopter2", 0.2f));
     m_gameObjects.push_back(player);
+    m_gameObjects.push_back(enemy1);
+    m_gameObjects.push_back(enemy2);
     play_mutex.unlock();
 
     std::cout << "entering PlayState\n";

@@ -7,7 +7,7 @@ MenuButton::MenuButton(const LoaderParams *pParams, void (*callback)()) : SDLGam
 
 void MenuButton::draw() {
     // use the base class drawing
-    SDLGameObject::draw();
+    SDLGameObject::draw(false);
 }
 
 void MenuButton::update() {
