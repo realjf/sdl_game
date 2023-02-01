@@ -86,7 +86,7 @@ bool PauseState::onExit() {
     TheTextureManager::Instance()->clearFromTextureMap("mainmenubutton");
 
     // reset the mouse button states to false
-    // TheInputHandler::Instance()->reset();
+    TheInputHandler::Instance()->reset();
     pause_mutex.unlock();
 
     std::cout << "exiting PauseState\n";

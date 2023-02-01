@@ -2,6 +2,7 @@
 #include "texture_manager.h"
 #include "game.h"
 #include "menu_button.h"
+#include "input_handler.h"
 
 const std::string MenuState::s_menuID = "MENU";
 
@@ -79,6 +80,9 @@ bool MenuState::onExit() {
 
     TheTextureManager::Instance()->clearFromTextureMap("playbutton");
     TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
+
+    // reset the mouse button states to false
+    TheInputHandler::Instance()->reset();
 
     menu_mutex.unlock();
     std::cout << "exiting MenuState\n";

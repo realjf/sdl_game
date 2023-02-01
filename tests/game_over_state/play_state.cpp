@@ -78,6 +78,10 @@ bool PlayState::onExit() {
     m_gameObjects.clear();
 
     TheTextureManager::Instance()->clearFromTextureMap("helicopter");
+
+    // reset the mouse button states to false
+    TheInputHandler::Instance()->reset();
+
     play_mutex.unlock();
     std::cout << "exiting PlayState\n";
     return true;
