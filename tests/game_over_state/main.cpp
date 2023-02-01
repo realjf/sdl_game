@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 
         frameStart = SDL_GetTicks();
 
-        // SDL_RenderClear(TheGame::Instance()->getRenderer());
+        SDL_RenderClear(TheGame::Instance()->getRenderer());
 
         // event loop
         TheGame::Instance()->handleEvents();

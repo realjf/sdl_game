@@ -75,7 +75,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
 }
 
 void Game::render() {
-    SDL_RenderClear(m_pRenderer); // clear to the draw color
+    // SDL_RenderClear(m_pRenderer); // clear to the draw color
 
     m_pGameStateMachine->render();
 
