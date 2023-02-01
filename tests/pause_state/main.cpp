@@ -18,12 +18,15 @@ int main(int argc, char **argv) {
         // Start frame timing
         TheGameTiming::Instance()->startFrameTiming();
 
-        SDL_RenderClear(TheGame::Instance()->getRenderer());
-
         frameStart = SDL_GetTicks();
 
+        SDL_RenderClear(TheGame::Instance()->getRenderer());
+
+        // event loop
         TheGame::Instance()->handleEvents();
+        // physics loop
         TheGame::Instance()->update();
+        // render loop
         TheGame::Instance()->render();
 
         frameTime = SDL_GetTicks() - frameStart;
