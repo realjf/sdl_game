@@ -4,6 +4,7 @@
 #include "input_handler.h"
 #include "pause_state.h"
 #include "game_state_machine.h"
+#include "game_over_state.h"
 
 const std::string PlayState::s_playID = "PLAY";
 
@@ -22,6 +23,10 @@ void PlayState::update() {
         // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
+        }
+
+        if (checkCollision(dynamic_cast<SDLGameObject *>(m_gameObjects[0]), dynamic_cast<SDLGameObject *>(m_gameObjects[1]))) {
+            TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new GameOverState()));
         }
         play_mutex.unlock();
     }
@@ -63,9 +68,9 @@ bool PlayState::onEnter() {
         return false;
     }
 
-    GameObject *player = new Player(new LoaderParams(500, 100, 417, 143, "helicopter", 0.2f));
-    GameObject *enemy1 = new Enemy(new LoaderParams(100, 100, 207, 92, "helicopter1", 0.2f));
-    GameObject *enemy2 = new Enemy(new LoaderParams(200, 100, 207, 92, "helicopter2", 0.2f));
+    GameObject *player = new Player(new LoaderParams(500, 100, 417, 143, "helicopter", 4, 0.2f));
+    GameObject *enemy1 = new Enemy(new LoaderParams(100, 100, 207, 92, "helicopter1", 5, 0.2f));
+    GameObject *enemy2 = new Enemy(new LoaderParams(200, 100, 207, 92, "helicopter2", 5, 0.2f));
     m_gameObjects.push_back(player);
     m_gameObjects.push_back(enemy1);
     m_gameObjects.push_back(enemy2);
@@ -96,5 +101,39 @@ bool PlayState::onExit() {
 
     play_mutex.unlock();
     std::cout << "exiting PlayState\n";
+    return true;
+}
+
+bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2) {
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+
+    leftA = p1->getPosition().getX();
+    rightA = p1->getPosition().getX() + p1->getWidth();
+    topA = p1->getPosition().getY();
+    bottomA = p1->getPosition().getY() + p1->getHeight();
+
+    // calculate the sides of rect B
+    leftB = p2->getPosition().getX();
+    rightB = p2->getPosition().getX() + p2->getWidth();
+    topB = p2->getPosition().getY();
+    bottomB = p2->getPosition().getY() + p2->getHeight();
+
+    // if any of the sides from A are outside of B
+    if (bottomA <= topB) {
+        return false;
+    }
+    if (topA >= bottomB) {
+        return false;
+    }
+    if (rightA <= leftB) {
+        return false;
+    }
+    if (leftA >= rightB) {
+        return false;
+    }
+
     return true;
 }

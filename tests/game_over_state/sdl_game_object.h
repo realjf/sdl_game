@@ -12,11 +12,17 @@ public:
     virtual void update();
     virtual void clean();
 
+    Vector2D getPosition() const { return m_position; }
+    int getWidth() const { return m_width; }
+    int getHeight() const { return m_height; }
+    float getScale() const { return m_scale; }
+
 protected:
     std::string m_textureID;
 
     int m_currentFrame;
     int m_currentRow;
+    int m_numFrames;
 
     int m_width;
     int m_height;
