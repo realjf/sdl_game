@@ -22,3 +22,9 @@
 	branch = SDL2
 	update = checkout
 	ignore = dirty
+[submodule "deps/spdlog"]
+	path = deps/spdlog
+	url = https://github.com/gabime/spdlog.git
+	branch = v1.x
+	update = checkout
+	ignore = dirty
