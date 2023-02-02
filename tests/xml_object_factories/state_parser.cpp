@@ -60,20 +60,36 @@ void StateParser::parseObjects(TiXmlElement *pStateRoot, std::vector<GameObject 
         int x, y, width, height, numFrames, callbackID, animSpeed;
         double scale;
         std::string textureID;
+        bool collision = false;
 
         e->Attribute("x", &x);
         e->Attribute("y", &y);
         e->Attribute("width", &width);
         e->Attribute("height", &height);
         e->Attribute("numFrames", &numFrames);
-        e->Attribute("callbackID", &callbackID);
-        e->Attribute("animSpeed", &animSpeed);
-        e->Attribute("scale", &scale);
+        if (e->HasAttribute("callbackID") == TIXML_NO_ATTRIBUTE) {
+            callbackID = 0;
+        } else {
+            e->Attribute("callbackID", &callbackID);
+        }
+        if (e->HasAttribute("scale") == TIXML_NO_ATTRIBUTE) {
+            scale = 1.0f;
+        } else {
+            e->Attribute("scale", &scale);
+        }
+        if (e->HasAttribute("animSpeed") == TIXML_NO_ATTRIBUTE) {
+            animSpeed = 0;
+        } else {
+            e->Attribute("animSpeed", &animSpeed);
+        }
+        if (e->HasAttribute("collision") == TIXML_SUCCESS) {
+            collision = true;
+        }
 
         textureID = e->Attribute("textureID");
 
         GameObject *pGameObject = TheGameObjectFactory::Instance()->create(e->Attribute("type"));
-        pGameObject->load(new LoaderParams(x, y, width, height, textureID, numFrames, callbackID, animSpeed, scale));
+        pGameObject->load(new LoaderParams(x, y, width, height, textureID, numFrames, callbackID, animSpeed, scale, collision));
         pObjects->push_back(pGameObject);
     }
 }

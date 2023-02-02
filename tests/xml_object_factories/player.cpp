@@ -29,6 +29,9 @@ void Player::update() {
         m_velocity.setY(-2);
     }
 
+    m_velocity += m_acceleration;
+    m_position += m_velocity;
+
     handleInput();
 
     // only for helicopter417x143.png

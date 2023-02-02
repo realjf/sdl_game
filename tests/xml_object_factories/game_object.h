@@ -12,6 +12,9 @@ public:
     // load
     virtual void load(const LoaderParams *pParams) = 0;
 
+    // draw collision rect
+    virtual void drawCollisionRect() = 0;
+
 protected:
     GameObject() {}
     virtual ~GameObject() {}

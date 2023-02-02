@@ -10,12 +10,14 @@ void SDLGameObject::draw(bool flip) {
     } else {
         TextureManager::Instance()->drawFrame(m_textureID, (Uint32)m_position.getX(), (Uint32)m_position.getY(), m_width, m_height, m_scale, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer());
     }
-    // TheTextureManager::Instance()->drawFrame(m_textureID, (int)m_position.getX(), (int)m_position.getY(), m_width, m_height, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer());
+    if (m_collision) {
+        drawCollisionRect();
+    }
 }
 
 void SDLGameObject::update() {
-    m_velocity += m_acceleration;
-    m_position += m_velocity;
+    // m_velocity += m_acceleration;
+    // m_position += m_velocity;
     // m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 }
 
@@ -32,7 +34,28 @@ void SDLGameObject::load(const LoaderParams *pParams) {
     m_scale = pParams->getScale();
     m_numFrames = pParams->getNumFrames();
     m_textureID = pParams->getTextureID();
+    m_animSpeed = pParams->getAnimSpeed();
+    m_callbackID = pParams->getCallbackID();
+    m_collision = pParams->getCollision();
 
     m_currentFrame = 1;
     m_currentRow = 1;
+}
+
+void SDLGameObject::drawCollisionRect() {
+    int left, right, top, bottom;
+
+    SDL_Rect *rect = new SDL_Rect();
+
+    // collision sides
+    rect->x = m_position.getX();
+    rect->w = m_width * m_scale;
+    rect->y = m_position.getY();
+    rect->h = m_height * m_scale;
+
+    Uint8 r, g, b, a;
+    SDL_GetRenderDrawColor(TheGame::Instance()->getRenderer(), &r, &g, &b, &a);
+    SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), 0, 255, 0, 255);
+    SDL_RenderDrawRect(TheGame::Instance()->getRenderer(), rect);
+    SDL_SetRenderDrawColor(TheGame::Instance()->getRenderer(), r, g, b, a);
 }

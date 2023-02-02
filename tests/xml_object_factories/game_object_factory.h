@@ -57,6 +57,6 @@ private:
 
 typedef GameObjectFactory TheGameObjectFactory;
 
-GameObjectFactory *GameObjectFactory::s_pInstance = 0;
+
 
 #endif /* _GAME_OBJECT_FACTORY_H_ */

@@ -9,9 +9,9 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="MenuButton" x="100" y="100" width="400" height="100"
+            <object type="MenuButton" x="100" y="100" width="258" height="72"
                 textureID="playbutton" numFrames="0" callbackID="1" />
-            <object type="MenuButton" x="100" y="300" width="400" height="100"
+            <object type="MenuButton" x="100" y="300" width="243" height="64"
                 textureID="exitbutton" numFrames="0" callbackID="2" />
         </OBJECTS>
     </MENU>
@@ -25,12 +25,12 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="Player" x="500" y="100" width="200" height="100"
-                textureID="helicopter" numFrames="4" callbackID="1" scale="0.2f" />
-            <object type="Enemy" x="100" y="300" width="200" height="100"
-                textureID="helicopter1" numFrames="5" callbackID="2" scale="0.2f" />
-            <object type="Enemy" x="100" y="300" width="200" height="100"
-                textureID="helicopter2" numFrames="5" callbackID="3" scale="0.2f" />
+            <object type="Player" x="500" y="100" width="417" height="143"
+                textureID="helicopter" numFrames="4" callbackID="1" scale="0.2f" collision="true" />
+            <object type="Enemy" x="100" y="300" width="207" height="92"
+                textureID="helicopter1" numFrames="5" callbackID="2" scale="0.2f" collision="true" />
+            <object type="Enemy" x="100" y="300" width="207" height="92"
+                textureID="helicopter2" numFrames="5" callbackID="3" scale="0.2f" collision="true" />
         </OBJECTS>
     </PLAY>
 
@@ -42,9 +42,9 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="MenuButton" x="200" y="100" width="400" height="100"
+            <object type="MenuButton" x="200" y="100" width="284" height="116"
                 textureID="mainmenubutton" numFrames="0" callbackID="1" />
-            <object type="MenuButton" x="200" y="300" width="400" height="100"
+            <object type="MenuButton" x="200" y="300" width="284" height="116"
                 textureID="resumebutton" numFrames="0" callbackID="2" />
         </OBJECTS>
     </PAUSE>
@@ -58,11 +58,11 @@
         </TEXTURES>
 
         <OBJECTS>
-            <object type="AnimatedGraphic" x="200" y="100" width="190" height="30"
+            <object type="AnimatedGraphic" x="200" y="100" width="405" height="65"
                 textureID="gameovertext" numFrames="2" animSpeed="2" />
-            <object type="MenuButton" x="200" y="200" width="200" height="80"
+            <object type="MenuButton" x="200" y="200" width="284" height="116"
                 textureID="mainmenubutton" numFrames="0" callbackID="1" />
-            <object type="MenuButton" x="200" y="300" width="200" height="80"
+            <object type="MenuButton" x="200" y="300" width="284" height="113"
                 textureID="restartbutton" numFrames="0" callbackID="2" />
         </OBJECTS>
     </GAMEOVER>

@@ -113,13 +113,11 @@ void PauseState::setCallbacks(const std::vector<Callback> &callbacks) {
 }
 
 void PauseState::s_pauseToMain() {
-    // TheGame::Instance()->getStateMachine()->changeState(new MainMenuState());
     TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(CHANGE, new MainMenuState()));
     std::cout << "pause to main\n";
 }
 
 void PauseState::s_resumePlay() {
-    // TheGame::Instance()->getStateMachine()->popState();
     TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(POP));
     std::cout << "resume play\n";
 }

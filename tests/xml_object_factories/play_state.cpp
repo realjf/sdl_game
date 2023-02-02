@@ -12,7 +12,6 @@ const std::string PlayState::s_playID = "PLAY";
 
 void PlayState::update() {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
-        // TheGame::Instance()->getStateMachine()->pushState(new PauseState());
         TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new PauseState()));
     }
     if (!m_isExit) {
@@ -25,11 +24,11 @@ void PlayState::update() {
         // }
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
+            if (i > 0 && checkCollision(dynamic_cast<SDLGameObject *>(m_gameObjects[0]), dynamic_cast<SDLGameObject *>(m_gameObjects[i]))) {
+                TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new GameOverState()));
+            }
         }
 
-        if (checkCollision(dynamic_cast<SDLGameObject *>(m_gameObjects[0]), dynamic_cast<SDLGameObject *>(m_gameObjects[1]))) {
-            TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new GameOverState()));
-        }
         play_mutex.unlock();
     }
 }
@@ -103,15 +102,15 @@ bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2) {
     int bottomA, bottomB;
 
     leftA = p1->getPosition().getX();
-    rightA = p1->getPosition().getX() + p1->getWidth();
+    rightA = p1->getPosition().getX() + p1->getWidth() * p1->getScale();
     topA = p1->getPosition().getY();
-    bottomA = p1->getPosition().getY() + p1->getHeight();
+    bottomA = p1->getPosition().getY() + p1->getHeight() * p1->getScale();
 
     // calculate the sides of rect B
     leftB = p2->getPosition().getX();
-    rightB = p2->getPosition().getX() + p2->getWidth();
+    rightB = p2->getPosition().getX() + p2->getWidth() * p2->getScale();
     topB = p2->getPosition().getY();
-    bottomB = p2->getPosition().getY() + p2->getHeight();
+    bottomB = p2->getPosition().getY() + p2->getHeight() * p2->getScale();
 
     // if any of the sides from A are outside of B
     if (bottomA <= topB) {

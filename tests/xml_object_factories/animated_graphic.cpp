@@ -4,7 +4,8 @@ AnimatedGraphic::AnimatedGraphic() : SDLGameObject() {
 }
 
 void AnimatedGraphic::update() {
-    m_currentFrame = int(((SDL_GetTicks() / (1000 / m_animSpeed)) % m_numFrames));
+    std::cout << "AnimatedGraphic update: " << m_animSpeed << "," << m_numFrames << std::endl;
+    m_currentFrame = int((SDL_GetTicks() / (1000 / m_animSpeed)) % m_numFrames);
 }
 
 void AnimatedGraphic::draw() {

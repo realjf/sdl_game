@@ -56,22 +56,6 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
-    // if (!TheTextureManager::Instance()->load("assets/images/goku_148x117.png", "goku", m_pRenderer)) {
-    //     std::cout << "load png fail\n";
-    //     return false;
-    // }
-
-    // if (!TheTextureManager::Instance()->load("assets/images/piccolo_125x125.png", "piccolo", m_pRenderer)) {
-    //     std::cout << "load png fail\n";
-    //     return false;
-    // }
-
-    // // init game objects
-    // m_gameObjects.push_back(new Player(new LoaderParams(100, 100, 148, 117, "goku")));
-    // m_gameObjects.push_back(new Enemy(new LoaderParams(100, 100, 125, 125, "piccolo")));
-    // m_gameObjects.push_back(new Enemy(new LoaderParams(200, 100, 125, 125, "piccolo")));
-    // m_gameObjects.push_back(new Enemy(new LoaderParams(300, 100, 125, 125, "piccolo")));
-
     TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
     TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());

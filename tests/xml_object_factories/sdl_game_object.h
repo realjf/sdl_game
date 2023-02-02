@@ -12,6 +12,7 @@ public:
     virtual void update();
     virtual void clean();
     virtual void load(const LoaderParams *pParams);
+    virtual void drawCollisionRect();
 
     Vector2D getPosition() const { return m_position; }
     int getWidth() const { return m_width; }
@@ -20,6 +21,7 @@ public:
     int getCallbackID() const { return m_callbackID; }
     int getAnimSpeed() const { return m_animSpeed; }
     int getNumFrames() const { return m_numFrames; }
+    int getCollision() const { return m_collision; }
 
 protected:
     std::string m_textureID;
@@ -27,6 +29,7 @@ protected:
     int m_currentFrame;
     int m_currentRow;
     int m_numFrames;
+    int m_collision; // draw collision rect
 
     int m_callbackID;
     int m_animSpeed;
