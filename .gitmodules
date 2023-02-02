@@ -28,3 +28,9 @@
 	branch = v1.x
 	update = checkout
 	ignore = dirty
+[submodule "deps/tinyxml"]
+	path = deps/tinyxml
+	url = https://github.com/realjf/tinyxml.git
+	branch = master
+	update = checkout
+	ignore = dirty

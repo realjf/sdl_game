@@ -42,6 +42,7 @@ include_directories(deps/SDL2/include)
 include_directories(deps/logc/include)
 include_directories(deps/SDLIMG)
 include_directories(deps/SDLTTF)
+include_directories(deps/tinyxml)
 # include_directories(${SDL2_INCLUDE_DIR})
 
 

@@ -73,9 +73,5 @@
         "future": "cpp",
         "shared_mutex": "cpp",
         "queue": "cpp"
-    },
-    "disabled": [
-    ],
-    "enabled": [
-    ]
+    }
 }

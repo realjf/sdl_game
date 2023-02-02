@@ -4,19 +4,21 @@
             "name": "Linux",
             "includePath": [
                 "${default}",
-                "${workspaceFolder}/src/**",
-                "${workspaceFolder}/tests/**",
+                "${workspaceFolder}/src/",
+                "${workspaceFolder}/tests/",
                 "${workspaceFolder}/deps/SDL2/include",
-                "${workspaceFolder}/deps/logc/include",
-                "${workspaceFolder}/deps/SDLIMG",
-                "${workspaceFolder}/tests/include/**",
-                "${workspaceFolder}/deps/SDLTTF"
+                "${workspaceFolder}/deps/logc/include/",
+                "${workspaceFolder}/deps/SDLIMG/",
+                "${workspaceFolder}/tests/include/",
+                "${workspaceFolder}/deps/SDLTTF/",
+                "${workspaceFolder}/deps/tinyxml/"
             ],
-            "defines": [ ],
+            "defines": [],
             "compilerPath": "/usr/bin/gcc-11",
             "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-gcc-x64"
+            "cppStandard": "c++11",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4
