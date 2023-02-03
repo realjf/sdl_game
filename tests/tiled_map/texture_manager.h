@@ -27,6 +27,8 @@ public:
 
     void drawFrame(std::string id, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+    void drawTile(std::string id, int margin, int spacing, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer);
+
     void clearFromTextureMap(std::string id) {
         m_textureMap.erase(id);
     }

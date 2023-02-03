@@ -9,6 +9,8 @@ sdl game demo
 - [SDL_image SDL2/release-2.6.2](https://github.com/libsdl-org/SDL_image.git)
 - [SDL_ttf SDL2/release-2.20.1](https://github.com/libsdl-org/SDL_ttf.git)
 - [spdlog v1.x/v1.11.0](https://github.com/gabime/spdlog.git)
+- [base64](https://github.com/ReneNyffenegger/cpp-base64.git)
+- [zlib v1.2.13](https://github.com/madler/zlib.git)
 
 ### Build
 

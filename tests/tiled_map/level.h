@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "layer.h"
-#include "level_parser.h"
 
 struct Tileset {
     int firstGridID;
@@ -15,8 +14,11 @@ struct Tileset {
     int width;
     int height;
     int numColumns;
+    int count;
     std::string name;
 };
+
+class LevelParser;
 
 class Level {
 public:

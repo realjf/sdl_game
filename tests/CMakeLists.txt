@@ -34,6 +34,8 @@ include_directories(${PROJECT_ROOT_PATH}deps/logc/include)
 include_directories(${PROJECT_ROOT_PATH}deps/SDLIMG)
 include_directories(${PROJECT_ROOT_PATH}deps/SDLTTF)
 include_directories(${PROJECT_ROOT_PATH}deps/tinyxml)
+include_directories(${PROJECT_ROOT_PATH}deps/base64)
+include_directories(${PROJECT_ROOT_PATH}deps/zlib)
 
 # include_directories(${SDL2_INCLUDE_DIR})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -g")

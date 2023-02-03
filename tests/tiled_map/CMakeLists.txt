@@ -9,8 +9,8 @@ project(${PROJECT_NAME} LANGUAGES C CXX)
 file(GLOB_RECURSE SRC_FILES LIST_DIRECTORIES false RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c??)
 file(GLOB_RECURSE HEADER_FILES LIST_DIRECTORIES false RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h??)
 
-add_executable(${PROJECT_NAME} ${SRC_FILES} ${HEADER_FILES})
+add_executable(${PROJECT_NAME} ${SRC_FILES} ${HEADER_FILES} ${CMAKE_CURRENT_SOURCE_DIR}/../../deps/base64/base64.h ${CMAKE_CURRENT_SOURCE_DIR}/../../deps/base64/base64.cpp)
 
 target_link_directories(${PROJECT_NAME} PUBLIC ${LIBRARY_OUTPUT_PATH})
 target_include_directories(${PROJECT_NAME} PUBLIC)
-target_link_libraries(${PROJECT_NAME} SDL2 SDL2_image-2.0 pthread SDL2_ttf-2.0 tinyxml-1.0)
+target_link_libraries(${PROJECT_NAME} SDL2 SDL2_image-2.0 pthread SDL2_ttf-2.0 tinyxml-1.0 z)

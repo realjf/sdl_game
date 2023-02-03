@@ -28,7 +28,7 @@ void PlayState::update() {
                 TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new GameOverState()));
             }
         }
-
+        pLevel->update();
         play_mutex.unlock();
     }
 }
@@ -45,6 +45,7 @@ void PlayState::render() {
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
+        pLevel->render();
         play_mutex.unlock();
     }
 }
@@ -57,6 +58,9 @@ bool PlayState::onEnter() {
     // if (wl.owns_lock() == false) {
     //     return false;
     // }
+
+    LevelParser levelParser;
+    pLevel = levelParser.parseLevel("assets/levels/map2/map2.tmx");
 
     // parse the state
     StateParser stateParser;

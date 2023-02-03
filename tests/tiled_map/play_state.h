@@ -8,6 +8,9 @@
 #include <shared_mutex>
 #include "lock/shared_recursive_mutex.h"
 #include "sdl_game_object.h"
+#include "level_parser.h"
+#include "level.h"
+#include "tile_layer.h"
 
 class PlayState : public GameState {
 public:
@@ -29,6 +32,8 @@ private:
     std::vector<GameObject *> m_gameObjects;
     bool m_isExit = false;
     SharedRecursiveMutex play_mutex;
+
+    Level *pLevel;
 };
 
 #endif /* _PLAY_STATE_H_ */

@@ -1,8 +1,9 @@
 #ifndef _TILE_LAYER_H_
 #define _TILE_LAYER_H_
 
-#include "layer.h"
 #include "vector_2d.h"
+#include <vector>
+#include "level.h"
 
 class TileLayer : public Layer {
 public:
@@ -25,6 +26,7 @@ private:
     int m_numColumns;
     int m_numRows;
     int m_tileSize;
+    float m_scale = 1.0f;
 
     Vector2D m_position;
     Vector2D m_velocity;

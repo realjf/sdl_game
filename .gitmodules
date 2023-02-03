@@ -34,3 +34,15 @@
 	branch = master
 	update = checkout
 	ignore = dirty
+[submodule "deps/base64"]
+	path = deps/base64
+	url = https://github.com/ReneNyffenegger/cpp-base64.git
+	branch = master
+	update = checkout
+	ignore = dirty
+[submodule "deps/zlib"]
+	path = deps/zlib
+	url = https://github.com/madler/zlib.git
+	branch = master
+	update = checkout
+	ignore = dirty

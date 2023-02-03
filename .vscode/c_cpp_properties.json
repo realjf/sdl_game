@@ -11,7 +11,9 @@
                 "${workspaceFolder}/deps/SDLIMG/",
                 "${workspaceFolder}/tests/include/",
                 "${workspaceFolder}/deps/SDLTTF/",
-                "${workspaceFolder}/deps/tinyxml/"
+                "${workspaceFolder}/deps/tinyxml/",
+                "${workspaceFolder}/deps/base64/",
+                "${workspaceFolder}/deps/zlib/"
             ],
             "browse": {
                 "path": [
@@ -23,7 +25,9 @@
                     "${workspaceFolder}/deps/SDLIMG/",
                     "${workspaceFolder}/tests/include/",
                     "${workspaceFolder}/deps/SDLTTF/",
-                    "${workspaceFolder}/deps/tinyxml/"
+                    "${workspaceFolder}/deps/tinyxml/",
+                    "${workspaceFolder}/deps/base64/",
+                    "${workspaceFolder}/deps/zlib/"
                 ]
             },
             "defines": [ ],

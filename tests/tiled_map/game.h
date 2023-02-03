@@ -53,6 +53,9 @@ public:
         return m_pGameStateMachine;
     }
 
+    int getGameWidth() const { return m_gameWidth; }
+    int getGameHeight() const { return m_gameHeight; }
+
 private:
     static Game *s_pInstance;
     bool m_bRunning;
@@ -68,6 +71,9 @@ private:
     GameStateMachine *m_pGameStateMachine;
 
     TTF_Font *m_font;
+
+    int m_gameWidth;
+    int m_gameHeight;
 };
 
 typedef Game TheGame;
