@@ -1,14 +1,11 @@
 cmake_minimum_required(VERSION 3.12)
 
-
-
 set(PROJECT_ROOT_PATH ../)
 
 set(SDLGAME_MAJOR_VERSION 0)
 set(SDLGAME_MINOR_VERSION 0)
 set(SDLGAME_MICRO_VERSION 1)
 set(SDLGAME_VERSION "${SDLGAME_MAJOR_VERSION}.${SDLGAME_MINOR_VERSION}.${SDLGAME_MICRO_VERSION}")
-
 
 # if(CMAKE_VERSION VERSION_GREATER 3.12)
 # set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
@@ -30,8 +27,6 @@ include(${PROJECT_ROOT_PATH}cmake/comm_macros.cmake)
 
 # sdl
 # include(${PROJECT_ROOT_PATH}cmake/findsdl.cmake)
-
-
 include_directories(.)
 include_directories(./include)
 include_directories(${PROJECT_ROOT_PATH}deps/SDL2/include)
@@ -41,7 +36,6 @@ include_directories(${PROJECT_ROOT_PATH}deps/SDLTTF)
 include_directories(${PROJECT_ROOT_PATH}deps/tinyxml)
 
 # include_directories(${SDL2_INCLUDE_DIR})
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -g")
 
 # add_subdirectory(hello)
@@ -59,6 +53,5 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile -g")
 # add_subdirectory(menu_state)
 # add_subdirectory(pause_state)
 # add_subdirectory(game_over_state)
-add_subdirectory(xml_object_factories)
-
-
+# add_subdirectory(xml_object_factories)
+add_subdirectory(tiled_map)

@@ -13,7 +13,20 @@
                 "${workspaceFolder}/deps/SDLTTF/",
                 "${workspaceFolder}/deps/tinyxml/"
             ],
-            "defines": [],
+            "browse": {
+                "path": [
+                    "${default}",
+                    "${workspaceFolder}/src/",
+                    "${workspaceFolder}/tests/",
+                    "${workspaceFolder}/deps/SDL2/include",
+                    "${workspaceFolder}/deps/logc/include/",
+                    "${workspaceFolder}/deps/SDLIMG/",
+                    "${workspaceFolder}/tests/include/",
+                    "${workspaceFolder}/deps/SDLTTF/",
+                    "${workspaceFolder}/deps/tinyxml/"
+                ]
+            },
+            "defines": [ ],
             "compilerPath": "/usr/bin/gcc-11",
             "cStandard": "c17",
             "cppStandard": "c++11",
