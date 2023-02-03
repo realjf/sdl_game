@@ -63,8 +63,8 @@ void TextureManager::drawTile(std::string id, int margin, int spacing, int x, in
     srcRect.y = margin + (spacing + height) * currentRow;
     srcRect.w = width;
     srcRect.h = height;
-    destRect.w = width * scale;
-    destRect.h = height * scale;
+    destRect.w = width;
+    destRect.h = height;
     destRect.x = x;
     destRect.y = y;
 

@@ -22,13 +22,14 @@ void PlayState::update() {
         // if (rl.owns_lock() == false) {
         //     return;
         // }
+        pLevel->update();
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
             if (i > 0 && checkCollision(dynamic_cast<SDLGameObject *>(m_gameObjects[0]), dynamic_cast<SDLGameObject *>(m_gameObjects[i]))) {
                 TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new GameOverState()));
             }
         }
-        pLevel->update();
+
         play_mutex.unlock();
     }
 }
@@ -38,6 +39,7 @@ void PlayState::render() {
         if (!play_mutex.try_lock()) {
             return;
         }
+        pLevel->render();
         // std::shared_lock<std::recursive_mutex> rl(play_mutex, std::try_to_lock);
         // if (rl.owns_lock() == false) {
         //     return;
@@ -45,7 +47,7 @@ void PlayState::render() {
         for (int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
-        pLevel->render();
+
         play_mutex.unlock();
     }
 }

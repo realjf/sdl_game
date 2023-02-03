@@ -72,6 +72,7 @@
         "bitset": "cpp",
         "future": "cpp",
         "shared_mutex": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "filesystem": "cpp"
     }
 }
