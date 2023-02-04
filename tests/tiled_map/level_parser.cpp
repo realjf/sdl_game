@@ -50,8 +50,7 @@ void LevelParser::parseEmbedTilesets(TiXmlElement *pTilesetRoot, std::vector<Til
 
     // embed in map
     // first and the tileset to texture manager
-    TheTextureManager::Instance()
-        ->load(pTilesetRoot->FirstChildElement()->Attribute("source"), pTilesetRoot->Attribute("name"), TheGame::Instance()->getRenderer());
+    TheTextureManager::Instance()->load(getLevelDir() + "/" + pTilesetRoot->FirstChildElement()->Attribute("source"), pTilesetRoot->Attribute("name"), TheGame::Instance()->getRenderer());
 
     // create a tileset object
     Tileset tileset;

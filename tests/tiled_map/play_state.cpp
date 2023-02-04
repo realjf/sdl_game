@@ -62,7 +62,7 @@ bool PlayState::onEnter() {
     // }
 
     LevelParser levelParser;
-    pLevel = levelParser.parseLevel("assets/levels/map3/map.tmx");
+    pLevel = levelParser.parseLevel("assets/levels/map2/map.tmx");
 
     // parse the state
     StateParser stateParser;
