@@ -20,6 +20,10 @@ public:
         m_tileSize = tileSize;
     }
 
+    void setScale(float scale) {
+        m_scale = scale;
+    }
+
     Tileset getTilesetByID(int tileID);
 
 private:

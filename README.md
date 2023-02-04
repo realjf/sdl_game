@@ -11,6 +11,7 @@ sdl game demo
 - [spdlog v1.x/v1.11.0](https://github.com/gabime/spdlog.git)
 - [base64](https://github.com/ReneNyffenegger/cpp-base64.git)
 - [zlib v1.2.13](https://github.com/madler/zlib.git)
+- [tinyxml](https://github.com/realjf/tinyxml.git)
 
 ### Build
 

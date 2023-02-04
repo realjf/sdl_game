@@ -19,6 +19,8 @@ void TileLayer::render() {
     x2 = int(m_position.getX()) % m_tileSize;
     y2 = int(m_position.getY()) % m_tileSize;
 
+    m_scale = TheGame::Instance()->getGameWidth() / TheGame::Instance()->getGameHeight();
+
     for (int i = 0; i < m_numRows; i++) {
         for (int j = 0; j < m_numColumns; j++) {
             int id = m_tileIDs[i][j + x];

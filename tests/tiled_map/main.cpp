@@ -4,10 +4,12 @@
 
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
+const int WINDOW_WIDTH = 1028;
+const int WINDOW_HEIGHT = 720;
 
 int main(int argc, char **argv) {
     Uint32 frameStart, frameTime;
-    if (!TheGame::Instance()->init("animate", 100, 100, 640, 480, false)) {
+    if (!TheGame::Instance()->init("animate", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT, false)) {
         std::cout << "game init failure - " << SDL_GetError() << "\n";
         return -1;
     }
