@@ -4,7 +4,7 @@
 
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
-const int WINDOW_WIDTH = 1028;
+const int WINDOW_WIDTH = 1040;
 const int WINDOW_HEIGHT = 720;
 
 int main(int argc, char **argv) {
