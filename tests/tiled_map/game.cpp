@@ -46,7 +46,7 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     }
 
     m_font = TTF_OpenFont("assets/fonts/04B_08.ttf", FONT_SIZE);
-    if (!m_font) {
+    if (m_font == 0) {
         std::cout << "Error loading font: " << TTF_GetError() << std::endl;
         return false;
     }

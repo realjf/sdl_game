@@ -4,8 +4,8 @@
 
 const int FPS = 60;
 const int DELAY_TIME = 1000.0f / FPS;
-const int WINDOW_WIDTH = 1040;
-const int WINDOW_HEIGHT = 720;
+const int WINDOW_WIDTH = 1000; // 25 * 40
+const int WINDOW_HEIGHT = 720; // 18 * 40
 
 int main(int argc, char **argv) {
     Uint32 frameStart, frameTime;

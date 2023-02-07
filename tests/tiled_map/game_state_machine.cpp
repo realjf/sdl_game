@@ -125,6 +125,11 @@ void GameStateMachine::deEventQueue() {
             case CHANGE:
                 changeState(std::move(event->getState()));
                 break;
+            case UPDATE:
+            case RENDER:
+                break;
+            default:
+                break;
             }
         }
         m_eventQueue.pop();

@@ -2,9 +2,16 @@
 #include "game.h"
 #include "texture_manager.h"
 
-TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets) : m_tileSize(tileSize), m_tilesets(tilesets), m_position(0, 0), m_velocity(0, 0) {
+TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets) : m_numColumns(0),
+                                                                           m_numRows(0),
+                                                                           m_tileSize(tileSize),
+                                                                           m_scale(1.0f),
+                                                                           m_position(0, 0),
+                                                                           m_velocity(0, 0),
+                                                                           m_tilesets(tilesets) {
     m_numColumns = (TheGame::Instance()->getGameWidth() / m_tileSize);
     m_numRows = (TheGame::Instance()->getGameHeight() / m_tileSize);
+    m_tileIDs = {{0}};
 }
 
 void TileLayer::update() {
@@ -26,12 +33,15 @@ void TileLayer::render() {
     for (int i = 0; i < m_numRows; i++) {
         for (int j = 0; j < m_numColumns; j++) {
             int id = m_tileIDs[i + y][j + x];
-            if (id == 0 || id < 0) {
+            if (id == 0) {
                 continue;
             }
-
+            std::cout << "id ================== " << id << std::endl;
             Tileset tileset = getTilesetByID(id);
-
+            std::cout << "count ================== " << tileset.count << std::endl;
+            if (tileset.firstGridID == -1 || id > tileset.count) {
+                continue;
+            }
             id--;
 
             TheTextureManager::Instance()->drawTile(tileset.name, tileset.margin, tileset.spacing, (j * m_tileSize) - x2, (i * m_tileSize) - y2, m_tileSize, m_tileSize, m_scale, (id - (tileset.firstGridID - 1)) / tileset.numColumns, (id - (tileset.firstGridID - 1)) % tileset.numColumns, TheGame::Instance()->getRenderer());
@@ -40,17 +50,19 @@ void TileLayer::render() {
 }
 
 Tileset TileLayer::getTilesetByID(int tileID) {
-    for (int i = 0; i < m_tilesets.size(); i++) {
-        if (i + 1 <= m_tilesets.size() - 1) {
-            if (tileID >= m_tilesets[i].firstGridID && tileID < m_tilesets[i + 1].firstGridID) {
-                return m_tilesets[i];
+    int size = m_tilesets.size();
+    for (int i = 0; i < size; i++) {
+        if (i + 1 <= size - 1) {
+            if (tileID >= m_tilesets[i + 1].firstGridID && tileID < m_tilesets[i + 1].firstGridID) {
+                return m_tilesets[i + 1];
             }
         } else {
-            return m_tilesets[i];
+            // return m_tilesets[i];
         }
     }
 
     std::cout << "did not find tileset, returning empty tileset\n";
     Tileset t;
+    t.firstGridID = -1;
     return t;
 }

@@ -16,7 +16,7 @@ void MainMenuState::update() {
         // if (rl.owns_lock() == false) {
         //     return;
         // }
-        for (int i = 0; i < m_gameObjects.size(); i++) {
+        for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
         }
         menu_mutex.unlock();
@@ -32,7 +32,7 @@ void MainMenuState::render() {
         // if (rl.owns_lock() == false) {
         //     return;
         // }
-        for (int i = 0; i < m_gameObjects.size(); i++) {
+        for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
         menu_mutex.unlock();
@@ -73,14 +73,14 @@ bool MainMenuState::onExit() {
     //     return false;
     // }
     m_isExit = true;
-    for (int i = 0; i < m_gameObjects.size(); i++) {
+    for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }
 
     m_gameObjects.clear();
 
     // clear the texture manager
-    for (int i = 0; i < m_textureIDList.size(); i++) {
+    for (unsigned int i = 0; i < m_textureIDList.size(); i++) {
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
     }
 
@@ -98,7 +98,7 @@ void MainMenuState::setCallbacks(const std::vector<Callback> &callbacks) {
             return;
         }
         // go through the game objects
-        for (int i = 0; i < m_gameObjects.size(); i++) {
+        for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
             // if they are of type MenuButton then assign a callback based on the id passed in from the file
             if (dynamic_cast<MenuButton *>(m_gameObjects[i])) {
                 MenuButton *pButton = dynamic_cast<MenuButton *>(m_gameObjects[i]);

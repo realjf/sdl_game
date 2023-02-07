@@ -23,7 +23,7 @@ void PlayState::update() {
         //     return;
         // }
         pLevel->update();
-        for (int i = 0; i < m_gameObjects.size(); i++) {
+        for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
             if (i > 0 && checkCollision(dynamic_cast<SDLGameObject *>(m_gameObjects[0]), dynamic_cast<SDLGameObject *>(m_gameObjects[i]))) {
                 TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new GameOverState()));
@@ -44,7 +44,7 @@ void PlayState::render() {
         // if (rl.owns_lock() == false) {
         //     return;
         // }
-        for (int i = 0; i < m_gameObjects.size(); i++) {
+        for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->draw();
         }
 
@@ -83,13 +83,13 @@ bool PlayState::onExit() {
     //     return false;
     // }
     m_isExit = true;
-    for (int i = 0; i < m_gameObjects.size(); i++) {
+    for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
 
     // clear the texture manager
-    for (int i = 0; i < m_textureIDList.size(); i++) {
+    for (unsigned int i = 0; i < m_textureIDList.size(); i++) {
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIDList[i]);
     }
 

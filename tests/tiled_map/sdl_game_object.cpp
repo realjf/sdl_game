@@ -43,8 +43,6 @@ void SDLGameObject::load(const LoaderParams *pParams) {
 }
 
 void SDLGameObject::drawCollisionRect() {
-    int left, right, top, bottom;
-
     SDL_Rect *rect = new SDL_Rect();
 
     // collision sides

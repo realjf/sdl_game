@@ -85,17 +85,16 @@ public:
     }
 
 private:
-    Vector2D *m_mousePosition;
-
-private:
     InputHandler() : m_keystates(0), m_mousePosition(new Vector2D(0, 0)) {
         for (int i = 0; i < 3; i++) {
             m_mouseButtonStates.push_back(false);
         }
     };
 
-    std::vector<bool> m_mouseButtonStates;
+private:
     const Uint8 *m_keystates;
+    Vector2D *m_mousePosition;
+    std::vector<bool> m_mouseButtonStates;
 
     static InputHandler *s_pInstance;
     mutable std::recursive_mutex mouse_mutex;
