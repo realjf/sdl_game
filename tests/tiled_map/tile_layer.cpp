@@ -18,17 +18,18 @@ TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &ti
 }
 
 void TileLayer::update() {
-    m_position += m_velocity;
     // scrolling a tile map
     m_velocity.setX(1);
+    m_position.setX(m_position.getX() + m_velocity.getX());
+    m_position.setY(0);
 }
 
 void TileLayer::render() {
     int x, y, x2, y2 = 0;
-    x = ceil(m_position.getX() / m_tileSize);
-    y = ceil(m_position.getY() / m_tileSize);
-    x2 = int(ceil(m_position.getX())) % m_tileSize;
-    y2 = int(ceil(m_position.getY())) % m_tileSize;
+    x = m_position.getX() / m_tileSize;
+    y = m_position.getY() / m_tileSize;
+    x2 = int(m_position.getX()) % m_tileSize;
+    y2 = int(m_position.getY()) % m_tileSize;
 
     m_scale = TheGame::Instance()->getGameWidth() / TheGame::Instance()->getGameHeight();
 
