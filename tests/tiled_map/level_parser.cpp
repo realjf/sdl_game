@@ -112,7 +112,11 @@ void LevelParser::parseTileLayer(TiXmlElement *pTileElement, std::vector<Layer *
 
     for (int rows = 0; rows < m_height; rows++) {
         for (int cols = 0; cols < m_width; cols++) {
-            data[rows][cols] = gids[rows * m_width + cols];
+            if (gids[rows * m_width + cols]) {
+                data[rows][cols] = gids[rows * m_width + cols];
+            } else {
+                data[rows][cols] = 0;
+            }
         }
     }
 

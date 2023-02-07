@@ -1,6 +1,7 @@
 #include "tile_layer.h"
 #include "game.h"
 #include "texture_manager.h"
+#include <cmath>
 
 TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &tilesets) : m_numColumns(0),
                                                                                           m_numRows(0),
@@ -12,7 +13,8 @@ TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &ti
                                                                                           m_tilesets(tilesets) {
     m_numColumns = (TheGame::Instance()->getGameWidth() / m_tileSize);
     m_numRows = (TheGame::Instance()->getGameHeight() / m_tileSize);
-    m_tileIDs = {{0}};
+    std::vector<std::vector<int>> tileIDs(m_numRows, std::vector<int>(m_numColumns));
+    m_tileIDs = tileIDs;
 }
 
 void TileLayer::update() {
@@ -23,28 +25,27 @@ void TileLayer::update() {
 
 void TileLayer::render() {
     int x, y, x2, y2 = 0;
-    x = m_position.getX() / m_tileSize;
-    y = m_position.getY() / m_tileSize;
-
-    x2 = int(m_position.getX()) % m_tileSize;
-    y2 = int(m_position.getY()) % m_tileSize;
+    x = ceil(m_position.getX() / m_tileSize);
+    y = ceil(m_position.getY() / m_tileSize);
+    x2 = int(ceil(m_position.getX())) % m_tileSize;
+    y2 = int(ceil(m_position.getY())) % m_tileSize;
 
     m_scale = TheGame::Instance()->getGameWidth() / TheGame::Instance()->getGameHeight();
 
     for (int i = 0; i < m_numRows; i++) {
         for (int j = 0; j < m_numColumns; j++) {
             int id = m_tileIDs[i + y][j + x];
-            if (id == 0 || id > m_tileCount) {
+            if (id <= 0) {
                 continue;
             }
             std::cout << "id ================== " << id << std::endl;
             Tileset tileset = getTilesetByID(id);
-            std::cout << "count ================== " << tileset.count << std::endl;
-            if (tileset.firstGridID == -1 || tileset.count > m_tileCount) {
+
+            if (id > tileset.count) {
                 continue;
             }
             id--;
-
+            std::cout << "count ================== " << tileset.count << std::endl;
             TheTextureManager::Instance()->drawTile(tileset.name, tileset.margin, tileset.spacing, (j * m_tileSize) - x2, (i * m_tileSize) - y2, m_tileSize, m_tileSize, m_scale, (id - (tileset.firstGridID - 1)) / tileset.numColumns, (id - (tileset.firstGridID - 1)) % tileset.numColumns, TheGame::Instance()->getRenderer());
         }
     }
@@ -54,8 +55,8 @@ Tileset TileLayer::getTilesetByID(int tileID) {
     int size = m_tilesets.size();
     for (int i = 0; i < size; i++) {
         if (i + 1 <= size - 1) {
-            if (tileID >= m_tilesets[i + 1].firstGridID && tileID < m_tilesets[i + 1].firstGridID) {
-                return m_tilesets[i + 1];
+            if (tileID >= m_tilesets[i].firstGridID && tileID < m_tilesets[i + 1].firstGridID) {
+                return m_tilesets[i];
             }
         } else {
             return m_tilesets[i];
@@ -64,6 +65,5 @@ Tileset TileLayer::getTilesetByID(int tileID) {
 
     std::cout << "did not find tileset, returning empty tileset\n";
     Tileset t;
-    t.firstGridID = -1;
     return t;
 }
