@@ -11,6 +11,7 @@
 
 class PauseState : public MenuState {
 public:
+    virtual ~PauseState() {}
     virtual void update();
     virtual void render();
 

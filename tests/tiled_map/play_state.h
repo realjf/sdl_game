@@ -14,6 +14,7 @@
 
 class PlayState : public GameState {
 public:
+    virtual ~PlayState() {}
     virtual void update();
     virtual void render();
 

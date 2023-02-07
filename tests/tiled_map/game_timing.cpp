@@ -40,9 +40,12 @@ void GameTiming::renderText(std::string text, SDL_Rect dest) {
     dest.w = surf->w;
     dest.h = surf->h;
 
-    SDL_Texture *tex = SDL_CreateTextureFromSurface(TheGame::Instance()->getRenderer(), surf);
+    m_texture = SDL_CreateTextureFromSurface(TheGame::Instance()->getRenderer(), surf);
 
-    SDL_RenderCopy(TheGame::Instance()->getRenderer(), tex, NULL, &dest);
-    SDL_DestroyTexture(tex);
+    SDL_RenderCopy(TheGame::Instance()->getRenderer(), m_texture, NULL, &dest);
     SDL_FreeSurface(surf);
+}
+
+GameTiming::~GameTiming() {
+    SDL_DestroyTexture(m_texture);
 }

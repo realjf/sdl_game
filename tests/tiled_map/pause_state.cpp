@@ -6,7 +6,7 @@
 #include "state_parser.h"
 #include "game_object_factory.h"
 
-const std::string PauseState::s_pauseID = "PAUSE";
+const std::string PauseState::s_pauseID = StateIDToString(StateID::PAUSE);
 
 void PauseState::update() {
     if (!m_isExit) {

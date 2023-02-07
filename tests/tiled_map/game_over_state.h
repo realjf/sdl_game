@@ -10,6 +10,7 @@
 class GameOverState : public MenuState {
 
 public:
+    virtual ~GameOverState() {}
     virtual void update();
     virtual void render();
 

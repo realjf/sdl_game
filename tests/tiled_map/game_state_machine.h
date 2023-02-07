@@ -22,6 +22,8 @@ public:
     void update();
     void render();
 
+    void clearGameState(GameState *gameState);
+
 private:
     std::vector<GameState *> m_gameStates;
     SharedRecursiveMutex game_mutex;

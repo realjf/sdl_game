@@ -2,7 +2,7 @@
 <STATES>
 
     <!-- The Menu State -->
-    <MENU>
+    <MAINMENU>
         <TEXTURES>
             <texture filename="assets/gui/playbutton258x72.png" ID="playbutton" />
             <texture filename="assets/gui/exitbutton243x64.png" ID="exitbutton" />
@@ -14,7 +14,7 @@
             <object type="MenuButton" x="100" y="300" width="243" height="64"
                 textureID="exitbutton" numFrames="0" callbackID="2" />
         </OBJECTS>
-    </MENU>
+    </MAINMENU>
 
     <!-- The Play State -->
     <PLAY>

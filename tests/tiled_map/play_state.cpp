@@ -8,7 +8,7 @@
 #include "state_parser.h"
 #include "game_object_factory.h"
 
-const std::string PlayState::s_playID = "PLAY";
+const std::string PlayState::s_playID = StateIDToString(StateID::PLAY);
 
 void PlayState::update() {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {

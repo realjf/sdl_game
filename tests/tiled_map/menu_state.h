@@ -18,6 +18,7 @@ protected:
 
 class MainMenuState : public MenuState {
 public:
+    virtual ~MainMenuState() {}
     virtual void update();
     virtual void render();
 

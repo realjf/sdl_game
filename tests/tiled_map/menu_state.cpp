@@ -5,7 +5,7 @@
 #include "input_handler.h"
 #include "state_parser.h"
 
-const std::string MainMenuState::s_menuID = "MENU";
+const std::string MainMenuState::s_menuID = StateIDToString(StateID::MAINMENU);
 
 void MainMenuState::update() {
     if (!m_isExit) {

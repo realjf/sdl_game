@@ -14,7 +14,7 @@ private:
     GameTiming() = default;
 
 public:
-    ~GameTiming() = default;
+    ~GameTiming();
 
     static GameTiming *Instance() {
         if (s_pInstance == 0) {
@@ -41,6 +41,8 @@ private:
     Uint32 endTicks = 0;
     Uint64 endPerf = 0;
     Uint64 framePerf = 0;
+
+    SDL_Texture *m_texture;
 };
 
 typedef GameTiming TheGameTiming;

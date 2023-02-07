@@ -2,6 +2,7 @@
 #include "pause_state.h"
 #include "play_state.h"
 #include "menu_state.h"
+#include "game_over_state.h"
 
 bool GameStateMachine::pushState(GameState *pState) {
     // if (!game_mutex.try_lock()) {
@@ -33,10 +34,7 @@ bool GameStateMachine::changeState(GameState *pState) {
             return true;
         }
         if (m_gameStates.back()->onExit()) {
-            GameState *game_state = m_gameStates.back();
-            if (game_state->getStateID() == StateIDToString(StateID::PAUSE)) {
-                PauseState *pause_state = dynamic_cast<PauseState *>(game_state);
-            }
+            clearGameState(m_gameStates.back());
             m_gameStates.pop_back();
         }
     }
@@ -67,7 +65,7 @@ bool GameStateMachine::popState() {
             if (!m_gameStates.empty()) {
                 std::cout << "========= pop state: " << m_gameStates.back()->getStateID() << std::endl;
             }
-            delete m_gameStates.back();
+            clearGameState(m_gameStates.back());
             m_gameStates.pop_back();
         }
     }
@@ -89,7 +87,7 @@ void GameStateMachine::popAllState() {
     // }
     for (; !m_gameStates.empty();) {
         if (m_gameStates.back()->onExit()) {
-            delete m_gameStates.back();
+            clearGameState(m_gameStates.back());
             m_gameStates.pop_back();
         }
     }
@@ -177,4 +175,23 @@ void GameStateMachine::render() {
         std::cout << "========= state 1: " << m_gameStates.back()->getStateID() << std::endl;
     }
     game_mutex.unlock();
+}
+
+void GameStateMachine::clearGameState(GameState *gameState) {
+    GameState *game_state = gameState;
+    if (game_state->getStateID() == StateIDToString(StateID::PAUSE)) {
+        PauseState *state = dynamic_cast<PauseState *>(game_state);
+        delete state;
+    } else if (game_state->getStateID() == StateIDToString(StateID::PAUSE)) {
+        PlayState *state = dynamic_cast<PlayState *>(game_state);
+        delete state;
+    } else if (game_state->getStateID() == StateIDToString(StateID::PAUSE)) {
+        MainMenuState *state = dynamic_cast<MainMenuState *>(game_state);
+        delete state;
+    } else if (game_state->getStateID() == StateIDToString(StateID::PAUSE)) {
+        GameOverState *state = dynamic_cast<GameOverState *>(game_state);
+        delete state;
+    } else {
+        delete game_state;
+    }
 }

@@ -6,7 +6,7 @@
 #include "state_parser.h"
 #include "game_object_factory.h"
 
-const std::string GameOverState::s_gameOverID = "GAMEOVER";
+const std::string GameOverState::s_gameOverID = StateIDToString(StateID::GAMEOVER);
 
 void GameOverState::update() {
     if (!m_isExit) {

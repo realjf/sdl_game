@@ -4,26 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-
-enum class StateID { PAUSE,
-                     PLAY,
-                     GAMEOVER,
-                     MAINMENU };
-
-constexpr const char *StateIDToString(StateID id) throw() {
-    switch (id) {
-    case StateID::PAUSE:
-        return "PAUSE";
-    case StateID::PLAY:
-        return "PLAY";
-    case StateID::GAMEOVER:
-        return "GAMEOVER";
-    case StateID::MAINMENU:
-        return "MAINMENU";
-    default:
-        break;
-    }
-}
+#include "game_state_id.h"
 
 class GameState {
 public:
