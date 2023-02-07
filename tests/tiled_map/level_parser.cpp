@@ -27,7 +27,7 @@ Level *LevelParser::parseLevel(const char *levelFile) {
     // parse the tilesets
     for (TiXmlElement *e = pRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
         if (e->Value() == std::string("tileset")) {
-            if (e->FirstChildElement() != NULL) {
+            if (e->HasAttribute("source") != TIXML_SUCCESS) {
                 parseEmbedTilesets(e, pLevel->getTilesets());
             } else {
                 std::string tilesetFile = getLevelDir() + "/" + e->Attribute("source");
@@ -79,7 +79,7 @@ void LevelParser::parseEmbedTilesets(TiXmlElement *pTilesetRoot, std::vector<Til
 }
 
 void LevelParser::parseTileLayer(TiXmlElement *pTileElement, std::vector<Layer *> *pLayers, const std::vector<Tileset> *pTilesets) {
-    TileLayer *pTileLayer = new TileLayer(m_tileSize, *pTilesets);
+    TileLayer *pTileLayer = new TileLayer(m_tileSize, m_tileCount, *pTilesets);
 
     // tile data
     std::vector<std::vector<int>> data = {{0}};
@@ -134,7 +134,7 @@ void LevelParser::parseOutsideTilesets(const char *tilesetFile, TiXmlElement *pT
     TheTextureManager::Instance()->load(tilesetImage, pTilesetRoot->Attribute("name"), TheGame::Instance()->getRenderer());
 
     // create a tileset object
-    Tileset tileset;
+    Tileset tileset = {0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
     pTilesetRoot->FirstChildElement()->Attribute("width", &tileset.width);
     pTilesetRoot->FirstChildElement()->Attribute("height", &tileset.height);
     pTilesetRoot->Attribute("firstgid", &tileset.firstGridID);
@@ -152,7 +152,9 @@ void LevelParser::parseOutsideTilesets(const char *tilesetFile, TiXmlElement *pT
     }
 
     pTilesetRoot->Attribute("tilecount", &tileset.count);
+    m_tileCount = tileset.count;
     pTilesetRoot->Attribute("columns", &tileset.numColumns);
+    m_numColumns = tileset.numColumns;
     tileset.name = pTilesetRoot->Attribute("name");
 
     tileset.numColumns = tileset.width / (tileset.tileWidth + tileset.spacing);

@@ -7,7 +7,7 @@
 
 class TileLayer : public Layer {
 public:
-    TileLayer(int tileSize, const std::vector<Tileset> &tilesets);
+    TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &tilesets);
 
     virtual void update();
     virtual void render();
@@ -31,6 +31,7 @@ private:
     int m_numRows;
     int m_tileSize;
     float m_scale = 1.0f;
+    int m_tileCount;
 
     Vector2D m_position;
     Vector2D m_velocity;

@@ -29,5 +29,4 @@ private:
     bool m_bInterrupted = false;
 };
 
-
 #endif /* _GAME_STATE_MACHINE_H_ */

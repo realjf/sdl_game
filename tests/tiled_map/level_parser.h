@@ -21,6 +21,8 @@ private:
     int m_tileSize;
     int m_width;
     int m_height;
+    int m_tileCount;
+    int m_numColumns;
     std::string m_tiledVersion;
 
     std::string m_levelDir;

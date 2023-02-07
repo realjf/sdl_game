@@ -1,4 +1,7 @@
 #include "game_state_machine.h"
+#include "pause_state.h"
+#include "play_state.h"
+#include "menu_state.h"
 
 bool GameStateMachine::pushState(GameState *pState) {
     // if (!game_mutex.try_lock()) {
@@ -30,7 +33,10 @@ bool GameStateMachine::changeState(GameState *pState) {
             return true;
         }
         if (m_gameStates.back()->onExit()) {
-            delete m_gameStates.back();
+            GameState *game_state = m_gameStates.back();
+            if (game_state->getStateID() == StateIDToString(StateID::PAUSE)) {
+                PauseState *pause_state = dynamic_cast<PauseState *>(game_state);
+            }
             m_gameStates.pop_back();
         }
     }
