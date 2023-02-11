@@ -17,8 +17,8 @@ TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &ti
     m_tileIDs = tileIDs;
     m_scale = TheGame::Instance()->getGameWidth() / TheGame::Instance()->getGameHeight();
     m_x = TheGame::Instance()->getGameWidth();
-    m_deep = 0;
-    m_nextDeep = 0;
+    m_deep.store(0);
+    m_nextDeep.store(0);
 }
 
 void TileLayer::update() {
@@ -66,7 +66,7 @@ void TileLayer::render() {
     }
 
     if (x_width > m_nextDeep) {
-        m_nextDeep = m_nextDeep + 1;
+        m_nextDeep.store(m_nextDeep + 1);
     }
     std::cout << "x number: " << x_width << std::endl;
     std::cout << "x: " << m_x << std::endl;
