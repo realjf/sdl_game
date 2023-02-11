@@ -4,6 +4,7 @@
 #include "vector_2d.h"
 #include <vector>
 #include "level.h"
+#include <atomic>
 
 class TileLayer : public Layer {
 public:
@@ -32,6 +33,9 @@ private:
     int m_tileSize;
     float m_scale = 1.0f;
     int m_tileCount;
+    std::atomic<int> m_deep;
+    std::atomic<int> m_nextDeep;
+    int m_x = 0;
 
     Vector2D m_position;
     Vector2D m_velocity;
