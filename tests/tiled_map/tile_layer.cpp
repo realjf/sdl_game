@@ -42,7 +42,6 @@ void TileLayer::render() {
             if (id <= 0) {
                 continue;
             }
-            std::cout << "id ================== " << id << std::endl;
             Tileset tileset = getTilesetByID(id);
 
             if (id > tileset.count) {
@@ -53,23 +52,24 @@ void TileLayer::render() {
             int yy = (i * m_tileSize) - y2;
             if (((j + x) * m_tileSize) / TheGame::Instance()->getGameWidth() <= m_deep) {
                 yy += (m_deep * m_tileSize);
-            } else if (((j + x) * m_tileSize) / TheGame::Instance()->getGameWidth() <= m_nextDeep) {
+            } else if (((j + x) * m_tileSize) / TheGame::Instance()->getGameWidth() <= (m_nextDeep + 1)) {
                 yy += (m_nextDeep * m_tileSize);
             } else {
+                yy += (m_deep * m_tileSize);
             }
             TheTextureManager::Instance()->drawTile(tileset.name, tileset.margin, tileset.spacing, xx, yy, m_tileSize, m_tileSize, m_scale, (id - (tileset.firstGridID - 1)) / tileset.numColumns, (id - (tileset.firstGridID - 1)) % tileset.numColumns, TheGame::Instance()->getRenderer());
         }
     }
     int x_width = (m_x) / TheGame::Instance()->getGameWidth();
-    if (x_width > m_nextDeep + 1) {
+    if (x_width >= m_nextDeep + 1) {
         m_deep.store(m_nextDeep);
     }
 
     if (x_width > m_nextDeep) {
         m_nextDeep.store(m_nextDeep + 1);
     }
-    std::cout << "x number: " << x_width << std::endl;
-    std::cout << "x: " << m_x << std::endl;
+    std::cout << "deep: " << m_deep << std::endl;
+    std::cout << "next: " << m_nextDeep << std::endl;
 }
 
 Tileset TileLayer::getTilesetByID(int tileID) {

@@ -5,9 +5,9 @@
     },
     "activeFile": "map2/map.tmx",
     "expandedProjectPaths": [
-        ".",
         "map1",
-        "map2"
+        "map2",
+        "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
