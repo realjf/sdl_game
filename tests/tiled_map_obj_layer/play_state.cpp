@@ -65,8 +65,8 @@ bool PlayState::onEnter() {
     pLevel = levelParser.parseLevel("assets/levels/map2/map.tmx");
 
     // parse the state
-    StateParser stateParser;
-    stateParser.parseState("assets/xml/test_data.xml", s_playID, &m_gameObjects, &m_textureIDList);
+    // StateParser stateParser;
+    // stateParser.parseState("assets/xml/test_data.xml", s_playID, &m_gameObjects, &m_textureIDList);
 
     play_mutex.unlock();
 

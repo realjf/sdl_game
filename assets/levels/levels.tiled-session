@@ -19,16 +19,16 @@
             "scale": 1.0687499999999999,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 500.1169590643275,
-                "y": 360.23391812865503
+                "x": 499.6491228070176,
+                "y": 360.2339181286551
             }
         },
         "map2/map.tmx": {
-            "scale": 1.0687499999999999,
-            "selectedLayer": 0,
+            "scale": 0.33,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 531.4619883040937,
-                "y": 398.59649122807025
+                "x": 60.60606060606074,
+                "y": 60.60606060606051
             }
         },
         "map2/map.tmx#blocks40x40": {
@@ -46,6 +46,7 @@
         "map2/map.tmx"
     ],
     "project": "levels.tiled-project",
+    "property.type": "float",
     "recentFiles": [
         "map2/map.tmx",
         "map1/map.tmx",
