@@ -11,7 +11,7 @@ TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &ti
                                                                                           m_position(0, 0),
                                                                                           m_velocity(0, 0),
                                                                                           m_tilesets(tilesets) {
-    m_numColumns = (TheGame::Instance()->getGameWidth() / m_tileSize);
+    m_numColumns = (TheGame::Instance()->getGameWidth() / m_tileSize) + 1;
     m_numRows = (TheGame::Instance()->getGameHeight() / m_tileSize);
     std::vector<std::vector<int>> tileIDs(m_numRows, std::vector<int>(m_numColumns));
     m_tileIDs = tileIDs;
@@ -23,9 +23,16 @@ TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &ti
 
 void TileLayer::update() {
     // scrolling a tile map
-    m_position += m_velocity;
+    // m_position += m_velocity;
     // m_velocity.setX(1);
     // m_x++;
+    if (m_position.getX() < ((m_mapWidth * m_tileSize) - TheGame::Instance()->getGameWidth()) - m_tileSize) {
+        m_velocity.setX(TheGame::Instance()->getScrollSpeed());
+        m_position += m_velocity;
+
+    } else {
+        m_velocity.setX(0);
+    }
 }
 
 void TileLayer::render() {

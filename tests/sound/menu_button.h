@@ -1,7 +1,7 @@
 #ifndef _MENU_BUTTON_H_
 #define _MENU_BUTTON_H_
 
-#include "sdl_game_object.h"
+#include "shooter_object.h"
 #include <vector>
 #include "game_object_factory.h"
 
@@ -11,7 +11,7 @@ enum button_state {
     CLICKED = 2
 };
 
-class MenuButton : public SDLGameObject {
+class MenuButton : public ShooterObject {
 public:
     MenuButton();
 

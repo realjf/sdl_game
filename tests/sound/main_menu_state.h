@@ -1,17 +1,17 @@
-#ifndef _PAUSE_STATE_H_
-#define _PAUSE_STATE_H_
+#ifndef _MAIN_MENU_STATE_H_
+#define _MAIN_MENU_STATE_H_
 
 #include "game_state.h"
 #include <vector>
-#include <mutex>
 #include "game_object.h"
+#include <mutex>
 #include <shared_mutex>
 #include "lock/shared_recursive_mutex.h"
-#include "main_menu_state.h"
+#include "menu_state.h"
 
-class PauseState : public MenuState {
+class MainMenuState : public MenuState {
 public:
-    virtual ~PauseState() {}
+    virtual ~MainMenuState() {}
     virtual void update();
     virtual void render();
 
@@ -19,21 +19,23 @@ public:
     virtual bool onExit();
 
     virtual std::string getStateID() const {
-        return s_pauseID;
+        return s_menuID;
     }
 
 private:
     virtual void setCallbacks(const std::vector<Callback> &callbacks);
 
 private:
-    static void s_pauseToMain();
-    static void s_resumePlay();
+    static const std::string s_menuID;
 
-    static const std::string s_pauseID;
-
+    // store menu items
     std::vector<GameObject *> m_gameObjects;
-    SharedRecursiveMutex pause_mutex;
+
+    // callback functions for menu items
+    static void s_menuToPlay();
+    static void s_exitFromMenu();
     bool m_isExit = false;
+    SharedRecursiveMutex menu_mutex;
 };
 
-#endif /* _PAUSE_STATE_H_ */
+#endif /* _MAIN_MENU_STATE_H_ */

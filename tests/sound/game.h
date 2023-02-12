@@ -9,7 +9,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "game_state_machine.h"
-#include "menu_state.h"
+#include "main_menu_state.h"
 #include "play_state.h"
 #include <SDL_ttf.h>
 
@@ -18,7 +18,7 @@ private:
     Game() = default;
 
 public:
-    ~Game() = default;
+    ~Game();
 
     static Game *Instance() {
         if (s_pInstance == 0) {

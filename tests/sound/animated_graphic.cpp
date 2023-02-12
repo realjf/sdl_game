@@ -1,6 +1,6 @@
 #include "animated_graphic.h"
 
-AnimatedGraphic::AnimatedGraphic() : SDLGameObject() {
+AnimatedGraphic::AnimatedGraphic() : ShooterObject() {
 }
 
 void AnimatedGraphic::update() {
@@ -9,13 +9,13 @@ void AnimatedGraphic::update() {
 }
 
 void AnimatedGraphic::draw() {
-    SDLGameObject::draw();
+    ShooterObject::draw();
 }
 
 void AnimatedGraphic::clean() {
-    SDLGameObject::clean();
+    ShooterObject::clean();
 }
 
 void AnimatedGraphic::load(std::unique_ptr<LoaderParams> const &pParams) {
-    SDLGameObject::load(pParams);
+    ShooterObject::load(pParams);
 }

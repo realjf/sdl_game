@@ -7,6 +7,7 @@
 #include "enemy.h"
 #include "animated_graphic.h"
 #include "between_level_state.h"
+#include "sound_manager.h"
 
 Game *Game::s_pInstance = 0;
 
@@ -60,9 +61,16 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         return false;
     }
 
+    // add some sound effects - TODO move to better place
+    TheSoundManager::Instance()->load("assets/audio/DST_ElectroRock.ogg", "music1", SOUND_MUSIC);
+    TheSoundManager::Instance()->load("assets/audio/boom.wav", "explode", SOUND_SFX);
+    TheSoundManager::Instance()->load("assets/audio/phaser.wav", "shoot", SOUND_SFX);
+
+    TheSoundManager::Instance()->playMusic("music1", -1);
+
     TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
-    TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
+    // TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
     TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
 
     m_pGameStateMachine = new GameStateMachine();
@@ -134,4 +142,9 @@ void Game::setCurrentLevel(int currentLevel) {
     m_currentLevel = currentLevel;
     m_pGameStateMachine->enEventQueue(new GameStateEvent(CHANGE, new BetweenLevelState()));
     m_bLevelComplete = false;
+}
+
+Game::~Game() {
+    m_pRenderer = 0;
+    m_pWindow = 0;
 }

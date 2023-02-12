@@ -25,6 +25,8 @@ public:
         m_scale = scale;
     }
 
+    void setMapWidth(int mapWidth) { m_mapWidth = mapWidth; }
+
     Tileset getTilesetByID(int tileID);
 
 private:
@@ -36,6 +38,8 @@ private:
     std::atomic<int> m_deep;
     std::atomic<int> m_nextDeep;
     int m_x = 0;
+
+    int m_mapWidth;
 
     Vector2D m_position;
     Vector2D m_velocity;

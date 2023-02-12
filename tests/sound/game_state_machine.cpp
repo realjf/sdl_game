@@ -1,7 +1,7 @@
 #include "game_state_machine.h"
 #include "pause_state.h"
 #include "play_state.h"
-#include "menu_state.h"
+#include "main_menu_state.h"
 #include "game_over_state.h"
 
 bool GameStateMachine::pushState(GameState *pState) {

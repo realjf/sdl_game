@@ -1,11 +1,11 @@
 #ifndef _ANIMATED_GRAPHIC_H_
 #define _ANIMATED_GRAPHIC_H_
 
-#include "sdl_game_object.h"
+#include "shooter_object.h"
 #include <SDL.h>
 #include "game_object_factory.h"
 
-class AnimatedGraphic : public SDLGameObject {
+class AnimatedGraphic : public ShooterObject {
 public:
     AnimatedGraphic();
 

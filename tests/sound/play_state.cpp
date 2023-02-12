@@ -25,7 +25,7 @@ void PlayState::update() {
         pLevel->update();
         for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
             m_gameObjects[i]->update();
-            if (i > 0 && checkCollision(dynamic_cast<SDLGameObject *>(m_gameObjects[0]), dynamic_cast<SDLGameObject *>(m_gameObjects[i]))) {
+            if (i > 0 && checkCollision(dynamic_cast<ShooterObject *>(m_gameObjects[0]), dynamic_cast<ShooterObject *>(m_gameObjects[i]))) {
                 TheGame::Instance()->getStateMachine()->enEventQueue(new GameStateEvent(PUSH, new GameOverState()));
             }
         }
@@ -101,7 +101,7 @@ bool PlayState::onExit() {
     return true;
 }
 
-bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2) {
+bool PlayState::checkCollision(ShooterObject *p1, ShooterObject *p2) {
     int leftA, leftB;
     int rightA, rightB;
     int topA, topB;

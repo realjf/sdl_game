@@ -12,6 +12,10 @@ void ShooterObject::load(std::unique_ptr<LoaderParams> const &pParams) {
     m_textureID = pParams->getTextureID();
     m_numFrames = pParams->getNumFrames();
     m_scale = pParams->getScale();
+    m_animSpeed = pParams->getAnimSpeed();
+    m_callbackID = pParams->getCallbackID();
+
+    m_drawCollision = pParams->getCollision();
 }
 
 void ShooterObject::draw() {

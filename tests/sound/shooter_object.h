@@ -15,6 +15,9 @@ public:
     virtual std::string type() { return "SDLGameObject"; }
     void drawCollisionRect();
 
+    int getCallbackID() { return m_callbackID; }
+    int getCollision() { return m_drawCollision; }
+
 protected:
     // we won't directly create ShooterObject's
     ShooterObject();
@@ -32,6 +35,8 @@ protected:
     bool m_bPlayedDeathSound;
 
     int m_drawCollision; // draw collision rect
+
+    int m_callbackID;
 };
 
 #endif /* _SHOOTER_OBJECT_H_ */

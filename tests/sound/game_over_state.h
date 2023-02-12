@@ -5,7 +5,7 @@
 #include <vector>
 #include "game_object.h"
 #include "lock/shared_recursive_mutex.h"
-#include "menu_state.h"
+#include "main_menu_state.h"
 
 class GameOverState : public MenuState {
 

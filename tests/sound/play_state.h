@@ -7,7 +7,7 @@
 #include <mutex>
 #include <shared_mutex>
 #include "lock/shared_recursive_mutex.h"
-#include "sdl_game_object.h"
+#include "shooter_object.h"
 #include "level_parser.h"
 #include "level.h"
 #include "tile_layer.h"
@@ -21,7 +21,7 @@ public:
     virtual bool onEnter();
     virtual bool onExit();
 
-    bool checkCollision(SDLGameObject *p1, SDLGameObject *p2);
+    bool checkCollision(ShooterObject *p1, ShooterObject *p2);
 
     virtual std::string getStateID() const {
         return s_playID;

@@ -27,6 +27,8 @@ public:
     int getWidth() { return m_width; }
     int getHeight() { return m_height; }
     float getScale() { return m_scale; }
+    int getAnimSpeed() { return m_animSpeed; }
+    int getNumFrames() { return m_numFrames; }
     // scroll along with tile map
     void scroll(float scrollSpeed) {
         if (type() != std::string("Player")) // player is never scrolled
@@ -52,6 +54,9 @@ protected:
                    m_height(0),
                    m_currentRow(0),
                    m_currentFrame(0),
+                   m_numFrames(0),
+                   m_animSpeed(0),
+                   m_textureID(""),
                    m_bUpdating(false),
                    m_bDead(false),
                    m_bDying(false),
@@ -70,6 +75,7 @@ protected:
     int m_currentRow;
     int m_currentFrame;
     int m_numFrames;
+    int m_animSpeed;
     std::string m_textureID;
     // common boolean variables
     bool m_bUpdating;
