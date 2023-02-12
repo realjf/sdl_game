@@ -4,7 +4,8 @@
 enum class StateID { PAUSE,
                      PLAY,
                      GAMEOVER,
-                     MAINMENU };
+                     MAINMENU,
+                     BETWEEN_LEVEL };
 
 const char *StateIDToString(StateID id);
 

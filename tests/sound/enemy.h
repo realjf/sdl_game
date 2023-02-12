@@ -5,14 +5,22 @@
 #include "sdl_game_object.h"
 #include <time.h>
 #include "game_object_factory.h"
+#include "shooter_object.h"
 
-class Enemy : public SDLGameObject {
+const unsigned int DELAY_MS = 10000000;
+
+class Enemy : public ShooterObject {
 public:
     Enemy();
-    virtual void draw();
-    virtual void update();
-    virtual void clean();
-    virtual void load(const LoaderParams *pParams);
+    virtual std::string type() const { return "Enemy"; }
+    virtual void draw() override;
+    virtual void update() override;
+    virtual void clean() override;
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams) override;
+
+protected:
+    int m_health;
+    virtual ~Enemy() {}
 
 private:
     int m_Axis = 0;

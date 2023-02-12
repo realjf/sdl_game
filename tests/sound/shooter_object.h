@@ -12,9 +12,10 @@ public:
     virtual void load(std::unique_ptr<LoaderParams> const &pParams) override;
     virtual void draw() override;
     virtual void update() override;
-    virtual void clean() {}     // not implemented in this class
-    virtual void collision() {} // not implemented in this class
-    virtual std::string type() { return "SDLGameObject"; }
+    virtual void clean() override {}     // not implemented in this class
+    virtual void collision() override {} // not implemented in this class
+    virtual std::string type() override { return "SDLGameObject"; }
+    virtual void drawCollisionRect();
 
 protected:
     // we won't directly create ShooterObject's
@@ -31,6 +32,8 @@ protected:
     int m_dyingCounter;
     // has the explosion sound played?
     bool m_bPlayedDeathSound;
+
+    int m_drawCollision; // draw collision rect
 };
 
 #endif /* _SHOOTER_OBJECT_H_ */

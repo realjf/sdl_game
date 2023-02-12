@@ -40,6 +40,8 @@ public:
     void clean();
     void draw();
     void quit();
+    void setCurrentLevel(int currentLevel);
+
     SDL_Rect getWindowRect() {
         SDL_GetWindowSize(m_pWindow, &m_winRect.w, &m_winRect.h);
         SDL_GetWindowPosition(m_pWindow, &m_winRect.x, &m_winRect.y);
@@ -53,8 +55,19 @@ public:
         return m_pGameStateMachine;
     }
 
-    int getGameWidth() const { return m_gameWidth; }
-    int getGameHeight() const { return m_gameHeight; }
+    int getGameWidth() { return m_gameWidth; }
+    int getGameHeight() { return m_gameHeight; }
+
+    float getScrollSpeed() {
+        return m_scrollSpeed;
+    }
+
+    int getCurrentLevel() { return m_currentLevel; }
+
+    bool getLevelComplete() { return m_bLevelComplete; }
+
+    int getPlayerLives() { return m_playerLives; }
+    void setPlayerLives(int value) { m_playerLives = value; }
 
 private:
     static Game *s_pInstance;
@@ -74,6 +87,13 @@ private:
 
     int m_gameWidth;
     int m_gameHeight;
+
+    int m_currentLevel;
+    bool m_bLevelComplete;
+
+    float m_scrollSpeed;
+
+    int m_playerLives;
 };
 
 typedef Game TheGame;

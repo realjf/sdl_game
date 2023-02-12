@@ -39,12 +39,12 @@ void TextureManager::draw(std::string id, int x, int y, int width, int height, f
     SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &dstRect, 0, 0, flip);
 }
 
-void TextureManager::drawFrame(std::string id, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer, SDL_RendererFlip flip) {
+void TextureManager::drawFrame(std::string id, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer, double angle, int alpha, SDL_RendererFlip flip) {
     SDL_Rect srcRect;
     SDL_Rect dstRect;
     srcRect.x = width * currentFrame;
 
-    srcRect.y = height * (currentRow - 1);
+    srcRect.y = height * currentRow;
     srcRect.w = width;
     srcRect.h = height;
 
@@ -53,7 +53,9 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
     dstRect.x = x;
     dstRect.y = y;
 
-    SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &dstRect, 0, 0, flip);
+    // set the alpha of the texture and pass in the angle
+    SDL_SetTextureAlphaMod(m_textureMap[id], alpha);
+    SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &dstRect, angle, 0, flip);
 }
 
 void TextureManager::drawTile(std::string id, int margin, int spacing, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer) {

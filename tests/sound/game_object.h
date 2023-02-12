@@ -25,6 +25,7 @@ public:
     Vector2D &getPosition() { return m_position; }
     int getWidth() { return m_width; }
     int getHeight() { return m_height; }
+    float getScale() { return m_scale; }
     // scroll along with tile map
     void scroll(float scrollSpeed) {
         m_position.setX(m_position.getX() - scrollSpeed);
@@ -54,7 +55,8 @@ protected:
                    m_bDead(false),
                    m_bDying(false),
                    m_angle(0),
-                   m_alpha(255) {
+                   m_alpha(255),
+                   m_scale(1.0f) {
     }
     // movement variables
     Vector2D m_position;
@@ -76,6 +78,7 @@ protected:
     double m_angle;
     // blending
     int m_alpha;
+    float m_scale;
 };
 
 #endif /* _GAME_OBJECT_H_ */

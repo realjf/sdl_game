@@ -6,6 +6,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "animated_graphic.h"
+#include "between_level_state.h"
 
 Game *Game::s_pInstance = 0;
 
@@ -127,4 +128,10 @@ void Game::quit() {
     // m_pGameStateMachine->popAllState();
     m_pGameStateMachine->enEventQueue(new GameStateEvent(POP_ALL));
     m_bRunning = false;
+}
+
+void Game::setCurrentLevel(int currentLevel) {
+    m_currentLevel = currentLevel;
+    m_pGameStateMachine->enEventQueue(new GameStateEvent(CHANGE, new BetweenLevelState()));
+    m_bLevelComplete = false;
 }

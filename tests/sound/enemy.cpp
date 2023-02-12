@@ -4,7 +4,7 @@
 const unsigned int DELAY_MS = 10000000;
 
 void Enemy::draw() {
-    SDLGameObject::draw(m_velocity.getX() > 0);
+    ShooterObject::draw();
 }
 
 void Enemy::update() {
@@ -57,11 +57,11 @@ void Enemy::update() {
 void Enemy::clean() {
 }
 
-void Enemy::load(const LoaderParams *pParams) {
-    SDLGameObject::load(pParams);
+void Enemy::load(std::unique_ptr<LoaderParams> const &pParams) {
+    ShooterObject::load(pParams);
     m_velocity = Vector2D(2.0f, 2.0f);
 }
 
-Enemy::Enemy() : SDLGameObject() {
+Enemy::Enemy() : ShooterObject() {
     srand((unsigned int)((unsigned int)time(NULL) / DELAY_MS));
 }

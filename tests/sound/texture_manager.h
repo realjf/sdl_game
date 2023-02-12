@@ -25,7 +25,7 @@ public:
 
     void draw(std::string id, int x, int y, int width, int height, float scale, SDL_Renderer *pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
-    void drawFrame(std::string id, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+    void drawFrame(std::string id, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer, double angle, int alpha, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
     void drawTile(std::string id, int margin, int spacing, int x, int y, int width, int height, float scale, int currentRow, int currentFrame, SDL_Renderer *pRenderer);
 
