@@ -24,8 +24,8 @@ TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &ti
 void TileLayer::update() {
     // scrolling a tile map
     m_position += m_velocity;
-    // m_velocity.setX(1);
-    // m_x++;
+    m_velocity.setX(1);
+    m_x++;
 }
 
 void TileLayer::render() {
