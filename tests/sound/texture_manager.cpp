@@ -43,7 +43,6 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
     SDL_Rect srcRect;
     SDL_Rect dstRect;
     srcRect.x = width * currentFrame;
-
     srcRect.y = height * currentRow;
     srcRect.w = width;
     srcRect.h = height;
@@ -53,6 +52,7 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
     dstRect.x = x;
     dstRect.y = y;
 
+    // SDL_SetTextureBlendMode(m_textureMap[id], SDL_BLENDMODE_BLEND);
     // set the alpha of the texture and pass in the angle
     SDL_SetTextureAlphaMod(m_textureMap[id], alpha);
     SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &dstRect, angle, 0, flip);

@@ -33,6 +33,10 @@ public:
         m_textureMap.erase(id);
     }
 
+    std::map<std::string, SDL_Texture *> getTextureMap() {
+        return m_textureMap;
+    }
+
 private:
     std::map<std::string, SDL_Texture *> m_textureMap;
     static TextureManager *s_pInstance;

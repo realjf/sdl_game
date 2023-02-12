@@ -54,7 +54,7 @@ protected:
                    m_height(0),
                    m_currentRow(0),
                    m_currentFrame(0),
-                   m_numFrames(0),
+                   m_numFrames(1),
                    m_animSpeed(0),
                    m_textureID(""),
                    m_bUpdating(false),

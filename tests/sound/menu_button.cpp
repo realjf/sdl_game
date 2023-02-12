@@ -44,6 +44,7 @@ void MenuButton::update() {
         m_currentFrame = MOUSE_OUT;
         // std::cout << "mouse out\n";
     }
+    ShooterObject::update();
 }
 
 void MenuButton::clean() {
@@ -51,7 +52,5 @@ void MenuButton::clean() {
 }
 
 void MenuButton::load(std::unique_ptr<LoaderParams> const &pParams) {
-    ShooterObject::load(pParams);
-    m_callbackID = pParams->getCallbackID();
-    m_currentFrame = MOUSE_OUT;
+    ShooterObject::load(std::move(pParams));
 }
