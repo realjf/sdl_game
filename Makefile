@@ -75,6 +75,9 @@ pull:
 	@git pull
 	@git submodule update --init --checkout
 	@git submodule sync
+
+pull_mods:
+	@cd deps/SDLMIXER && git submodule update --init --checkout && git submodule sync
 #@git submodule foreach 'git pull '
 #@-git submodule update --remote
 
@@ -163,4 +166,4 @@ endif
 
 
 
-.PHONY: rm_submod run build pull test run push deps see_coredump see_corefile set_corefile
+.PHONY: rm_submod run build pull test run push deps see_coredump see_corefile set_corefile pull_mods

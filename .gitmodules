@@ -46,3 +46,9 @@
 	branch = master
 	update = checkout
 	ignore = dirty
+[submodule "deps/SDLMIXER"]
+	path = deps/SDLMIXER
+	url = https://github.com/libsdl-org/SDL_mixer.git
+	branch = SDL2
+	update = checkout
+	ignore = dirty

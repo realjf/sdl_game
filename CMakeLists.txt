@@ -41,9 +41,10 @@ include_directories(deps/SDLTTF)
 include_directories(deps/tinyxml)
 include_directories(deps/base64)
 include_directories(deps/zlib)
+include_directories(deps/SDLMIXER/include)
 
 # include_directories(${SDL2_INCLUDE_DIR})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-volatile")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-volatile -g")
 
 # sdl
 # set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
