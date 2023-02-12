@@ -8,11 +8,11 @@
 class Player : public ShooterObject {
 public:
     Player();
-    virtual void draw() override;
-    virtual void update() override;
-    virtual void clean() override;
-    virtual void load(std::unique_ptr<LoaderParams> const &pParams) override;
-    virtual std::string type() override { return "Player"; }
+    virtual void draw();
+    virtual void update();
+    virtual void clean();
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
+    virtual std::string type() { return "Player"; }
 
 private:
     // bring the player back if there are lives left

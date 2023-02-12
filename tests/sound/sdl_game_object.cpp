@@ -4,7 +4,8 @@
 SDLGameObject::SDLGameObject() : GameObject() {
 }
 
-void SDLGameObject::draw(bool flip) {
+void SDLGameObject::draw() {
+    bool flip = false;
     if (flip) {
         TextureManager::Instance()->drawFrame(m_textureID, (Uint32)m_position.getX(), (Uint32)m_position.getY(), m_width, m_height, m_scale, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer(), 0, 0, SDL_FLIP_HORIZONTAL);
     } else {
@@ -25,7 +26,7 @@ void SDLGameObject::clean() {
     std::cout << "clean sdl game object\n";
 }
 
-void SDLGameObject::load(const LoaderParams *pParams) {
+void SDLGameObject::load(std::unique_ptr<LoaderParams> const &pParams) {
     m_position = Vector2D(pParams->getX(), pParams->getY());
     m_velocity = Vector2D(0, 0);
     m_acceleration = Vector2D(0, 0);

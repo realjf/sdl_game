@@ -9,12 +9,12 @@
 class ShooterObject : public GameObject {
 public:
     virtual ~ShooterObject() {}
-    virtual void load(std::unique_ptr<LoaderParams> const &pParams) override;
-    virtual void draw() override;
-    virtual void update() override;
-    virtual void clean() override {}     // not implemented in this class
-    virtual void collision() override {} // not implemented in this class
-    virtual std::string type() override { return "SDLGameObject"; }
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
+    virtual void draw();
+    virtual void update();
+    virtual void clean() {}     // not implemented in this class
+    virtual void collision() {} // not implemented in this class
+    virtual std::string type() { return "SDLGameObject"; }
     virtual void drawCollisionRect();
 
 protected:

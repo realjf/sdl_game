@@ -8,11 +8,13 @@ class SDLGameObject : public GameObject {
 public:
     SDLGameObject();
 
-    virtual void draw(bool flip);
+    virtual void draw();
     virtual void update();
     virtual void clean();
-    virtual void load(const LoaderParams *pParams);
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
     virtual void drawCollisionRect();
+    virtual void collision() {}
+    virtual std::string type() { return "SDLGameObject"; }
 
     Vector2D getPosition() const { return m_position; }
     int getWidth() const { return m_width; }

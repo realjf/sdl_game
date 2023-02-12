@@ -12,7 +12,7 @@ public:
     void update();
     void draw();
     void clean();
-    void load(const LoaderParams *pParams);
+    void load(std::unique_ptr<LoaderParams> const &pParams);
 };
 
 class AnimatedGraphicCreator : public BaseCreator {

@@ -7,16 +7,14 @@
 #include "game_object_factory.h"
 #include "shooter_object.h"
 
-const unsigned int DELAY_MS = 10000000;
-
 class Enemy : public ShooterObject {
 public:
     Enemy();
     virtual std::string type() const { return "Enemy"; }
-    virtual void draw() override;
-    virtual void update() override;
-    virtual void clean() override;
-    virtual void load(std::unique_ptr<LoaderParams> const &pParams) override;
+    virtual void draw();
+    virtual void update();
+    virtual void clean();
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
 
 protected:
     int m_health;

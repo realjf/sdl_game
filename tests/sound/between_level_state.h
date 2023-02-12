@@ -5,6 +5,7 @@
 #include "game_object.h"
 #include <iostream>
 #include <vector>
+#include "lock/shared_recursive_mutex.h"
 
 class BetweenLevelState : public GameState {
 public:

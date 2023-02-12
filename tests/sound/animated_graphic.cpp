@@ -9,13 +9,13 @@ void AnimatedGraphic::update() {
 }
 
 void AnimatedGraphic::draw() {
-    SDLGameObject::draw(m_velocity.getX() > 0);
+    SDLGameObject::draw();
 }
 
 void AnimatedGraphic::clean() {
     SDLGameObject::clean();
 }
 
-void AnimatedGraphic::load(const LoaderParams *pParams) {
+void AnimatedGraphic::load(std::unique_ptr<LoaderParams> const &pParams) {
     SDLGameObject::load(pParams);
 }

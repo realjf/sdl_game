@@ -9,7 +9,9 @@ void BetweenLevelState::render() {
 }
 
 bool BetweenLevelState::onEnter() {
+    return true;
 }
 
 bool BetweenLevelState::onExit() {
+    return true;
 }
