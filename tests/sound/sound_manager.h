@@ -1,7 +1,7 @@
 #ifndef _SOUND_MANAGER_H_
 #define _SOUND_MANAGER_H_
 
-#include <string>
+#include <iostream>
 #include <map>
 #include <SDL_mixer.h>
 
@@ -32,8 +32,8 @@ private:
     SoundManager();
     ~SoundManager();
 
-    SoundManager(const SoundManager &);
-    SoundManager &operator=(const SoundManager &);
+    SoundManager(const SoundManager &soundManager);
+    SoundManager &operator=(const SoundManager &soundManager);
 };
 
 typedef SoundManager TheSoundManager;
