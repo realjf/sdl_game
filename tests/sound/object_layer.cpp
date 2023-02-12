@@ -3,7 +3,6 @@
 void ObjectLayer::update() {
     for (unsigned int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->update();
-        std::cout << "xxxxxx" << std::endl;
     }
 }
 

@@ -4,13 +4,8 @@
 SDLGameObject::SDLGameObject() : GameObject() {
 }
 
-void SDLGameObject::draw() {
-    bool flip = false;
-    if (flip) {
-        TextureManager::Instance()->drawFrame(m_textureID, (Uint32)m_position.getX(), (Uint32)m_position.getY(), m_width, m_height, m_scale, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer(), 0, 0, SDL_FLIP_HORIZONTAL);
-    } else {
-        TextureManager::Instance()->drawFrame(m_textureID, (Uint32)m_position.getX(), (Uint32)m_position.getY(), m_width, m_height, m_scale, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer(), 0, 0);
-    }
+void SDLGameObject::draw(RendererFlip flip) {
+    TextureManager::Instance()->drawFrame(m_textureID, (Uint32)m_position.getX(), (Uint32)m_position.getY(), m_width, m_height, m_scale, m_currentRow, m_currentFrame, TheGame::Instance()->getRenderer(), 0, 0, RendererFlipToSDLFlip(flip));
     if (m_collision) {
         drawCollisionRect();
     }

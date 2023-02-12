@@ -4,6 +4,7 @@
 #include "loader_params.h"
 #include <memory>
 #include "vector_2d.h"
+#include "renderer_flip.h"
 
 class GameObject {
 public:
@@ -12,7 +13,7 @@ public:
     // load from file
     virtual void load(std::unique_ptr<LoaderParams> const &pParams) = 0;
     // draw the object
-    virtual void draw() = 0;
+    virtual void draw(RendererFlip flip = RendererFlip::FLIP_NONE) = 0;
     // do update stuff
     virtual void update() = 0;
     // remove anything that needs to be deleted

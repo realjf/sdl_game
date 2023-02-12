@@ -8,7 +8,7 @@ class ShooterObject : public GameObject {
 public:
     virtual ~ShooterObject() {}
     virtual void load(std::unique_ptr<LoaderParams> const &pParams);
-    virtual void draw();
+    virtual void draw(RendererFlip flip = RendererFlip::FLIP_NONE);
     virtual void update();
     virtual void clean() {}     // not implemented in this class
     virtual void collision() {} // not implemented in this class

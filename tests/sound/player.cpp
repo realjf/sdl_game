@@ -2,8 +2,12 @@
 #include "input_handler.h"
 #include "game.h"
 
-void Player::draw() {
-    ShooterObject::draw();
+void Player::draw(RendererFlip flip) {
+    if (m_velocity.getX() < 0) {
+        ShooterObject::draw(RendererFlip::FLIP_HORIZONTAL);
+    } else {
+        ShooterObject::draw(RendererFlip::FLIP_NONE);
+    }
 }
 
 void Player::update() {
@@ -14,7 +18,11 @@ void Player::update() {
         } else {
             m_velocity.setY(0);
             m_velocity.setX(3);
-            ShooterObject::update();
+
+            //
+            m_position += m_velocity;
+            m_currentRow = int(SDL_GetTicks() % m_numFrames);
+
             handleAnimation();
         }
     } else {
@@ -26,12 +34,17 @@ void Player::update() {
             // get input
             handleInput();
             // do normal position += velocity update
-            ShooterObject::update();
+
+            //
+            m_position += m_velocity;
+            m_currentRow = int(SDL_GetTicks() % m_numFrames);
+
             // update the animation
             handleAnimation();
         } else // if the player is doing the death animation
         {
-            m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
+            m_currentRow = int((SDL_GetTicks() / (100)) % m_numFrames);
+
             // if the death animation has completed
             if (m_dyingCounter == m_dyingTime) {
                 // ressurect the player
@@ -59,9 +72,9 @@ void Player::ressurect() {
     m_bDying = false;
     m_textureID = "player";
     m_currentFrame = 0;
-    m_numFrames = 5;
-    m_width = 101;
-    m_height = 46;
+    m_numFrames = 4;
+    m_width = 417;
+    m_height = 143;
 
     m_dyingCounter = 0;
     m_invulnerable = true;
@@ -103,7 +116,7 @@ void Player::handleAnimation() {
         }
     }
     // our standard animation code - for helicopter propellors
-    m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
+    m_currentRow = int((SDL_GetTicks() / (100)) % m_numFrames);
 }
 
 Player::Player() : ShooterObject(), m_invulnerable(false), m_invulnerableTime(200), m_invulnerableCounter(0) {

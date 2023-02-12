@@ -30,7 +30,7 @@ void ScrollingBackground::load(std::unique_ptr<LoaderParams> const &pParams) {
     m_srcRect2.h = m_destRect2.h = m_height;
 }
 
-void ScrollingBackground::draw() {
+void ScrollingBackground::draw(RendererFlip flip) {
     // draw first rect
     SDL_RenderCopyEx(TheGame::Instance()->getRenderer(), TheTextureManager::Instance()->getTextureMap()[m_textureID], &m_srcRect1, &m_destRect1, 0, 0, SDL_FLIP_NONE);
 

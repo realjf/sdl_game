@@ -10,7 +10,7 @@ public:
     virtual ~ScrollingBackground() {}
     ScrollingBackground();
 
-    virtual void draw();
+    virtual void draw(RendererFlip flip = RendererFlip::FLIP_NONE);
     virtual void update();
     virtual void clean();
 

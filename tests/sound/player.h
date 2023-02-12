@@ -9,7 +9,7 @@ class Player : public ShooterObject {
 public:
     virtual ~Player() {}
     Player();
-    virtual void draw();
+    virtual void draw(RendererFlip flip = RendererFlip::FLIP_NONE);
     virtual void update();
     virtual void clean();
     virtual void load(std::unique_ptr<LoaderParams> const &pParams);

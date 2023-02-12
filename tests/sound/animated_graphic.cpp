@@ -8,8 +8,8 @@ void AnimatedGraphic::update() {
     m_currentFrame = int((SDL_GetTicks() / (1000 / m_animSpeed)) % m_numFrames);
 }
 
-void AnimatedGraphic::draw() {
-    ShooterObject::draw();
+void AnimatedGraphic::draw(RendererFlip flip) {
+    ShooterObject::draw(flip);
 }
 
 void AnimatedGraphic::clean() {

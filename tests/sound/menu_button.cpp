@@ -5,9 +5,9 @@ MenuButton::MenuButton() : ShooterObject() {
     m_currentFrame = MOUSE_OUT;
 }
 
-void MenuButton::draw() {
+void MenuButton::draw(RendererFlip flip) {
     // use the base class drawing
-    ShooterObject::draw();
+    ShooterObject::draw(flip);
 }
 
 void MenuButton::update() {

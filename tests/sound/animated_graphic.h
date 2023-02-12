@@ -10,7 +10,7 @@ public:
     AnimatedGraphic();
 
     void update();
-    void draw();
+    void draw(RendererFlip flip = RendererFlip::FLIP_NONE);
     void clean();
     void load(std::unique_ptr<LoaderParams> const &pParams);
 };
