@@ -59,4 +59,4 @@ endif()
 
 target_link_directories(${PROJECT_NAME} PUBLIC ${LIBRARY_OUTPUT_PATH})
 target_include_directories(${PROJECT_NAME} PUBLIC)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2)
+target_link_libraries(${PROJECT_NAME} SDL2 SDL2_image-2.0 pthread SDL2_ttf-2.0 tinyxml z SDL2_mixer-2.0)

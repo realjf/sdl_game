@@ -77,6 +77,7 @@ pull:
 	@git submodule sync
 
 pull_mods:
+# @cd deps/SDLMIXER/external && chmod +x ./download.sh && ./download.sh
 	@cd deps/SDLMIXER && git submodule update --init --checkout && git submodule sync
 #@git submodule foreach 'git pull '
 #@-git submodule update --remote

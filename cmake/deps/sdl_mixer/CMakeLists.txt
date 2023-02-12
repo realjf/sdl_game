@@ -30,9 +30,6 @@ find_library(SDL2_LIBRARY NAMES SDL2-2.0 SDL2main HINTS ${LIBRARY_OUTPUT_DIRECTO
 
 include_directories(${SDL2_INCLUDE_DIR})
 
-find_library(opusfile_LIBRARY NAMES opusfile HINTS ${LIBRARY_OUTPUT_DIRECTORY} REQUIRED)
-set(opusfile_INCLUDE_PATH ${CMAKE_BINARY_DIR}/../../deps/opusfile/include)
-
 # set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}/../../deps/SDL2/cmake)
 # set(SDL2_PATH ${CMAKE_BINARY_DIR}/../../deps/SDL2)
 
@@ -43,4 +40,6 @@ set(opusfile_INCLUDE_PATH ${CMAKE_BINARY_DIR}/../../deps/opusfile/include)
 # message("${SDL2_LIBS}")
 # set(SDL2_LIBRARY ${SDL2_LIBS})
 # find_package(SDL2 REQUIRED)
+set(SDL2MIXER_VENDORED ON)
+
 add_subdirectory(${CMAKE_BINARY_DIR}/../../deps/SDLMIXER ${BUILD_OUTPUT_PATH})
