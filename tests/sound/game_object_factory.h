@@ -48,7 +48,8 @@ public:
     }
 
 private:
-    GameObjectFactory() = default;
+    GameObjectFactory(){};
+    ~GameObjectFactory(){};
 
 private:
     std::map<std::string, BaseCreator *> m_creators;
@@ -56,7 +57,5 @@ private:
 };
 
 typedef GameObjectFactory TheGameObjectFactory;
-
-
 
 #endif /* _GAME_OBJECT_FACTORY_H_ */

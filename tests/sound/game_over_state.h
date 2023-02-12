@@ -22,7 +22,7 @@ public:
     }
 
 private:
-    virtual void setCallbacks(const std::vector<Callback> &callbacks) override;
+    virtual void setCallbacks(const std::vector<Callback> &callbacks);
 
 private:
     static void s_gameOverToMain();

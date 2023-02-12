@@ -23,12 +23,16 @@ public:
     virtual std::string type() = 0;
     // getters for common variables
     Vector2D &getPosition() { return m_position; }
+    Vector2D &getVelocity() { return m_velocity; }
     int getWidth() { return m_width; }
     int getHeight() { return m_height; }
     float getScale() { return m_scale; }
     // scroll along with tile map
     void scroll(float scrollSpeed) {
-        m_position.setX(m_position.getX() - scrollSpeed);
+        if (type() != std::string("Player")) // player is never scrolled
+        {
+            m_position.setX(m_position.getX() - scrollSpeed);
+        }
     }
     // is the object currently being updated?
     bool updating() { return m_bUpdating; }
@@ -38,9 +42,6 @@ public:
     bool dying() { return m_bDying; }
     // set whether to update the object or not
     void setUpdating(bool updating) { m_bUpdating = updating; }
-
-    // draw collision rect
-    virtual void drawCollisionRect() = 0;
 
 protected:
     // constructor with default initialisation list

@@ -7,7 +7,7 @@ MenuButton::MenuButton() : SDLGameObject() {
 
 void MenuButton::draw() {
     // use the base class drawing
-    SDLGameObject::draw(false);
+    SDLGameObject::draw();
 }
 
 void MenuButton::update() {
@@ -50,7 +50,7 @@ void MenuButton::clean() {
     SDLGameObject::clean();
 }
 
-void MenuButton::load(const LoaderParams *pParams) {
+void MenuButton::load(std::unique_ptr<LoaderParams> const &pParams) {
     SDLGameObject::load(pParams);
     m_callbackID = pParams->getCallbackID();
     m_currentFrame = MOUSE_OUT;

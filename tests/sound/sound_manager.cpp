@@ -47,6 +47,8 @@ SoundManager::SoundManager(const SoundManager &soundManager) {
 }
 
 SoundManager &SoundManager::operator=(const SoundManager &soundManager) {
-    m_music = soundManager.m_music;
-    m_sfxs = soundManager.m_sfxs;
+    SoundManager *mgr = Instance();
+    mgr->m_music = soundManager.m_music;
+    mgr->m_sfxs = soundManager.m_sfxs;
+    return *mgr;
 }

@@ -2,8 +2,6 @@
 #define _SHOOTER_OBJECT_H_
 
 #include "game_object.h"
-#include "game.h"
-#include "texture_manager.h"
 #include <SDL.h>
 
 class ShooterObject : public GameObject {
@@ -15,7 +13,7 @@ public:
     virtual void clean() {}     // not implemented in this class
     virtual void collision() {} // not implemented in this class
     virtual std::string type() { return "SDLGameObject"; }
-    virtual void drawCollisionRect();
+    void drawCollisionRect();
 
 protected:
     // we won't directly create ShooterObject's

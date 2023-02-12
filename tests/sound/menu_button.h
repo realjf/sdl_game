@@ -18,7 +18,7 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
-    virtual void load(const LoaderParams *pParams);
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
 
     void setCallback(void (*callback)()) { m_callback = callback; }
 
@@ -30,7 +30,7 @@ private:
 
 class MenuButtonCreator : public BaseCreator {
 public:
-    GameObject *createGameObject() const override {
+    GameObject *createGameObject() const {
         return new MenuButton();
     }
 };

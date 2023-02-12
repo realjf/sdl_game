@@ -234,7 +234,7 @@ void LevelParser::parseObjectLayer(TiXmlElement *pObjectElement, std::vector<Lay
                 }
             }
 
-            pGameObject->load(new LoaderParams(x, y, width, height, textureID, numFrames, callbackID, animSpeed, scale));
+            pGameObject->load(std::unique_ptr<LoaderParams>(new LoaderParams(x, y, width, height, textureID, numFrames, callbackID, animSpeed, scale)));
             std::cout << "[[[[[[[[[[[[[[[[[[[[ loaded" << scale << std::endl;
             pObjectLayer->getGameObjects()->push_back(pGameObject);
         }

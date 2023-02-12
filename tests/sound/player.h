@@ -7,11 +7,13 @@
 
 class Player : public ShooterObject {
 public:
+    virtual ~Player() {}
     Player();
     virtual void draw();
     virtual void update();
     virtual void clean();
     virtual void load(std::unique_ptr<LoaderParams> const &pParams);
+    virtual void collision();
     virtual std::string type() { return "Player"; }
 
 private:
@@ -31,7 +33,7 @@ private:
 
 class PlayerCreator : public BaseCreator {
 public:
-    GameObject *createGameObject() const override {
+    GameObject *createGameObject() const {
         return new Player();
     }
 };

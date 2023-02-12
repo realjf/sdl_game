@@ -1,18 +1,39 @@
 #include "shooter_object.h"
+#include "game.h"
+#include "texture_manager.h"
 
 void ShooterObject::load(std::unique_ptr<LoaderParams> const &pParams) {
+    // get position
+    m_position = Vector2D(pParams->getX(), pParams->getY());
+
+    // get drawing variables
+    m_width = pParams->getWidth();
+    m_height = pParams->getHeight();
+    m_textureID = pParams->getTextureID();
+    m_numFrames = pParams->getNumFrames();
+    m_scale = pParams->getScale();
 }
 
 void ShooterObject::draw() {
+    TextureManager::Instance()->drawFrame(m_textureID, (Uint32)m_position.getX(), (Uint32)m_position.getY(),
+                                          m_width, m_height, m_currentRow, m_currentFrame, m_scale, TheGame::Instance()->getRenderer(), m_angle, m_alpha);
     if (m_drawCollision) {
         drawCollisionRect();
     }
 }
 
 void ShooterObject::update() {
+    m_position += m_velocity;
+    m_currentFrame = int(((SDL_GetTicks() / (1000 / 3)) % m_numFrames));
 }
 
-ShooterObject::ShooterObject() {
+ShooterObject::ShooterObject() : GameObject(),
+                                 m_bulletFiringSpeed(0),
+                                 m_bulletCounter(0),
+                                 m_moveSpeed(0),
+                                 m_dyingTime(0),
+                                 m_dyingCounter(0),
+                                 m_bPlayedDeathSound(false) {
 }
 
 void ShooterObject::doDyingAnimation() {

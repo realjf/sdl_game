@@ -1,5 +1,6 @@
 #include "player.h"
 #include "input_handler.h"
+#include "game.h"
 
 void Player::draw() {
     ShooterObject::draw();
@@ -41,10 +42,14 @@ void Player::update() {
 }
 
 void Player::clean() {
+    ShooterObject::clean();
 }
 
 void Player::load(std::unique_ptr<LoaderParams> const &pParams) {
-    ShooterObject::load(pParams);
+    ShooterObject::load(std::move(pParams));
+}
+
+void Player::collision() {
 }
 
 void Player::ressurect() {
@@ -101,5 +106,5 @@ void Player::handleAnimation() {
     m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
 }
 
-Player::Player() : ShooterObject() {
+Player::Player() : ShooterObject(), m_invulnerable(false), m_invulnerableTime(200), m_invulnerableCounter(0) {
 }
