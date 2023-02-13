@@ -177,6 +177,16 @@ void GameStateMachine::render() {
     game_mutex.unlock();
 }
 
+void GameStateMachine::clean() {
+    if (!m_gameStates.empty()) {
+        m_gameStates.back()->onExit();
+
+        delete m_gameStates.back();
+
+        m_gameStates.clear();
+    }
+}
+
 void GameStateMachine::clearGameState(GameState *gameState) {
     GameState *game_state = gameState;
     if (game_state->getStateID() == StateIDToString(StateID::PAUSE)) {

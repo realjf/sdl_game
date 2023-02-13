@@ -51,7 +51,7 @@ bool PauseState::onEnter() {
 
     // parse the state
     StateParser stateParser;
-    stateParser.parseState("assets/xml/test_data.xml", s_pauseID, &m_gameObjects, &m_textureIDList);
+    stateParser.parseState("assets/xml/attack.xml", s_pauseID, &m_gameObjects, &m_textureIDList);
 
     m_callbacks.push_back(0);
     m_callbacks.push_back(s_pauseToMain);

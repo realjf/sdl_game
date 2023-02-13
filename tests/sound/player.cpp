@@ -22,8 +22,7 @@ void Player::update() {
             m_velocity.setX(3);
 
             //
-            m_position += m_velocity;
-            m_currentRow = int(SDL_GetTicks() % m_numFrames);
+            ShooterObject::update();
 
             handleAnimation();
         }
@@ -38,20 +37,20 @@ void Player::update() {
             // do normal position += velocity update
 
             //
-            m_position += m_velocity;
-            m_currentRow = int(SDL_GetTicks() % m_numFrames);
+            ShooterObject::update();
 
             // update the animation
             handleAnimation();
         } else // if the player is doing the death animation
         {
-            m_currentRow = int((SDL_GetTicks() / (100)) % m_numFrames);
+            m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
 
             // if the death animation has completed
             if (m_dyingCounter == m_dyingTime) {
                 // ressurect the player
                 ressurect();
             }
+            m_dyingCounter++;
         }
     }
 }
@@ -78,9 +77,9 @@ void Player::collision() {
     if (!m_invulnerable && !TheGame::Instance()->getLevelComplete()) {
         m_textureID = "largeexplosion";
         m_currentFrame = 0;
-        m_numFrames = 4;
-        m_width = 40;
-        m_height = 40;
+        m_numFrames = 9;
+        m_width = 60;
+        m_height = 60;
         m_bDying = true;
     }
 }
@@ -92,9 +91,9 @@ void Player::ressurect() {
     m_bDying = false;
     m_textureID = "player";
     m_currentFrame = 0;
-    m_numFrames = 4;
-    m_width = 417;
-    m_height = 143;
+    m_numFrames = 5;
+    m_width = 101;
+    m_height = 46;
 
     m_dyingCounter = 0;
     m_invulnerable = true;
@@ -194,7 +193,7 @@ void Player::handleAnimation() {
     }
 
     // our standard animation code - for helicopter propellors
-    m_currentRow = int((SDL_GetTicks() / (100)) % m_numFrames);
+    m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
 }
 
 Player::Player() : ShooterObject(), m_invulnerable(false), m_invulnerableTime(200), m_invulnerableCounter(0) {

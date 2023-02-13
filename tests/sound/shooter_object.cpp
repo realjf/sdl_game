@@ -26,8 +26,8 @@ void ShooterObject::draw(RendererFlip flip) {
 }
 
 void ShooterObject::update() {
-    // m_position += m_velocity;
-    // m_currentFrame = int((SDL_GetTicks() / (1000 / 3)) % (m_numFrames > 0 ? m_numFrames : 1));
+    m_position += m_velocity;
+    m_currentFrame = int((SDL_GetTicks() / (1000 / 3)) % (m_numFrames > 0 ? m_numFrames : 1));
 }
 
 ShooterObject::ShooterObject() : GameObject(),

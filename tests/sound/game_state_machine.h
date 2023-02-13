@@ -11,6 +11,8 @@
 
 class GameStateMachine {
 public:
+    GameStateMachine() {}
+    ~GameStateMachine() {}
     bool pushState(GameState *pState);
     bool changeState(GameState *pState);
     bool popState();
@@ -21,6 +23,7 @@ public:
 
     void update();
     void render();
+    void clean();
 
     void clearGameState(GameState *gameState);
 

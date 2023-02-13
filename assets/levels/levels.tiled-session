@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map2/map.tmx",
+    "activeFile": "",
     "expandedProjectPaths": [
         "map1",
         "map2",
@@ -24,14 +24,39 @@
             }
         },
         "map2/map.tmx": {
-            "scale": 0.33,
+            "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 60.60606060606074,
-                "y": 60.60606060606051
+                "x": 589.3333333333333,
+                "y": 529.3333333333334
             }
         },
         "map2/map.tmx#blocks40x40": {
+            "scaleInDock": 1
+        },
+        "maps/map1.tmx": {
+            "scale": 0.19870833333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2395.4707485846093,
+                "y": 236.5275739148667
+            }
+        },
+        "maps/map1.tmx#blocks1": {
+            "scaleInDock": 1
+        },
+        "maps/map1.tmx#blocks2": {
+            "scaleInDock": 1
+        },
+        "maps/map2.tmx": {
+            "scale": 0.19870833333333332,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2395.4707485846093,
+                "y": 236.52757391486693
+            }
+        },
+        "maps/map2.tmx#blocks1": {
             "scaleInDock": 1
         }
     },
@@ -43,13 +68,12 @@
     "map.tileWidth": 40,
     "map.width": 26,
     "openFiles": [
-        "map2/map.tmx"
     ],
     "project": "levels.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "map2/map.tmx",
         "map1/map.tmx",
+        "map2/map.tmx",
         "map1/blocks40x40.tsx"
     ],
     "tileset.embedInMap": true,

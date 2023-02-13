@@ -8,6 +8,12 @@
 #include "animated_graphic.h"
 #include "between_level_state.h"
 #include "sound_manager.h"
+#include "scrolling_background.h"
+#include "shot_glider.h"
+#include "turret.h"
+#include "eskeletor.h"
+#include "roof_turret.h"
+#include "level1_boss.h"
 
 Game *Game::s_pInstance = 0;
 
@@ -54,7 +60,6 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     }
 
     std::cout << "init success\n";
-    m_bRunning = true;
 
     if (TheTextureManager::Instance() == 0) {
         std::cout << "instance texture manager failed\n";
@@ -72,6 +77,13 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
     // TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
     TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimatedGraphicCreator());
+    TheGameObjectFactory::Instance()->registerType("ScrollingBackground", new ScrollingBackgroundCreator());
+    TheGameObjectFactory::Instance()->registerType("Turret", new TurretCreator());
+    TheGameObjectFactory::Instance()->registerType("Glider", new GliderCreator());
+    TheGameObjectFactory::Instance()->registerType("ShotGlider", new ShotGliderCreator());
+    TheGameObjectFactory::Instance()->registerType("RoofTurret", new RoofTurretCreator());
+    TheGameObjectFactory::Instance()->registerType("Eskeletor", new EskeletorCreator());
+    TheGameObjectFactory::Instance()->registerType("Level1Boss", new Level1BossCreator());
 
     m_pGameStateMachine = new GameStateMachine();
     if (m_pGameStateMachine == NULL) {
@@ -80,41 +92,34 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, bo
     }
     m_pGameStateMachine->enEventQueue(new GameStateEvent(CHANGE, new MainMenuState()));
 
+    m_bRunning = true;
+
     return true;
 }
 
 void Game::render() {
-    // SDL_RenderClear(m_pRenderer); // clear to the draw color
-
     m_pGameStateMachine->render();
-
-    // loop through our objects and draw them
-    // for (std::vector<GameObject *>::size_type i = 0; i != m_gameObjects.size(); i++) {
-    //     m_gameObjects[i]->draw();
-    // }
-
-    // SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
     // loop through and update our objects
-    // for (std::vector<GameObject *>::size_type i = 0; i != m_gameObjects.size(); i++) {
-    //     m_gameObjects[i]->update();
-    // }
+
     m_pGameStateMachine->deEventQueue();
     m_pGameStateMachine->update();
 }
 
 void Game::handleEvents() {
     TheInputHandler::Instance()->update();
-    // if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
-    //     m_pGameStateMachine->changeState(new PlayState());
-    // }
 }
 
 void Game::clean() {
     std::cout << "cleaning game\n";
     TheInputHandler::Instance()->clean();
+
+    m_pGameStateMachine->clean();
+
+    m_pGameStateMachine = 0;
+    delete m_pGameStateMachine;
 
     TTF_CloseFont(m_font);
 
@@ -147,4 +152,20 @@ void Game::setCurrentLevel(int currentLevel) {
 Game::~Game() {
     m_pRenderer = 0;
     m_pWindow = 0;
+}
+
+Game::Game() : m_pWindow(0),
+               m_pRenderer(0),
+               m_bRunning(false),
+               m_pGameStateMachine(0),
+               m_playerLives(3),
+               m_scrollSpeed(0.8),
+               m_bLevelComplete(false),
+               m_bChangingState(false) {
+    // add some level files to an array
+    m_levelFiles.push_back("assets/levels/maps/map1.tmx");
+    m_levelFiles.push_back("assets/levels/maps/map2.tmx");
+
+    // start at this level
+    m_currentLevel = 1;
 }

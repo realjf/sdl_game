@@ -20,12 +20,25 @@ Level *LevelParser::parseLevel(const char *levelFile) {
     // get the root node
     TiXmlElement *pRoot = levelDocument.RootElement();
 
+    std::cout << "Loading level:\n"
+              << "Version: " << pRoot->Attribute("version") << "\n";
+    std::cout << "Width:" << pRoot->Attribute("width") << " - Height:" << pRoot->Attribute("height") << "\n";
+    std::cout << "Tile Width:" << pRoot->Attribute("tilewidth") << " - Tile Height:" << pRoot->Attribute("tileheight") << "\n";
+
     pRoot->Attribute("tilewidth", &m_tileSize);
     pRoot->Attribute("width", &m_width);
     pRoot->Attribute("height", &m_height);
-    m_tiledVersion = pRoot->Attribute("tiledversion");
 
-    TiXmlElement *pProperties;
+    TiXmlElement *pProperties = pRoot->FirstChildElement();
+
+    if (pProperties != NULL) {
+        // we must parse the textures needed for this level, which have been added to properties
+        for (TiXmlElement *e = pProperties->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
+            if (e->Value() == std::string("property")) {
+                parseTextures(e);
+            }
+        }
+    }
 
     // parse the tilesets
     for (TiXmlElement *e = pRoot->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
@@ -35,18 +48,6 @@ Level *LevelParser::parseLevel(const char *levelFile) {
             } else {
                 std::string tilesetFile = getLevelDir() + "/" + e->Attribute("source");
                 parseOutsideTilesets(tilesetFile.c_str(), e, pLevel->getTilesets());
-            }
-        }
-        if (e->Value() == std::string("properties")) {
-            pProperties = e;
-        }
-    }
-
-    if (pProperties != NULL) {
-        // we must parse the textures needed for this level, which have been added to properties
-        for (TiXmlElement *e = pProperties->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
-            if (e->Value() == std::string("property")) {
-                parseTextures(e);
             }
         }
     }
@@ -228,7 +229,7 @@ void LevelParser::parseObjectLayer(TiXmlElement *pObjectElement, std::vector<Lay
             e->Attribute("x", &x);
             e->Attribute("y", &y);
 
-            type = e->Attribute("class");
+            type = e->Attribute("type");
             GameObject *pGameObject = TheGameObjectFactory::Instance()->create(type);
 
             // get the property values

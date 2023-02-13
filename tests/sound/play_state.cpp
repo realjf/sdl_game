@@ -68,7 +68,9 @@ bool PlayState::onEnter() {
     TheGame::Instance()->setPlayerLives(3);
 
     LevelParser levelParser;
-    pLevel = levelParser.parseLevel("assets/levels/map2/map.tmx");
+    // pLevel = levelParser.parseLevel("assets/levels/map2/map.tmx");
+
+    pLevel = levelParser.parseLevel(TheGame::Instance()->getLevelFiles()[TheGame::Instance()->getCurrentLevel() - 1].c_str());
 
     TheTextureManager::Instance()->load("assets/images/bullet1.png", "bullet1", TheGame::Instance()->getRenderer());
     TheTextureManager::Instance()->load("assets/images/bullet2.png", "bullet2", TheGame::Instance()->getRenderer());
@@ -81,7 +83,7 @@ bool PlayState::onEnter() {
 
     // parse the state
     // StateParser stateParser;
-    // stateParser.parseState("assets/xml/test_data.xml", s_playID, &m_gameObjects, &m_textureIDList);
+    // stateParser.parseState("assets/xml/attack.xml", s_playID, &m_gameObjects, &m_textureIDList);
 
     play_mutex.unlock();
 

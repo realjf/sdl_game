@@ -15,7 +15,7 @@
 
 class Game {
 private:
-    Game() = default;
+    Game();
 
 public:
     ~Game();
@@ -76,18 +76,23 @@ public:
     std::vector<std::string> getLevelFiles() { return m_levelFiles; }
 
 private:
-    static Game *s_pInstance;
-    bool m_bRunning;
     SDL_Rect m_winRect;
 
     SDL_Window *m_pWindow;
     SDL_Renderer *m_pRenderer;
+    bool m_bRunning;
+
+    GameStateMachine *m_pGameStateMachine;
+    int m_playerLives;
+    float m_scrollSpeed;
+
+    bool m_bLevelComplete;
+
+    bool m_bChangingState;
 
     int m_currentFrame;
 
     std::vector<GameObject *> m_gameObjects;
-
-    GameStateMachine *m_pGameStateMachine;
 
     TTF_Font *m_font;
 
@@ -96,16 +101,13 @@ private:
 
     int m_currentLevel;
     int m_nextLevel;
-    bool m_bLevelComplete;
-
-    float m_scrollSpeed;
-
-    int m_playerLives;
 
     std::vector<std::string> m_levelFiles;
 
     Game(const Game &);
     Game &operator=(const Game &);
+
+    static Game *s_pInstance;
 };
 
 typedef Game TheGame;
