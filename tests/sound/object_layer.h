@@ -3,10 +3,14 @@
 
 #include "layer.h"
 #include "game_object.h"
+#include "level.h"
+#include "collision_manager.h"
 
 class ObjectLayer : public Layer {
 public:
-    virtual void update();
+    virtual ~ObjectLayer();
+
+    virtual void update(Level *pLevel);
     virtual void render();
 
     std::vector<GameObject *> *getGameObjects() {
@@ -14,6 +18,9 @@ public:
     }
 
 private:
+    // check for collisions between game objects
+    CollisionManager m_collisionManager;
+
     std::vector<GameObject *> m_gameObjects;
 };
 

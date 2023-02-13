@@ -17,5 +17,5 @@ void AnimatedGraphic::clean() {
 }
 
 void AnimatedGraphic::load(std::unique_ptr<LoaderParams> const &pParams) {
-    ShooterObject::load(pParams);
+    ShooterObject::load(std::move(pParams));
 }

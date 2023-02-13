@@ -11,10 +11,11 @@
 #include "level_parser.h"
 #include "level.h"
 #include "tile_layer.h"
+#include "collision_manager.h"
 
 class PlayState : public GameState {
 public:
-    virtual ~PlayState() {}
+    virtual ~PlayState() { delete pLevel; }
     virtual void update();
     virtual void render();
 
@@ -35,6 +36,8 @@ private:
     SharedRecursiveMutex play_mutex;
 
     Level *pLevel;
+
+    CollisionManager m_collisionManager;
 };
 
 #endif /* _PLAY_STATE_H_ */

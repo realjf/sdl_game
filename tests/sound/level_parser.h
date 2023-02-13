@@ -11,10 +11,10 @@ public:
 
 private:
     void parseEmbedTilesets(TiXmlElement *pTilesetRoot, std::vector<Tileset> *pTilesets);
-    void parseTileLayer(TiXmlElement *pTileElement, std::vector<Layer *> *pLayers, const std::vector<Tileset> *pTilesets);
+    void parseTileLayer(TiXmlElement *pTileElement, std::vector<Layer *> *pLayers, const std::vector<Tileset> *pTilesets, std::vector<TileLayer *> *pCollisionLayers);
     void parseOutsideTilesets(const char *tilesetFile, TiXmlElement *pTileset, std::vector<Tileset> *pTilesets);
     void parseTextures(TiXmlElement *pTextureRoot);
-    void parseObjectLayer(TiXmlElement *pObjectElement, std::vector<Layer *> *pLayers);
+    void parseObjectLayer(TiXmlElement *pObjectElement, std::vector<Layer *> *pLayers, Level *pLevel);
     std::string getLevelDir() const {
         return m_levelDir;
     }

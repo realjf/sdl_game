@@ -40,7 +40,6 @@ public:
     void clean();
     void draw();
     void quit();
-    void setCurrentLevel(int currentLevel);
 
     SDL_Rect getWindowRect() {
         SDL_GetWindowSize(m_pWindow, &m_winRect.w, &m_winRect.h);
@@ -62,12 +61,19 @@ public:
         return m_scrollSpeed;
     }
 
-    int getCurrentLevel() { return m_currentLevel; }
+    void setCurrentLevel(int currentLevel);
+    const int getCurrentLevel() { return m_currentLevel; }
 
+    void setNextLevel(int nextLevel) { m_nextLevel = nextLevel; }
+    const int getNextLevel() { return m_nextLevel; }
+
+    void setLevelComplete(bool levelComplete) { m_bLevelComplete = levelComplete; }
     bool getLevelComplete() { return m_bLevelComplete; }
 
     int getPlayerLives() { return m_playerLives; }
     void setPlayerLives(int value) { m_playerLives = value; }
+
+    std::vector<std::string> getLevelFiles() { return m_levelFiles; }
 
 private:
     static Game *s_pInstance;
@@ -89,11 +95,17 @@ private:
     int m_gameHeight;
 
     int m_currentLevel;
+    int m_nextLevel;
     bool m_bLevelComplete;
 
     float m_scrollSpeed;
 
     int m_playerLives;
+
+    std::vector<std::string> m_levelFiles;
+
+    Game(const Game &);
+    Game &operator=(const Game &);
 };
 
 typedef Game TheGame;

@@ -46,7 +46,7 @@
         "map2/map.tmx"
     ],
     "project": "levels.tiled-project",
-    "property.type": "float",
+    "property.type": "bool",
     "recentFiles": [
         "map2/map.tmx",
         "map1/map.tmx",

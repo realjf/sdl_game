@@ -21,7 +21,7 @@ TileLayer::TileLayer(int tileSize, int tileCount, const std::vector<Tileset> &ti
     m_nextDeep.store(0);
 }
 
-void TileLayer::update() {
+void TileLayer::update(Level *pLevel) {
     // scrolling a tile map
     // m_position += m_velocity;
     // m_velocity.setX(1);

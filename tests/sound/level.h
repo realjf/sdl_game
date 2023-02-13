@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "layer.h"
+#include "player.h"
+#include "collision_manager.h"
 
 // typedef struct {
 //     int firstGridID;
@@ -40,7 +42,7 @@ class LevelParser;
 
 class Level {
 public:
-    ~Level() {}
+    ~Level();
 
     void update();
     void render();
@@ -53,13 +55,20 @@ public:
         return &m_layers;
     }
 
+    std::vector<TileLayer *> *getCollisionLayers() { return &m_collisionLayers; }
+    const std::vector<TileLayer *> &getCollidableLayers() { return m_collisionLayers; }
+
+    Player *getPlayer() { return m_pPlayer; }
+    void setPlayer(Player *pPlayer) { m_pPlayer = pPlayer; }
+
 private:
     friend class LevelParser;
     Level();
 
-private:
+    Player *m_pPlayer;
     std::vector<Tileset> m_tilesets;
     std::vector<Layer *> m_layers;
+    std::vector<TileLayer *> m_collisionLayers;
 };
 
 #endif /* _LEVEL_H_ */
