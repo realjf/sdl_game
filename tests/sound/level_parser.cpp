@@ -108,7 +108,7 @@ void LevelParser::parseTileLayer(TiXmlElement *pTileElement, std::vector<Layer *
     std::vector<std::vector<int>> data = {{0}};
 
     std::string decodedIDs;
-    TiXmlElement *pDataNode;
+    TiXmlElement *pDataNode = NULL;
 
     for (TiXmlElement *e = pTileElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
         if (e->Value() == std::string("properties")) {
@@ -215,10 +215,8 @@ void LevelParser::parseObjectLayer(TiXmlElement *pObjectElement, std::vector<Lay
     // create an object layer
     ObjectLayer *pObjectLayer = new ObjectLayer();
 
-    std::cout << pObjectElement->FirstChildElement()->Value();
-
     for (TiXmlElement *e = pObjectElement->FirstChildElement(); e != NULL; e = e->NextSiblingElement()) {
-        std::cout << e->Value();
+        // std::cout << e->Value();
         if (e->Value() == std::string("object")) {
             int x, y, width, height, numFrames, callbackID, animSpeed;
             double scale = 1.0f;

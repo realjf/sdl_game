@@ -44,7 +44,7 @@ include_directories(deps/zlib)
 include_directories(deps/SDLMIXER/include)
 
 # include_directories(${SDL2_INCLUDE_DIR})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-volatile -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-volatile -g -O2")
 
 # sdl
 # set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)

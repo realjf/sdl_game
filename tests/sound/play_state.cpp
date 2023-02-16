@@ -70,6 +70,9 @@ bool PlayState::onEnter() {
     LevelParser levelParser;
     // pLevel = levelParser.parseLevel("assets/levels/map2/map.tmx");
 
+    if (TheGame::Instance()->getLevelFiles().size() <= 0) {
+        return false;
+    }
     pLevel = levelParser.parseLevel(TheGame::Instance()->getLevelFiles()[TheGame::Instance()->getCurrentLevel() - 1].c_str());
 
     TheTextureManager::Instance()->load("assets/images/bullet1.png", "bullet1", TheGame::Instance()->getRenderer());

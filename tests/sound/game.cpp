@@ -118,7 +118,7 @@ void Game::clean() {
 
     m_pGameStateMachine->clean();
 
-    m_pGameStateMachine = 0;
+    // m_pGameStateMachine = 0;
     delete m_pGameStateMachine;
 
     TTF_CloseFont(m_font);

@@ -39,7 +39,7 @@ include_directories(${PROJECT_ROOT_PATH}deps/zlib)
 include_directories(${PROJECT_ROOT_PATH}deps/SDLMIXER/include)
 
 # include_directories(${SDL2_INCLUDE_DIR})
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-volatile -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-volatile -g -O2")
 
 # add_subdirectory(hello)
 # add_subdirectory(game_class)

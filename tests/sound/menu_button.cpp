@@ -36,15 +36,15 @@ void MenuButton::update() {
             m_bReleased = true;
 
             m_currentFrame = MOUSE_OVER;
-            std::cout << "mouse over\n";
+            std::cout << "mouse over: " << m_currentFrame << std::endl;
         } else {
-            std::cout << "mouse over\n";
+            std::cout << "mouse over1: " << m_currentFrame << std::endl;
         }
     } else {
         m_currentFrame = MOUSE_OUT;
         // std::cout << "mouse out\n";
     }
-    ShooterObject::update();
+    // ShooterObject::update();
 }
 
 void MenuButton::clean() {

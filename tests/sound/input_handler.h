@@ -8,6 +8,7 @@
 #include <mutex>
 #include <shared_mutex>
 #include "lock/shared_recursive_mutex.h"
+#include <thread>
 
 enum mouse_buttons {
     LEFT = 0,
@@ -34,9 +35,9 @@ public:
     void onKeyUp();
 
     // handle mouse events
-    void onMouseMove(SDL_Event &event);
-    void onMouseButtonDown(SDL_Event &event);
-    void onMouseButtonUp(SDL_Event &event);
+    void onMouseMove(SDL_Event event);
+    void onMouseButtonDown(SDL_Event event);
+    void onMouseButtonUp(SDL_Event event);
 
     ~InputHandler() = default;
 
@@ -89,7 +90,9 @@ private:
         for (int i = 0; i < 3; i++) {
             m_mouseButtonStates.push_back(false);
         }
-    };
+    }
+
+    void eventLoop();
 
 private:
     const Uint8 *m_keystates;
