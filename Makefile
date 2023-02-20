@@ -22,7 +22,7 @@ buildDeps = \
 	elif [ $(PLAT) = "MACOS" ]; then \
 		cd $1 && cmake $2 -G "Unix Makefiles" -D BUILD_OUTPUT_PATH=$1; \
 	fi; \
-	cd $1 && cmake --build . --config Release; \
+	cd $(ROOT_PATH)/$1 && cmake --build . --config Release; \
 	printf "change directory to %s\n" $(ROOT_PATH); \
 	cd $(ROOT_PATH);
 
