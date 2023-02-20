@@ -2,7 +2,7 @@
 PLAT ?= LINUX
 TYPE ?= DEBUG
 TEST ?= OFF
-
+CLEAN ?= OFF
 
 
 ROOT_PATH=$(shell pwd)
@@ -13,8 +13,10 @@ DepNameTmp=
 
 buildDeps = \
 	printf "%-8s %s %s %s\n" "[BUILD]" $2 "[TO]" $1; \
-	rm -rf $1; \
-	mkdir -p $1; \
+	if [ $(CLEAN) = "ON" ]; then \
+		rm -rf $1; \
+		mkdir -p $1; \
+	fi; \
 	if [ $(PLAT) = "WINDOWS" ]; then \
 		cd $1 && cmake $2 -G "Visual Studio 16 2019" -A x64 -D BUILD_OUTPUT_PATH=$1; \
 	elif [ $(PLAT) = "LINUX" ]; then \
