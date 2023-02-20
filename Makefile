@@ -18,7 +18,7 @@ buildDeps = \
 	if [ $(PLAT) = "WINDOWS" ]; then \
 		cd $1 && cmake $2 -G "Visual Studio 16 2019" -A x64 -D BUILD_OUTPUT_PATH=$1; \
 	elif [ $(PLAT) = "LINUX" ]; then \
-		cd $1 && cmake $2 -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=gcc-11 -D BUILD_OUTPUT_PATH=$1; \
+		cd $1 && cmake $2 -G "Unix Makefiles" -D CMAKE_C_COMPILER=gcc-11 -D CMAKE_CXX_COMPILER=g++-11 -D BUILD_OUTPUT_PATH=$1; \
 	elif [ $(PLAT) = "MACOS" ]; then \
 		cd $1 && cmake $2 -G "Unix Makefiles" -D BUILD_OUTPUT_PATH=$1; \
 	fi; \
